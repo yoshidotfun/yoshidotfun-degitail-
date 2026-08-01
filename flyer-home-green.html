@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>degitail チラシ・グリーン版（住宅・高齢者向け）</title>
+  <style>
+    @media print {
+      @page { size: A4 landscape; margin: 0; }
+      html, body { margin: 0; padding: 0; }
+      .no-print { display: none !important; }
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Helvetica Neue', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', Meiryo, sans-serif;
+      background: #c8d8c8;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 28px 16px; min-height: 100vh;
+    }
+    .no-print { margin-bottom: 16px; display: flex; gap: 14px; align-items: center; }
+    .print-btn { background: #2C6E49; color: #fff; border: none; padding: 11px 30px; font-size: .9rem; letter-spacing: .06em; cursor: pointer; border-radius: 2px; }
+    .print-note { font-size: .78rem; color: #4A6655; }
+
+    /* A4 landscape */
+    .flyer {
+      width: 297mm; height: 210mm;
+      background: #FDFAF4;
+      display: grid;
+      grid-template-columns: 82mm 1fr;
+      overflow: hidden;
+      box-shadow: 0 6px 36px rgba(44,110,73,.25);
+      position: relative;
+    }
+
+    /* ── LEFT: BRAND ── */
+    .panel-left {
+      background: #2C6E49;
+      color: #fff;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 10mm 8mm;
+      position: relative;
+    }
+
+    .cat-box {
+      width: 40mm; height: 40mm;
+      overflow: hidden;
+      margin-bottom: 6mm;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cat-box img { width: 100%; height: 100%; object-fit: cover; filter: invert(1) brightness(1.6); }
+    .cat-fallback { font-size: 44px; display: none; }
+
+    .brand {
+      font-family: 'Times New Roman', 'Yu Mincho', serif;
+      font-size: 25pt; font-weight: 700; letter-spacing: .08em;
+      color: #F2C94C;
+      margin-bottom: 4mm;
+    }
+    .brand-bar { width: 20mm; height: 1px; background: #4A9A67; margin: 0 auto 5mm; }
+    .brand-sub { font-size: 10pt; color: #A8CEB8; text-align: center; line-height: 2.1; margin-bottom: 7mm; }
+
+    .area-box {
+      border: 1px solid #4A7A5E; padding: 4mm 6mm; text-align: center; margin-bottom: 6mm; width: 100%;
+      background: rgba(255,255,255,.06);
+    }
+    .area-box .a-label { font-size: 8pt; letter-spacing: .16em; color: #7AAA8A; text-transform: uppercase; margin-bottom: 2mm; }
+    .area-box .a-text { font-size: 11pt; color: #C8E6D0; line-height: 1.9; }
+
+    .free-badge {
+      background: #F2C94C; color: #1A3525;
+      padding: 3.5mm 8mm; text-align: center; width: 100%;
+    }
+    .free-badge .f-small { font-size: 9pt; letter-spacing: .12em; color: #4A5E2A; margin-bottom: 1mm; }
+    .free-badge .f-main { font-size: 16pt; font-weight: 700; letter-spacing: .06em; color: #1A3525; }
+
+    /* ── RIGHT: SERVICES ── */
+    .panel-right {
+      display: flex; flex-direction: column;
+      background: #FDFAF4;
+    }
+
+    /* service cards */
+    .svc-area {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .svc-card {
+      padding: 8mm 6mm 7mm;
+      border-right: 1px solid #C8DFD0;
+      background: #FDFAF4;
+    }
+    .svc-card:last-child { border-right: none; }
+
+    .svc-eyebrow {
+      font-size: 7.5pt; letter-spacing: .16em; color: #7A9A87; text-transform: uppercase; margin-bottom: 2.5mm;
+    }
+    .svc-header {
+      display: flex; align-items: center; justify-content: space-between; gap: 2mm; margin-bottom: 3mm;
+    }
+    .svc-header .svc-name { margin-bottom: 0; }
+    .svc-img {
+      width: 20mm; height: 20mm; object-fit: cover; flex-shrink: 0; border-radius: 1mm;
+    }
+    .svc-name {
+      font-size: 14.5pt; font-weight: 700; color: #1A3525; line-height: 1.3; margin-bottom: 3mm;
+    }
+    .svc-line { height: 2px; background: #E8B84B; width: 9mm; margin-bottom: 3.5mm; }
+    .svc-desc {
+      font-size: 11pt; color: #4A6655; line-height: 1.9;
+    }
+    .svc-price-wrap { margin-top: 5mm; padding-top: 4mm; border-top: 1px solid #C8DFD0; }
+    .svc-price-label { font-size: 8pt; color: #7A9A87; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 1.5mm; }
+    .svc-price-main { font-size: 14pt; font-weight: 700; color: #2C6E49; }
+    .svc-price-main small { font-size: 9.5pt; font-weight: 400; color: #7A9A87; }
+
+    /* 実績チップ */
+    .svc-chips {
+      display: flex; flex-wrap: wrap; gap: 1.5mm; margin-top: 3mm;
+    }
+    .chip {
+      font-size: 8pt; color: #4A8A62;
+      border: 1px solid #B0D8BE;
+      padding: 1px 5px;
+      letter-spacing: .03em;
+      background: #F0FAF4;
+    }
+
+    /* お客様の声 */
+    .voice-strip {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background: #EAF5EE;
+      border-top: 1px solid #C8DFD0;
+    }
+    .voice-cell {
+      padding: 4mm 6mm;
+      border-right: 1px solid #C8DFD0;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .voice-cell:last-child { border-right: none; }
+    .voice-mark { font-size: 13pt; color: #A8CEB8; line-height: 1; margin-bottom: 2mm; }
+    .voice-text { font-size: 9.5pt; color: #4A6655; line-height: 1.85; }
+    .voice-from { font-size: 8pt; color: #7A9A87; margin-top: 2.5mm; letter-spacing: .06em; }
+
+    /* お約束ストリップ */
+    .promise-strip {
+      background: #235C3B;
+      display: flex; align-items: center;
+      gap: 0; padding: 0;
+    }
+    .promise-item {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      gap: 3mm; padding: 4mm 6mm;
+      border-right: 1px solid #2C6E49;
+      color: #fff;
+    }
+    .promise-item:last-child { border-right: none; }
+    .promise-check {
+      font-size: 15pt; color: #F2C94C; line-height: 1; flex-shrink: 0;
+    }
+    .promise-text {
+      font-size: 10pt; font-weight: 700; letter-spacing: .03em; line-height: 1.4; color: #E8F5EE;
+    }
+
+    /* contact bar */
+    .contact-bar {
+      height: 22mm;
+      display: flex; align-items: center;
+      padding: 0 7mm; gap: 6mm;
+      background: #F0F9F4;
+      border-top: 2px solid #2C6E49;
+    }
+    .contact-label { font-size: 8pt; letter-spacing: .18em; color: #7A9A87; text-transform: uppercase; white-space: nowrap; }
+    .contact-email { font-family: 'Times New Roman', serif; font-size: 14.5pt; font-weight: 700; color: #1A3525; letter-spacing: .04em; }
+    .contact-sep { width: 1px; height: 9mm; background: #B0D8BE; flex-shrink: 0; }
+    .contact-site { font-size: 10.5pt; color: #4A8A62; }
+    .contact-cta {
+      background: #E8B84B; color: #1A3525;
+      font-size: 11.5pt; font-weight: 700; letter-spacing: .04em;
+      padding: 3.5mm 7mm; white-space: nowrap; text-align: center; line-height: 1.6;
+    }
+
+    /* QR */
+    .qr-block {
+      margin-left: auto;
+      display: flex; align-items: center; gap: 4mm;
+    }
+    .qr-img {
+      width: 14mm; height: 14mm;
+      display: block; flex-shrink: 0;
+    }
+    .qr-label {
+      font-size: 8pt; color: #7A9A87;
+      letter-spacing: .06em; line-height: 1.6;
+      text-align: center;
+    }
+
+    @media (max-width: 860px) {
+      .flyer { width: 100%; height: auto; grid-template-columns: 1fr; }
+      .panel-left { min-height: 70mm; padding: 8mm; }
+      .svc-area { grid-template-columns: 1fr; }
+      .svc-card { border-right: none; border-bottom: 1px solid #C8DFD0; }
+      .contact-bar { height: auto; padding: 5mm 6mm; flex-wrap: wrap; gap: 4mm; }
+      .contact-cta { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="no-print">
+  <button class="print-btn" onclick="window.print()">印刷する / PDFに保存</button>
+  <span class="print-note">【住宅・高齢者向け・グリーン版】用紙サイズ：A4横 ／ 余白：なし</span>
+</div>
+
+<div class="flyer">
+
+  <!-- ■ 左：ブランド -->
+  <div class="panel-left">
+    <div class="cat-box">
+      <img src="top.png" alt="degitail"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <span class="cat-fallback">🐈‍⬛</span>
+    </div>
+    <div class="brand">degitail</div>
+    <div class="brand-bar"></div>
+    <div class="brand-sub">スマホの困りごと・思い出の整理<br>自宅まで伺います<br>難しい説明は一切不要</div>
+    <div class="area-box">
+      <div class="a-label">対応エリア</div>
+      <div class="a-text">
+        岡山市 ／ 倉敷市<br>
+        総社市 ／ 津山市<br>
+        岡山県内 全域対応
+      </div>
+    </div>
+    <div class="free-badge">
+      <div class="f-small">初回相談</div>
+      <div class="f-main">無　料</div>
+    </div>
+  </div>
+
+  <!-- ■ 右：サービス＋連絡先 -->
+  <div class="panel-right">
+
+    <!-- サービス 3列 -->
+    <div class="svc-area">
+
+      <div class="svc-card">
+        <div class="svc-eyebrow">スマホ・PC サポート</div>
+        <div class="svc-header">
+          <div class="svc-name">スマホ出張<br>サポート</div>
+          <img class="svc-img" src="素材/スマホ教室.png" alt="スマホサポート">
+        </div>
+        <div class="svc-line"></div>
+        <div class="svc-desc">
+          「LINEが使えない」<br>
+          「写真が消えた」<br>
+          「メールが届かない」<br>
+          <br>
+          自宅に伺って<br>
+          その場で解決します。
+        </div>
+        <div class="svc-price-wrap">
+          <div class="svc-price-label">料金</div>
+          <div class="svc-price-main">3,000円〜 <small>/ 1回</small></div>
+        </div>
+        <div class="svc-chips">
+          <span class="chip">即日対応可</span>
+          <span class="chip">出張費無料</span>
+          <span class="chip">岡山県内</span>
+        </div>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-eyebrow">自分の人生を本に</div>
+        <div class="svc-name">自分史・回顧録<br>出張製本</div>
+        <div class="svc-line"></div>
+        <div class="svc-desc">
+          「孫に伝えたい話がある」<br>
+          「記憶が薄れる前に残したい」<br>
+          <br>
+          自宅でお話しするだけで<br>
+          AIが文字にして<br>
+          本にしてお届けします。
+        </div>
+        <div class="svc-price-wrap">
+          <div class="svc-price-label">料金</div>
+          <div class="svc-price-main">30,000円〜 <small>/ 1冊</small></div>
+        </div>
+        <div class="svc-chips">
+          <span class="chip">出張録音</span>
+          <span class="chip">AI文字起こし</span>
+          <span class="chip">完全製本</span>
+        </div>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-eyebrow">写真・遺影 修復</div>
+        <div class="svc-name">古い写真<br>AI修復</div>
+        <div class="svc-line"></div>
+        <div class="svc-desc">
+          白黒写真をカラーに。<br>
+          色あせた写真を鮮明に。<br>
+          遺影を大きくきれいに。<br>
+          <br>
+          気に入らなければ<br>
+          費用はかかりません。
+        </div>
+        <div class="svc-price-wrap">
+          <div class="svc-price-label">料金</div>
+          <div class="svc-price-main">3,000円〜 </small></div>
+        </div>
+        <div class="svc-chips">
+          <span class="chip">後払い制</span>
+          <span class="chip">メールで完結</span>
+          <span class="chip">1枚から</span>
+        </div>
+      </div>
+
+    </div><!-- /svc-area -->
+
+    <!-- お客様の声 -->
+    <div class="voice-strip">
+      <div class="voice-cell">
+        <div class="voice-mark">"</div>
+        <div class="voice-text">LINEが急に使えなくなって困っていたら、その日のうちに来てくれました。丁寧に何度も教えてもらえて助かりました。</div>
+        <div class="voice-from">岡山市・60代女性</div>
+      </div>
+      <div class="voice-cell">
+        <div class="voice-mark">"</div>
+        <div class="voice-text">自分のこれまでの思い出を形あるものにしてくれたことに感謝しております。</div>
+        <div class="voice-from">倉敷市・80代女性</div>
+      </div>
+      <div class="voice-cell">
+        <div class="voice-mark">"</div>
+        <div class="voice-text">白黒の遺影をカラーにしてもらいました。気に入らなければ費用なしと聞いて安心して頼めました。</div>
+        <div class="voice-from">総社市・70代男性</div>
+      </div>
+    </div>
+
+    <!-- お約束ストリップ -->
+    <div class="promise-strip">
+      <div class="promise-item">
+        <span class="promise-check">✓</span>
+        <span class="promise-text">急かしません</span>
+      </div>
+      <div class="promise-item">
+        <span class="promise-check">✓</span>
+        <span class="promise-text">わかりやすく<br>説明します</span>
+      </div>
+      <div class="promise-item">
+        <span class="promise-check">✓</span>
+        <span class="promise-text">納得してから<br>お支払い</span>
+      </div>
+    </div>
+
+    <!-- 連絡先 -->
+    <div class="contact-bar">
+      <div class="contact-label">お問い合わせ</div>
+      <div class="contact-email">degitail647@gmail.com</div>
+      <div class="contact-sep"></div>
+      <div class="contact-site">degitail.jp</div>
+      <div class="contact-cta">初回相談<br>無　料</div>
+      <div class="qr-block">
+        <div class="contact-sep"></div>
+        <img class="qr-img"
+             src="https://api.qrserver.com/v1/create-qr-code/?size=56x56&data=https%3A%2F%2Fdegitail.jp%2F&bgcolor=ffffff&color=1A3525&qzone=1"
+             alt="degitail.jp QR">
+        <div class="qr-label">詳細は<br>こちら</div>
+      </div>
+    </div>
+
+  </div><!-- /panel-right -->
+
+</div><!-- /flyer -->
+
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>データ分析・経営支援プログラム | degitail</title>
+  <meta name="description" content="売上・顧客・在庫・Web集客など社内データを可視化し、経営判断を支援。岡山県密着のデータ分析代行サービス。">
+  <link rel="icon" href="icon.png" type="image/png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #111; --ink: #1d1d1d; --gray-9: #2b2b2b;
+      --gray-6: #6b6b6b; --gray-4: #9a9a9a; --gray-2: #d8d8d8;
+      --gray-1: #ececec; --paper: #fff; --bg: #fafafa; --line: #e3e3e3;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Helvetica Neue','Hiragino Kaku Gothic ProN','Noto Sans JP',Meiryo,sans-serif;
+      color: var(--ink); background: var(--paper); line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    .serif { font-family: 'Times New Roman','Yu Mincho','Hiragino Mincho ProN',serif; }
+
+    /* NAV */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+    .header-inner {
+      max-width: 1080px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px; padding: 0 32px;
+    }
+    .back-link {
+      font-size: .82rem; letter-spacing: .08em; color: var(--gray-6);
+      text-transform: uppercase; transition: color .2s;
+    }
+    .back-link:hover { color: var(--black); }
+    .logo-name {
+      font-size: .82rem; letter-spacing: .12em; color: var(--gray-4);
+      text-transform: uppercase;
+    }
+    .nav-cta {
+      border: 1px solid var(--black); color: var(--black);
+      padding: 8px 20px; font-size: .82rem; letter-spacing: .06em;
+      transition: background .2s, color .2s;
+    }
+    .nav-cta:hover { background: var(--black); color: var(--paper); }
+
+    /* HERO */
+    .hero {
+      max-width: 1080px; margin: 0 auto;
+      padding: 100px 32px 80px;
+      border-bottom: 1px solid var(--line);
+    }
+    .hero-cat {
+      font-size: .72rem; letter-spacing: .28em; text-transform: uppercase;
+      color: var(--gray-4); margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: clamp(1.8rem, 4.5vw, 3rem);
+      font-weight: 700; line-height: 1.3; letter-spacing: .01em;
+      margin-bottom: 28px;
+    }
+    .hero-lead {
+      max-width: 600px; font-size: 1rem;
+      color: var(--gray-6); line-height: 1.85;
+    }
+
+    /* SECTION */
+    section { padding: 80px 32px; }
+    .inner { max-width: 1080px; margin: 0 auto; }
+    .s-num {
+      font-size: .72rem; letter-spacing: .22em; color: var(--gray-4);
+      text-transform: uppercase; margin-bottom: 14px;
+    }
+    .s-title {
+      font-size: clamp(1.3rem, 3vw, 1.9rem);
+      font-weight: 400; letter-spacing: .02em; line-height: 1.4;
+      margin-bottom: 40px;
+    }
+    .s-title b { font-weight: 700; }
+
+    /* WHAT WE DO GRID */
+    .do-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1px; background: var(--line);
+      border: 1px solid var(--line);
+    }
+    .do-cell { background: var(--paper); padding: 36px 30px; }
+    .do-num {
+      font-family: 'Times New Roman', serif;
+      font-size: 1.8rem; font-weight: 700;
+      color: var(--gray-2); line-height: 1; margin-bottom: 18px;
+    }
+    .do-cell h4 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .do-cell p  { font-size: .87rem; color: var(--gray-6); line-height: 1.75; }
+
+    /* PROCESS */
+    .process-wrap { background: var(--bg); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .step-list { display: flex; flex-direction: column; gap: 0; }
+    .step {
+      display: grid; grid-template-columns: 60px 1fr;
+      gap: 32px; padding: 32px 0;
+      border-bottom: 1px solid var(--line);
+      align-items: start;
+    }
+    .step:last-child { border-bottom: none; }
+    .step-n {
+      font-family: 'Times New Roman', serif;
+      font-size: 1.4rem; font-weight: 700;
+      color: var(--gray-2); line-height: 1; padding-top: 4px;
+    }
+    .step h4 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+    .step p  { font-size: .9rem; color: var(--gray-6); }
+
+    /* PRICING */
+    .price-box {
+      border: 1px solid var(--line); padding: 48px 40px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+      align-items: start;
+    }
+    @media (max-width: 640px) { .price-box { grid-template-columns: 1fr; } }
+    .price-label { font-size: .72rem; letter-spacing: .2em; color: var(--gray-4); text-transform: uppercase; margin-bottom: 10px; }
+    .price-amount { font-size: 2rem; font-weight: 700; letter-spacing: -.02em; }
+    .price-note { font-size: .88rem; color: var(--gray-6); margin-top: 12px; line-height: 1.75; }
+    .price-includes { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .price-includes li { display: flex; gap: 10px; font-size: .9rem; }
+    .price-includes li::before { content: '—'; color: var(--gray-4); flex-shrink: 0; }
+
+    /* CTA */
+    .cta-section { background: var(--black); color: var(--paper); }
+    .cta-inner { max-width: 720px; margin: 0 auto; text-align: center; }
+    .cta-section h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 400; margin-bottom: 16px; }
+    .cta-section h2 b { font-weight: 700; }
+    .cta-section p  { color: #9a9a9a; margin-bottom: 36px; font-size: .96rem; }
+    .btn {
+      display: inline-block; font-size: .9rem; letter-spacing: .05em;
+      padding: 14px 36px; transition: all .2s;
+    }
+    .btn-light { background: var(--paper); color: var(--black); }
+    .btn-light:hover { background: var(--gray-1); transform: translateY(-2px); }
+    .cta-mail { margin-top: 20px; font-size: .88rem; color: #6b6b6b; }
+
+    /* FOOTER */
+    footer {
+      background: var(--bg); border-top: 1px solid var(--line);
+      padding: 40px 32px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 16px;
+      font-size: .78rem; color: var(--gray-4); letter-spacing: .04em;
+    }
+    .foot-links { display: flex; gap: 28px; }
+    .foot-links a { color: var(--gray-6); }
+    .foot-links a:hover { color: var(--black); }
+
+    @media (max-width: 680px) {
+      section { padding: 64px 24px; }
+      .hero { padding: 72px 24px 60px; }
+      .price-box { padding: 32px 24px; }
+      .header-inner { padding: 0 20px; }
+      .logo-name { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="back-link">← degitail</a>
+    <span class="logo-name">Data Analysis</span>
+    <a href="index.html#contact" class="nav-cta">無料相談</a>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-cat">II — データ分析各種代行</div>
+  <h1>データ分析・<br>経営支援プログラム</h1>
+  <p class="hero-lead">「数字は持っているのに、活かせていない」。売上・顧客・在庫・Web集客のデータを整理・可視化し、次の意思決定の根拠を作ります。グラフを見る経営から、データで判断できる経営へ。</p>
+</div>
+
+<section>
+  <div class="inner">
+    <div class="s-num">Service Details</div>
+    <h2 class="s-title">できること</h2>
+    <div class="do-grid">
+      <div class="do-cell">
+        <div class="do-num serif">01</div>
+        <h4>現状データの棚卸し</h4>
+        <p>Excelやレジデータ、Googleアナリティクスなど散在しているデータを収集・整理します。何が使えて何が足りないかを明確にします。</p>
+      </div>
+      <div class="do-cell">
+        <div class="do-num serif">02</div>
+        <h4>可視化ダッシュボード構築</h4>
+        <p>売上推移・顧客属性・リピート率など、経営に必要な指標をひとつの画面で確認できるダッシュボードを構築します。</p>
+      </div>
+      <div class="do-cell">
+        <div class="do-num serif">03</div>
+        <h4>課題の特定と提案</h4>
+        <p>データから読み取れる課題を整理し、優先度の高いアクションを提案します。「何をすべきか」まで踏み込んだ支援です。</p>
+      </div>
+      <div class="do-cell">
+        <div class="do-num serif">04</div>
+        <h4>レポート自動化</h4>
+        <p>毎月手作業で作っていた集計・報告書を自動化。担当者の工数を削減しながら、経営層への報告品質を上げます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process-wrap">
+  <div class="inner">
+    <div class="s-num">Process</div>
+    <h2 class="s-title">進め方</h2>
+    <div class="step-list">
+      <div class="step">
+        <div class="step-n serif">01</div>
+        <div>
+          <h4>無料ヒアリング（60分）</h4>
+          <p>現状の課題・保有データの種類・経営上の優先課題を伺います。オンラインまたは対面で実施します。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n serif">02</div>
+        <div>
+          <h4>データ確認・見積もり</h4>
+          <p>実際のデータを確認し、作業スコープと費用をご提案します。不要な作業は含めず、必要最小限でお見積りします。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n serif">03</div>
+        <div>
+          <h4>分析・ダッシュボード構築（2〜4週間）</h4>
+          <p>データの整理・クリーニングから可視化・分析まで実施します。進捗は随時共有します。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n serif">04</div>
+        <div>
+          <h4>納品・説明・引き継ぎ</h4>
+          <p>ダッシュボードと分析レポートを納品。使い方の説明と継続サポートの相談も行います。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="inner">
+    <div class="s-num">Pricing</div>
+    <h2 class="s-title">料金</h2>
+    <div class="price-box">
+      <div>
+        <div class="price-label">Fee</div>
+        <div class="price-amount">個別見積</div>
+        <p class="price-note">データの種類・分量・分析の深さによって費用が変わります。まずは無料ヒアリングでご相談ください。<br><br>参考：小規模（単一データ可視化）¥30,000〜、中規模（複数データ連携・ダッシュボード構築）¥80,000〜</p>
+      </div>
+      <div>
+        <div class="price-label">Includes</div>
+        <ul class="price-includes">
+          <li>現状ヒアリング（無料）</li>
+          <li>データ整理・クリーニング</li>
+          <li>可視化ダッシュボード構築</li>
+          <li>分析レポート（PDF）</li>
+          <li>納品後サポート（1ヶ月）</li>
+          <li>継続利用・更新の相談可</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2>「うちのデータで<b>何ができるか？</b>」<br>まずそこから話しましょう。</h2>
+    <p>課題が整理されていなくても大丈夫です。ヒアリングしながら一緒に整理します。</p>
+    <a href="index.html#contact" class="btn btn-light">無料相談フォームへ</a>
+    <div class="cta-mail">degitail647@gmail.com</div>
+  </div>
+</section>
+
+<footer>
+  <span>&copy; 2026 degitail</span>
+  <div class="foot-links">
+    <a href="index.html">← トップへ戻る</a>
+    <a href="review-reply.html">クチコミ返信代行</a>
+    <a href="aeo.html">AEO対策</a>
+  </div>
+</footer>
+
+</body>
+</html>

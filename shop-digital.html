@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>老舗・個人商店のデジタル化 | degitail</title>
+  <meta name="description" content="Googleマップ登録・口コミ対応・QRコードメニュー作成。岡山の個人商店・飲食店のデジタル化を一括サポート。初期30,000円〜。">
+  <link rel="icon" href="icon.png" type="image/png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #111; --ink: #1d1d1d; --g6: #6b6b6b; --g4: #9a9a9a;
+      --g2: #d8d8d8; --g1: #ececec; --paper: #fff; --bg: #fafafa; --line: #e3e3e3;
+    }
+    body { font-family: 'Helvetica Neue','Hiragino Kaku Gothic ProN','Noto Sans JP',Meiryo,sans-serif; color: var(--ink); background: var(--paper); line-height: 1.8; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+    .header-inner { max-width: 1080px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 72px; padding: 0 32px; }
+    .logo-clip { width: 116px; height: 66px; overflow: hidden; position: relative; }
+    .logo-img { width: 116px; position: absolute; top: -66px; left: 0; }
+    nav { display: flex; gap: 32px; align-items: center; }
+    nav a { font-size: .82rem; letter-spacing: .08em; color: var(--g6); text-transform: uppercase; }
+    nav .nav-cta { border: 1px solid var(--black); color: var(--black); padding: 8px 20px; transition: background .2s, color .2s; }
+    nav .nav-cta:hover { background: var(--black); color: var(--paper); }
+
+    .hero { max-width: 1080px; margin: 0 auto; padding: 100px 32px 80px; border-bottom: 1px solid var(--line); }
+    .hero-eyebrow { font-size: .76rem; letter-spacing: .28em; text-transform: uppercase; color: var(--g4); margin-bottom: 24px; }
+    .hero h1 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 400; line-height: 1.35; margin-bottom: 28px; }
+    .hero h1 b { font-weight: 700; }
+    .hero-lead { max-width: 620px; font-size: 1.05rem; color: var(--g6); margin-bottom: 40px; }
+    .btn { display: inline-block; font-size: .9rem; letter-spacing: .05em; padding: 15px 38px; transition: all .2s; }
+    .btn-dark { background: var(--black); color: var(--paper); }
+    .btn-dark:hover { background: #333; }
+
+    section { padding: 88px 32px; }
+    .inner { max-width: 1080px; margin: 0 auto; }
+    .sec-eyebrow { font-size: .76rem; letter-spacing: .24em; color: var(--g4); text-transform: uppercase; margin-bottom: 16px; }
+    .sec-title { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 400; margin-bottom: 40px; }
+    .sec-title b { font-weight: 700; }
+    .bg-section { background: var(--bg); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+    /* problem */
+    .problem-block { background: var(--black); color: var(--paper); padding: 48px; margin-bottom: 0; }
+    .problem-block .lead { font-size: 1.15rem; line-height: 1.9; margin-bottom: 24px; }
+    .problem-list { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .problem-list li { font-size: .95rem; padding-left: 20px; position: relative; color: #ccc; }
+    .problem-list li::before { content: '—'; position: absolute; left: 0; color: #666; }
+
+    /* what-we-do */
+    .wwd-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+    .wwd-cell { background: var(--paper); padding: 36px 32px; }
+    .wwd-num { font-family: 'Times New Roman', serif; font-size: 2rem; font-weight: 700; color: var(--g2); line-height: 1; margin-bottom: 14px; }
+    .wwd-cell h4 { font-size: 1.05rem; font-weight: 700; margin-bottom: 10px; }
+    .wwd-cell p { font-size: .92rem; color: var(--g6); }
+
+    /* price */
+    .plan-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .plan-card { border: 1px solid var(--line); padding: 36px 28px; }
+    .plan-card.featured { border-color: var(--black); }
+    .plan-label { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--g4); margin-bottom: 12px; }
+    .plan-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+    .plan-price { font-size: 1.6rem; font-weight: 700; margin-bottom: 20px; }
+    .plan-price small { font-size: .85rem; font-weight: 400; color: var(--g6); }
+    .plan-items { list-style: none; }
+    .plan-items li { font-size: .9rem; color: var(--g6); padding: 7px 0; border-bottom: 1px solid var(--g1); padding-left: 18px; position: relative; }
+    .plan-items li::before { content: '✓'; position: absolute; left: 0; color: var(--black); font-weight: 700; }
+
+    /* cta */
+    .cta-section { text-align: center; }
+    .cta-section h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 400; margin-bottom: 16px; }
+    .cta-section h2 b { font-weight: 700; }
+    .cta-section p { color: var(--g6); margin-bottom: 36px; }
+
+    footer { background: var(--bg); border-top: 1px solid var(--line); padding: 48px 32px 36px; }
+    .footer-inner { max-width: 1080px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
+    .footer-logo-clip { width: 120px; height: 68px; overflow: hidden; position: relative; }
+    .footer-logo-img { width: 120px; position: absolute; top: -68px; left: 0; }
+    .footer-nav { display: flex; gap: 32px; }
+    .footer-nav a { font-size: .82rem; letter-spacing: .06em; color: var(--g6); }
+    .footer-bottom { max-width: 1080px; margin: 32px auto 0; padding-top: 20px; border-top: 1px solid var(--line); font-size: .76rem; color: var(--g4); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+    @media (max-width: 680px) {
+      .problem-list { grid-template-columns: 1fr; }
+      .wwd-grid { grid-template-columns: 1fr; }
+      .plan-grid { grid-template-columns: 1fr; }
+      section { padding: 64px 24px; }
+      .hero { padding: 72px 24px 56px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo-clip"><img src="icon.png" alt="degitail" class="logo-img"></a>
+    <nav>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="index.html" class="nav-cta" onclick="history.back();return false;">← 戻る</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-eyebrow">degitail — 地域密着サービス / 老舗・個人商店デジタル化</div>
+  <h1>お店を、<br><b>ネットの地図に載せます。</b></h1>
+  <p class="hero-lead">「Googleマップに出ていない」「口コミを放置している」「メニューが古い」——岡山の個人商店・飲食店のデジタル化を一括でサポート。苦手なことは全部お任せください。</p>
+  <a href="mailto:degitail647@gmail.com" class="btn btn-dark">無料診断を申し込む</a>
+</div>
+
+<section>
+  <div class="inner">
+    <div class="sec-eyebrow">01 — こんなお店が対象です</div>
+    <h2 class="sec-title">デジタルが苦手な<b>個人店を支援します</b></h2>
+    <div class="problem-block">
+      <p class="lead">「うちの店、Googleマップに出てるけど情報が古いまま」「口コミが来ているのに返信できていない」「ホームページがない」——こうした状態は、新しいお客さんが来ない原因になっています。</p>
+      <ul class="problem-list">
+        <li>Googleマップへの登録・情報更新</li>
+        <li>口コミへの返信が滞っている</li>
+        <li>写真が古い、または一枚もない</li>
+        <li>営業時間が古いまま掲載されている</li>
+        <li>メニューや価格表がない</li>
+        <li>スマートフォンでの予約や問い合わせができない</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="bg-section">
+  <div class="inner">
+    <div class="sec-eyebrow">02 — 対応内容</div>
+    <h2 class="sec-title">4つの柱で<b>まるごとサポート</b></h2>
+    <div class="wwd-grid">
+      <div class="wwd-cell">
+        <div class="wwd-num">01</div>
+        <h4>Googleビジネスプロフィール 整備</h4>
+        <p>Googleマップに正しく表示されるよう、店名・営業時間・電話番号・写真・カテゴリを設定。お客さんが検索したときに必ず出てくる状態を作ります。</p>
+      </div>
+      <div class="wwd-cell">
+        <div class="wwd-num">02</div>
+        <h4>Google口コミ返信・管理代行</h4>
+        <p>届いた口コミへの返信を代行します。AIが文面を提案し、人の目で確認してから送信。嫌な口コミへの対処法もアドバイスします。</p>
+      </div>
+      <div class="wwd-cell">
+        <div class="wwd-num">03</div>
+        <h4>QRコードメニュー作成</h4>
+        <p>スマートフォンで読み取るだけで見られるデジタルメニューを作成。印刷メニューと同時に使えます。価格変更や品切れ対応もすぐできます。</p>
+      </div>
+      <div class="wwd-cell">
+        <div class="wwd-num">04</div>
+        <h4>月次の更新・運用代行</h4>
+        <p>季節メニューの更新・臨時休業の反映・新しい写真の追加など、毎月の更新作業を代行します。「変えたいけど方法がわからない」を解決します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="inner">
+    <div class="sec-eyebrow">03 — 料金プラン</div>
+    <h2 class="sec-title">2つの<b>プラン</b></h2>
+    <div class="plan-grid">
+      <div class="plan-card featured">
+        <div class="plan-label">初期導入</div>
+        <div class="plan-name">スタートパック</div>
+        <div class="plan-price">30,000<small>円〜（税込）</small></div>
+        <ul class="plan-items">
+          <li>Googleビジネスプロフィール整備一式</li>
+          <li>お店の写真撮影・掲載（岡山県内）</li>
+          <li>QRコードメニュー作成（1種類）</li>
+          <li>操作方法の説明・引き継ぎ</li>
+          <li>導入後1ヶ月のメールサポート付き</li>
+        </ul>
+      </div>
+      <div class="plan-card">
+        <div class="plan-label">月次サポート</div>
+        <div class="plan-name">運用おまかせプラン</div>
+        <div class="plan-price">8,000<small>円〜 / 月</small></div>
+        <ul class="plan-items">
+          <li>営業時間・メニュー更新（月2回まで）</li>
+          <li>Google口コミ返信代行（件数無制限）</li>
+          <li>月次レポート（閲覧数・評価の変化）</li>
+          <li>電話・メールで相談し放題</li>
+          <li>スタートパックとの併用で月額5,000円〜</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-section cta-section">
+  <div class="inner">
+    <div class="sec-eyebrow">04 — 無料診断</div>
+    <h2>まず、<b>現状の無料診断から。</b></h2>
+    <p>お店のGoogleマップページを拝見して「いま何が足りないか」を無料でお伝えします。その後のご契約は任意です。まずはお気軽にご連絡ください。</p>
+    <a href="mailto:degitail647@gmail.com" class="btn btn-dark">degitail647@gmail.com</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo-clip"><img src="icon.png" alt="degitail" class="footer-logo-img"></a>
+    <nav class="footer-nav">
+      <a href="index.html#services">Services</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <span>岡山県密着 デジタル支援</span>
+    <span>&copy; 2026 degitail. All rights reserved.</span>
+  </div>
+</footer>
+
+</body>
+</html>

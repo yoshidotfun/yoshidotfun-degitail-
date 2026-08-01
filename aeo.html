@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AEO対策（AI検索最適化）| degitail</title>
+  <meta name="description" content="ChatGPT・Google AI OverviewsなどAI検索に引用される企業になるための構造化・情報設計対策。岡山のAEO対策専門サービス。">
+  <link rel="icon" href="icon.png" type="image/png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #111; --ink: #1d1d1d; --gray-9: #2b2b2b;
+      --gray-6: #6b6b6b; --gray-4: #9a9a9a; --gray-2: #d8d8d8;
+      --gray-1: #ececec; --paper: #fff; --bg: #fafafa; --line: #e3e3e3;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Helvetica Neue','Hiragino Kaku Gothic ProN','Noto Sans JP',Meiryo,sans-serif;
+      color: var(--ink); background: var(--paper); line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+    .header-inner {
+      max-width: 1080px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px; padding: 0 32px;
+    }
+    .back-link { font-size: .82rem; letter-spacing: .08em; color: var(--gray-6); text-transform: uppercase; transition: color .2s; }
+    .back-link:hover { color: var(--black); }
+    .logo-name { font-size: .82rem; letter-spacing: .12em; color: var(--gray-4); text-transform: uppercase; }
+    .nav-cta { border: 1px solid var(--black); color: var(--black); padding: 8px 20px; font-size: .82rem; letter-spacing: .06em; transition: background .2s, color .2s; }
+    .nav-cta:hover { background: var(--black); color: var(--paper); }
+
+    .hero { max-width: 1080px; margin: 0 auto; padding: 100px 32px 80px; border-bottom: 1px solid var(--line); }
+    .hero-cat { font-size: .72rem; letter-spacing: .28em; text-transform: uppercase; color: var(--gray-4); margin-bottom: 16px; }
+    .hero h1 { font-size: clamp(1.8rem, 4.5vw, 3rem); font-weight: 700; line-height: 1.3; margin-bottom: 28px; }
+    .hero-lead { max-width: 600px; font-size: 1rem; color: var(--gray-6); line-height: 1.85; }
+
+    section { padding: 80px 32px; }
+    .inner { max-width: 1080px; margin: 0 auto; }
+    .s-num { font-size: .72rem; letter-spacing: .22em; color: var(--gray-4); text-transform: uppercase; margin-bottom: 14px; }
+    .s-title { font-size: clamp(1.3rem, 3vw, 1.9rem); font-weight: 400; letter-spacing: .02em; line-height: 1.4; margin-bottom: 40px; }
+    .s-title b { font-weight: 700; }
+
+    /* WHY NOW */
+    .why-box { background: var(--black); color: var(--paper); padding: 48px 40px; margin-bottom: 40px; }
+    .why-box .label { font-size: .7rem; letter-spacing: .2em; color: #6b6b6b; text-transform: uppercase; margin-bottom: 16px; }
+    .why-box h3 { font-size: clamp(1.2rem, 2.5vw, 1.7rem); font-weight: 400; line-height: 1.5; margin-bottom: 20px; }
+    .why-box h3 b { font-weight: 700; }
+    .why-box p { color: #9a9a9a; font-size: .92rem; line-height: 1.8; max-width: 640px; }
+
+    /* WHAT WE DO */
+    .do-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+    .do-cell { background: var(--paper); padding: 36px 30px; }
+    .do-n { font-family: 'Times New Roman', serif; font-size: 1.8rem; font-weight: 700; color: var(--gray-2); line-height: 1; margin-bottom: 18px; }
+    .do-cell h4 { font-size: .96rem; font-weight: 700; margin-bottom: 8px; }
+    .do-cell p  { font-size: .86rem; color: var(--gray-6); line-height: 1.75; }
+
+    /* FAQ within page */
+    .faq-wrap { background: var(--bg); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .faq-list { border-top: 1px solid var(--line); max-width: 720px; }
+    .faq-item { border-bottom: 1px solid var(--line); }
+    .faq-q { width: 100%; background: none; border: none; cursor: pointer; display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; padding: 22px 4px; text-align: left; font-family: inherit; font-size: .96rem; font-weight: 700; color: var(--ink); line-height: 1.6; }
+    .faq-q:hover { color: var(--black); }
+    .faq-q .mark { flex-shrink: 0; width: 20px; height: 20px; position: relative; margin-top: 4px; }
+    .faq-q .mark::before, .faq-q .mark::after { content: ''; position: absolute; background: var(--gray-6); transition: transform .25s, opacity .25s; }
+    .faq-q .mark::before { top: 9px; left: 0; width: 20px; height: 1.5px; }
+    .faq-q .mark::after  { left: 9px; top: 0; width: 1.5px; height: 20px; }
+    .faq-item.open .faq-q .mark::after { transform: scaleY(0); opacity: 0; }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+    .faq-a-inner { padding: 0 32px 24px 4px; color: var(--gray-6); font-size: .9rem; }
+
+    /* PRICING */
+    .price-box { border: 1px solid var(--line); padding: 48px 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+    @media (max-width: 640px) { .price-box { grid-template-columns: 1fr; padding: 32px 24px; } }
+    .price-label { font-size: .72rem; letter-spacing: .2em; color: var(--gray-4); text-transform: uppercase; margin-bottom: 10px; }
+    .price-amount { font-size: 2rem; font-weight: 700; letter-spacing: -.02em; }
+    .price-note { font-size: .88rem; color: var(--gray-6); margin-top: 12px; line-height: 1.8; }
+    .price-includes { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .price-includes li { display: flex; gap: 10px; font-size: .9rem; }
+    .price-includes li::before { content: '—'; color: var(--gray-4); flex-shrink: 0; }
+
+    .cta-section { background: var(--black); color: var(--paper); }
+    .cta-inner { max-width: 720px; margin: 0 auto; text-align: center; }
+    .cta-section h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 400; margin-bottom: 16px; }
+    .cta-section h2 b { font-weight: 700; }
+    .cta-section p  { color: #9a9a9a; margin-bottom: 36px; font-size: .96rem; }
+    .btn { display: inline-block; font-size: .9rem; letter-spacing: .05em; padding: 14px 36px; transition: all .2s; }
+    .btn-light { background: var(--paper); color: var(--black); }
+    .btn-light:hover { background: var(--gray-1); transform: translateY(-2px); }
+    .cta-mail { margin-top: 20px; font-size: .88rem; color: #6b6b6b; }
+
+    footer { background: var(--bg); border-top: 1px solid var(--line); padding: 40px 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; font-size: .78rem; color: var(--gray-4); letter-spacing: .04em; }
+    .foot-links { display: flex; gap: 28px; }
+    .foot-links a { color: var(--gray-6); }
+    .foot-links a:hover { color: var(--black); }
+
+    @media (max-width: 680px) { section { padding: 64px 24px; } .hero { padding: 72px 24px 60px; } .header-inner { padding: 0 20px; } .logo-name { display: none; } .why-box { padding: 36px 24px; } }
+    @media (prefers-reduced-motion: reduce) { * { transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="back-link">← degitail</a>
+    <span class="logo-name">AEO</span>
+    <a href="index.html#contact" class="nav-cta">無料相談</a>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-cat">II — データ分析各種代行</div>
+  <h1>AEO 対策<br>（AI検索最適化）</h1>
+  <p class="hero-lead">「〇〇 おすすめ 岡山」とChatGPTに聞いたとき、あなたの会社は出てきますか？SEOの次の時代が始まっています。AI検索に引用される構造・情報を、今のうちに整えます。</p>
+</div>
+
+<section>
+  <div class="inner">
+    <div class="why-box">
+      <div class="label">Why AEO, Why Now</div>
+      <h3>Google検索の<b>40%以上がAI回答</b>に置き換わりつつある。</h3>
+      <p>2024年以降、ChatGPT・Perplexity・Google AI Overviewsなどが検索の主要な入口になりつつあります。これらのAIは「信頼できると判断した情報」を引用して回答します。従来のSEO対策だけでは対応できない、新しい集客戦略が必要です。</p>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0;">
+  <div class="inner">
+    <div class="s-num">Service Details</div>
+    <h2 class="s-title">できること</h2>
+    <div class="do-grid">
+      <div class="do-cell">
+        <div class="do-n">01</div>
+        <h4>現状診断・スコアリング</h4>
+        <p>自社サイトのAEO対応度を診断。AI検索に引用されにくい構造的な問題点を洗い出します。</p>
+      </div>
+      <div class="do-cell">
+        <div class="do-n">02</div>
+        <h4>構造化データの実装</h4>
+        <p>JSON-LD（Schema.org）によるFAQ・組織情報・サービス情報の構造化を実装。AIが「信頼できる情報」として認識しやすくします。</p>
+      </div>
+      <div class="do-cell">
+        <div class="do-n">03</div>
+        <h4>FAQコンテンツ設計</h4>
+        <p>AI検索が回答を生成する際に引用しやすい形式のFAQを設計・作成します。実際に検索されているキーワードをもとに作成します。</p>
+      </div>
+      <div class="do-cell">
+        <div class="do-n">04</div>
+        <h4>継続モニタリング</h4>
+        <p>AI検索のアルゴリズムは変化し続けます。対策後も定期的に引用状況を確認し、必要に応じてコンテンツを更新します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq-wrap">
+  <div class="inner">
+    <div class="s-num">FAQ</div>
+    <h2 class="s-title">よくある質問</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">SEO対策とどう違いますか？<span class="mark"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">SEOは「Google検索の順位を上げる」対策です。AEOは「AIが回答を生成する際に自社情報を引用させる」対策です。目的が異なりますが、SEOとAEOは相互補完的で、同時に進めることが理想です。</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">効果が出るまでどれくらいかかりますか？<span class="mark"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">構造化データの実装は即時反映されます。AIに引用されるようになるまでは、コンテンツの質と量によって1〜3ヶ月程度かかるケースが多いです。長期的な取り組みとしてお考えください。</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">どんな業種・規模の会社でも対応できますか？<span class="mark"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">はい。中小企業・士業・専門サービス・地域密着型のビジネスで特に効果的です。大企業よりも専門性が評価されやすいため、地方の中小企業こそAEOに取り組む価値があります。</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="inner">
+    <div class="s-num">Pricing</div>
+    <h2 class="s-title">料金</h2>
+    <div class="price-box">
+      <div>
+        <div class="price-label">Fee</div>
+        <div class="price-amount">個別見積</div>
+        <p class="price-note">サイトの規模・既存コンテンツの状態・対策の深さによって異なります。まずは現状診断からご依頼いただくことも可能です。<br><br>参考：初期診断＋構造化実装 ¥30,000〜、継続サポート（月次）¥15,000〜</p>
+      </div>
+      <div>
+        <div class="price-label">Includes</div>
+        <ul class="price-includes">
+          <li>AEO現状診断レポート</li>
+          <li>JSON-LD構造化データ実装</li>
+          <li>FAQコンテンツ設計・作成</li>
+          <li>AI引用状況のモニタリング</li>
+          <li>月次更新・改善提案（継続プランの場合）</li>
+          <li>初回相談無料</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2>AI検索で<b>引用される会社</b>に。<br>今が始め時です。</h2>
+    <p>先に対策した会社が有利な状況は、SEOと同じです。まずはお気軽にご相談ください。</p>
+    <a href="index.html#contact" class="btn btn-light">無料相談フォームへ</a>
+    <div class="cta-mail">degitail647@gmail.com</div>
+  </div>
+</section>
+
+<footer>
+  <span>&copy; 2026 degitail</span>
+  <div class="foot-links">
+    <a href="index.html">← トップへ戻る</a>
+    <a href="data-analysis.html">データ分析</a>
+    <a href="review-reply.html">クチコミ返信代行</a>
+  </div>
+</footer>
+
+<script>
+  function toggleFaq(btn) {
+    var item = btn.parentElement;
+    var ans  = item.querySelector('.faq-a');
+    var isOpen = item.classList.toggle('open');
+    ans.style.maxHeight = isOpen ? (ans.scrollHeight + 'px') : null;
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>写真・VHSテープのデジタル化 | degitail</title>
+  <meta name="description" content="色あせた写真アルバムのスキャン・VHSビデオのデジタル変換。岡山県内出張受取対応。USBメモリでお渡し。1冊5,000円〜。">
+  <link rel="icon" href="icon.png" type="image/png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #111; --ink: #1d1d1d; --g6: #6b6b6b; --g4: #9a9a9a;
+      --g2: #d8d8d8; --g1: #ececec; --paper: #fff; --bg: #fafafa; --line: #e3e3e3;
+    }
+    body { font-family: 'Helvetica Neue','Hiragino Kaku Gothic ProN','Noto Sans JP',Meiryo,sans-serif; color: var(--ink); background: var(--paper); line-height: 1.8; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+    .header-inner { max-width: 1080px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 72px; padding: 0 32px; }
+    .logo-clip { width: 116px; height: 66px; overflow: hidden; position: relative; }
+    .logo-img { width: 116px; position: absolute; top: -66px; left: 0; }
+    nav { display: flex; gap: 32px; align-items: center; }
+    nav a { font-size: .82rem; letter-spacing: .08em; color: var(--g6); text-transform: uppercase; }
+    nav a:hover { color: var(--black); }
+    nav .nav-cta { border: 1px solid var(--black); color: var(--black); padding: 8px 20px; transition: background .2s, color .2s; }
+    nav .nav-cta:hover { background: var(--black); color: var(--paper); }
+
+    .hero { max-width: 1080px; margin: 0 auto; padding: 100px 32px 80px; border-bottom: 1px solid var(--line); }
+    .hero-eyebrow { font-size: .76rem; letter-spacing: .28em; text-transform: uppercase; color: var(--g4); margin-bottom: 24px; }
+    .hero h1 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 400; line-height: 1.35; margin-bottom: 28px; }
+    .hero h1 b { font-weight: 700; }
+    .hero-lead { max-width: 620px; font-size: 1.05rem; color: var(--g6); margin-bottom: 40px; }
+    .btn { display: inline-block; font-size: .9rem; letter-spacing: .05em; padding: 15px 38px; transition: all .2s; }
+    .btn-dark { background: var(--black); color: var(--paper); }
+    .btn-dark:hover { background: #333; }
+
+    section { padding: 88px 32px; }
+    .inner { max-width: 1080px; margin: 0 auto; }
+    .sec-eyebrow { font-size: .76rem; letter-spacing: .24em; color: var(--g4); text-transform: uppercase; margin-bottom: 16px; }
+    .sec-title { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 400; margin-bottom: 40px; }
+    .sec-title b { font-weight: 700; }
+    .bg-section { background: var(--bg); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+    /* types */
+    .type-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-bottom: 0; }
+    .type-card { border: 1px solid var(--line); padding: 36px 32px; }
+    .type-icon { font-size: 2rem; margin-bottom: 16px; }
+    .type-card h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
+    .type-card p { font-size: .93rem; color: var(--g6); margin-bottom: 16px; }
+    .type-price { font-size: 1.1rem; font-weight: 700; color: var(--black); }
+    .type-price small { font-size: .8rem; font-weight: 400; color: var(--g6); }
+
+    /* flow */
+    .flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--line); }
+    .flow-step { padding: 28px 24px; border-right: 1px solid var(--line); position: relative; }
+    .flow-step:last-child { border-right: none; }
+    .flow-num { font-family: 'Times New Roman', serif; font-size: 2rem; font-weight: 700; color: var(--g2); line-height: 1; margin-bottom: 12px; }
+    .flow-step h4 { font-size: .98rem; font-weight: 700; margin-bottom: 8px; }
+    .flow-step p { font-size: .88rem; color: var(--g6); }
+
+    /* price table */
+    .price-table { width: 100%; border-collapse: collapse; }
+    .price-table th, .price-table td { padding: 14px 16px; border-bottom: 1px solid var(--line); font-size: .95rem; text-align: left; }
+    .price-table th { font-weight: 700; background: var(--bg); color: var(--ink); font-size: .82rem; letter-spacing: .04em; }
+    .price-table td.amount { font-weight: 700; white-space: nowrap; }
+
+    /* voice */
+    .voice-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+    .voice-cell { background: var(--paper); padding: 28px 24px; }
+    .voice-cell .quote { font-size: 1rem; font-style: italic; color: var(--ink); margin-bottom: 12px; line-height: 1.7; }
+    .voice-cell .attr { font-size: .8rem; color: var(--g4); }
+
+    .cta-section { text-align: center; }
+    .cta-section h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 400; margin-bottom: 16px; }
+    .cta-section h2 b { font-weight: 700; }
+    .cta-section p { color: var(--g6); margin-bottom: 36px; }
+
+    footer { background: var(--bg); border-top: 1px solid var(--line); padding: 48px 32px 36px; }
+    .footer-inner { max-width: 1080px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
+    .footer-logo-clip { width: 120px; height: 68px; overflow: hidden; position: relative; }
+    .footer-logo-img { width: 120px; position: absolute; top: -68px; left: 0; }
+    .footer-nav { display: flex; gap: 32px; }
+    .footer-nav a { font-size: .82rem; letter-spacing: .06em; color: var(--g6); }
+    .footer-bottom { max-width: 1080px; margin: 32px auto 0; padding-top: 20px; border-top: 1px solid var(--line); font-size: .76rem; color: var(--g4); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+    @media (max-width: 680px) {
+      .type-grid { grid-template-columns: 1fr; }
+      .flow { grid-template-columns: repeat(2, 1fr); }
+      .voice-grid { grid-template-columns: 1fr; }
+      section { padding: 64px 24px; }
+      .hero { padding: 72px 24px 56px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo-clip"><img src="icon.png" alt="degitail" class="logo-img"></a>
+    <nav>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="index.html" class="nav-cta" onclick="history.back();return false;">← 戻る</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-eyebrow">degitail — 地域密着サービス / 写真・VHSデジタル化</div>
+  <h1>押し入れの思い出を、<br><b>きれいに残します。</b></h1>
+  <p class="hero-lead">色あせたアルバムの写真、押し入れに眠るVHSビデオ。岡山県内のご自宅に伺ってお預かりし、デジタルデータに変換してUSBメモリでお返しします。お孫さんとの思い出を、ずっと残せる形に。</p>
+  <a href="mailto:degitail647@gmail.com" class="btn btn-dark">まずメールで相談する</a>
+</div>
+
+<section class="bg-section">
+  <div class="inner">
+    <div class="sec-eyebrow">01 — 対応メニュー</div>
+    <h2 class="sec-title">写真も、ビデオも<b>まとめてデジタル化</b></h2>
+    <div class="type-grid">
+      <div class="type-card">
+        <div class="type-icon">📷</div>
+        <h4>写真アルバムのスキャン</h4>
+        <p>アルバムや袋に入った写真を高解像度でスキャン。色あせや傷みがあってもできる限り鮮明に保存します。データはUSBメモリに整理してお渡し。</p>
+        <div class="type-price">5,000円〜 <small>/ 1冊（枚数により変動）</small></div>
+      </div>
+      <div class="type-card">
+        <div class="type-icon">📼</div>
+        <h4>VHSビデオのデジタル変換</h4>
+        <p>運動会・旅行・家族の記念行事を撮ったVHSテープをMP4動画に変換。テレビやスマートフォン、パソコンで再生できる形式でお返しします。</p>
+        <div class="type-price">3,000円〜 <small>/ 1本（録画時間により変動）</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="inner">
+    <div class="sec-eyebrow">02 — 料金の目安</div>
+    <h2 class="sec-title">わかりやすい<b>料金体系</b></h2>
+    <table class="price-table">
+      <thead>
+        <tr><th>内容</th><th>料金</th><th>備考</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>写真スキャン（〜50枚）</td><td class="amount">5,000円</td><td>アルバム1冊程度</td></tr>
+        <tr><td>写真スキャン（51〜150枚）</td><td class="amount">10,000円</td><td>アルバム2〜3冊程度</td></tr>
+        <tr><td>写真スキャン（151枚〜）</td><td class="amount">個別見積</td><td>まずご相談ください</td></tr>
+        <tr><td>VHSデジタル変換（1時間以内）</td><td class="amount">3,000円</td><td></td></tr>
+        <tr><td>VHSデジタル変換（1〜2時間）</td><td class="amount">5,000円</td><td></td></tr>
+        <tr><td>USBメモリ（8GB）</td><td class="amount">500円</td><td>ご希望の場合のみ</td></tr>
+        <tr><td>岡山県内出張・受取</td><td class="amount">無料</td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="bg-section">
+  <div class="inner">
+    <div class="sec-eyebrow">03 — ご利用の流れ</div>
+    <h2 class="sec-title">4ステップで<b>完了します</b></h2>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-num">01</div>
+        <h4>メールでご連絡</h4>
+        <p>写真の枚数・VHSの本数の目安を教えてください。料金の見積もりをご連絡します。</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">02</div>
+        <h4>ご自宅でお預かり</h4>
+        <p>岡山県内のご自宅まで伺い、アルバムやテープをその場でお預かりします。</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">03</div>
+        <h4>スキャン・変換作業</h4>
+        <p>丁寧に作業。通常1〜3営業日以内に完成します。完成したらご連絡します。</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">04</div>
+        <h4>USBでお返し</h4>
+        <p>データをUSBメモリに整理してお届けします。スマホへの移し方もお伝えします。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="inner">
+    <div class="sec-eyebrow">04 — よくある声</div>
+    <h2 class="sec-title">お客様の<b>声</b></h2>
+    <div class="voice-grid">
+      <div class="voice-cell">
+        <div class="quote">「母が亡くなったあと、古いアルバムが出てきて。きれいにデジタル化してもらえて、子どもたちに送れました。」</div>
+        <div class="attr">70代・女性（岡山市）</div>
+      </div>
+      <div class="voice-cell">
+        <div class="quote">「30年前の運動会のビデオが見られるようになって、孫と一緒に見て大笑いしました。」</div>
+        <div class="attr">60代・男性（倉敷市）</div>
+      </div>
+      <div class="voice-cell">
+        <div class="quote">「出張で来てくれたので手間がかからず助かりました。丁寧で安心してお任せできました。」</div>
+        <div class="attr">80代・女性（総社市）</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-section cta-section">
+  <div class="inner">
+    <div class="sec-eyebrow">05 — Contact</div>
+    <h2>枚数や本数が<b>わからなくてもOKです。</b></h2>
+    <p>「アルバムが何冊あるかわからない」「テープが何本あるか確認してから…」それで大丈夫です。まずお気軽にメールください。</p>
+    <a href="mailto:degitail647@gmail.com" class="btn btn-dark">degitail647@gmail.com</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo-clip"><img src="icon.png" alt="degitail" class="footer-logo-img"></a>
+    <nav class="footer-nav">
+      <a href="index.html#services">Services</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <span>岡山県密着 デジタル支援</span>
+    <span>&copy; 2026 degitail. All rights reserved.</span>
+  </div>
+</footer>
+
+</body>
+</html>

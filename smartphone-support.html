@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>スマホ・PC出張サポート | degitail</title>
+  <meta name="description" content="岡山県内のご自宅・店舗に伺って、スマートフォン・パソコンのトラブルを解決します。LINE設定・写真の整理・メール設定など。1回3,000円〜。">
+  <link rel="icon" href="icon.png" type="image/png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #111; --ink: #1d1d1d; --g6: #6b6b6b; --g4: #9a9a9a;
+      --g2: #d8d8d8; --g1: #ececec; --paper: #fff; --bg: #fafafa; --line: #e3e3e3;
+    }
+    body { font-family: 'Helvetica Neue','Hiragino Kaku Gothic ProN','Noto Sans JP',Meiryo,sans-serif; color: var(--ink); background: var(--paper); line-height: 1.8; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+    .header-inner { max-width: 1080px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 72px; padding: 0 32px; }
+    .logo-clip { width: 116px; height: 66px; overflow: hidden; position: relative; }
+    .logo-img { width: 116px; position: absolute; top: -66px; left: 0; }
+    nav { display: flex; gap: 32px; align-items: center; }
+    nav a { font-size: .82rem; letter-spacing: .08em; color: var(--g6); text-transform: uppercase; }
+    nav a:hover { color: var(--black); }
+    nav .nav-cta { border: 1px solid var(--black); color: var(--black); padding: 8px 20px; transition: background .2s, color .2s; }
+    nav .nav-cta:hover { background: var(--black); color: var(--paper); }
+
+    .hero { max-width: 1080px; margin: 0 auto; padding: 100px 32px 80px; border-bottom: 1px solid var(--line); }
+    .hero-eyebrow { font-size: .76rem; letter-spacing: .28em; text-transform: uppercase; color: var(--g4); margin-bottom: 24px; }
+    .hero h1 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 400; line-height: 1.35; margin-bottom: 28px; }
+    .hero h1 b { font-weight: 700; }
+    .hero-lead { max-width: 600px; font-size: 1.05rem; color: var(--g6); margin-bottom: 40px; }
+    .btn { display: inline-block; font-size: .9rem; letter-spacing: .05em; padding: 15px 38px; transition: all .2s; }
+    .btn-dark { background: var(--black); color: var(--paper); }
+    .btn-dark:hover { background: #333; }
+
+    section { padding: 88px 32px; }
+    .inner { max-width: 1080px; margin: 0 auto; }
+    .sec-eyebrow { font-size: .76rem; letter-spacing: .24em; color: var(--g4); text-transform: uppercase; margin-bottom: 16px; }
+    .sec-title { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 400; margin-bottom: 40px; }
+    .sec-title b { font-weight: 700; }
+
+    /* trouble grid */
+    .trouble-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-bottom: 56px; }
+    .trouble-cell { background: var(--paper); padding: 32px 28px; }
+    .trouble-icon { font-size: 1.6rem; margin-bottom: 14px; }
+    .trouble-cell h4 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .trouble-cell p { font-size: .9rem; color: var(--g6); }
+
+    /* flow */
+    .flow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+    .flow-step { position: relative; }
+    .flow-step::after { content: '→'; position: absolute; right: -24px; top: 16px; color: var(--g4); font-size: 1.2rem; }
+    .flow-step:last-child::after { display: none; }
+    .flow-num { font-family: 'Times New Roman', serif; font-size: 2.4rem; font-weight: 700; color: var(--g2); line-height: 1; margin-bottom: 14px; }
+    .flow-step h4 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+    .flow-step p { font-size: .9rem; color: var(--g6); }
+
+    /* price */
+    .price-box { background: var(--bg); border: 1px solid var(--line); padding: 48px; max-width: 640px; margin: 0 auto; }
+    .price-box h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 28px; }
+    .price-row { display: flex; justify-content: space-between; align-items: baseline; padding: 14px 0; border-bottom: 1px solid var(--line); }
+    .price-row:last-of-type { border-bottom: none; }
+    .price-row .label { font-size: .95rem; color: var(--ink); }
+    .price-row .amount { font-size: 1.1rem; font-weight: 700; }
+    .price-note { font-size: .82rem; color: var(--g6); margin-top: 20px; }
+
+    /* bg section */
+    .bg-section { background: var(--bg); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+    /* cta */
+    .cta-section { text-align: center; }
+    .cta-section h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 400; margin-bottom: 16px; }
+    .cta-section h2 b { font-weight: 700; }
+    .cta-section p { color: var(--g6); margin-bottom: 36px; }
+
+    footer { background: var(--bg); border-top: 1px solid var(--line); padding: 48px 32px 36px; }
+    .footer-inner { max-width: 1080px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
+    .footer-logo-clip { width: 120px; height: 68px; overflow: hidden; position: relative; }
+    .footer-logo-img { width: 120px; position: absolute; top: -68px; left: 0; }
+    .footer-nav { display: flex; gap: 32px; }
+    .footer-nav a { font-size: .82rem; letter-spacing: .06em; color: var(--g6); }
+    .footer-bottom { max-width: 1080px; margin: 32px auto 0; padding-top: 20px; border-top: 1px solid var(--line); font-size: .76rem; color: var(--g4); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+    @media (max-width: 680px) {
+      .trouble-grid { grid-template-columns: 1fr; }
+      .flow { grid-template-columns: 1fr; }
+      .flow-step::after { display: none; }
+      section { padding: 64px 24px; }
+      .hero { padding: 72px 24px 56px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo-clip"><img src="icon.png" alt="degitail" class="logo-img"></a>
+    <nav>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="index.html" class="nav-cta" onclick="history.back();return false;">← 戻る</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-eyebrow">degitail — 地域密着サービス / スマホ・PC出張サポート</div>
+  <h1>「使えない」を<br><b>自宅で解決します。</b></h1>
+  <p class="hero-lead">難しい説明は不要です。岡山県内のご自宅・店舗に伺い、スマートフォン・パソコンのトラブルをその場で一緒に解決します。1回3,000円〜、当日対応も可能です。</p>
+  <a href="index.html#contact" class="btn btn-dark" onclick="history.back();setTimeout(function(){var el=document.getElementById('contactModal');if(el)el.classList.add('open');},300);return false;">まず相談する（無料）</a>
+</div>
+
+<section class="bg-section">
+  <div class="inner">
+    <div class="sec-eyebrow">01 — よくあるお困りごと</div>
+    <h2 class="sec-title">こんな<b>お困りごとに対応します</b></h2>
+    <div class="trouble-grid">
+      <div class="trouble-cell">
+        <div class="trouble-icon">📱</div>
+        <h4>LINEが届かない・使えない</h4>
+        <p>設定のリセット・再ログイン・通知の設定まで丁寧にサポート。お子さんとのやり取りを再開できます。</p>
+      </div>
+      <div class="trouble-cell">
+        <div class="trouble-icon">📷</div>
+        <h4>写真が消えた・どこにあるか分からない</h4>
+        <p>バックアップの確認・クラウドからの復元・アルバム整理をその場で対応します。</p>
+      </div>
+      <div class="trouble-cell">
+        <div class="trouble-icon">📧</div>
+        <h4>メールが届かない・送れない</h4>
+        <p>メールアプリの設定確認・パスワードのリセットをわかりやすく手順を踏んで解決します。</p>
+      </div>
+      <div class="trouble-cell">
+        <div class="trouble-icon">🔐</div>
+        <h4>パスワードを忘れた</h4>
+        <p>各種サービスのパスワード再設定を一緒に行います。安全な管理方法もアドバイスします。</p>
+      </div>
+      <div class="trouble-cell">
+        <div class="trouble-icon">🌐</div>
+        <h4>ネットに繋がらない</h4>
+        <p>Wi-Fiの接続確認・ルーターの再起動・設定確認。業者への問い合わせが必要な場合は一緒に対応します。</p>
+      </div>
+      <div class="trouble-cell">
+        <div class="trouble-icon">🛡️</div>
+        <h4>詐欺メール・怪しい請求が来た</h4>
+        <p>本物か偽物かの判断・不審なアプリの削除・フィッシング対策の設定をその場で行います。</p>
+      </div>
+    </div>
+
+    <div class="sec-eyebrow">02 — ご利用の流れ</div>
+    <h2 class="sec-title">3ステップで<b>すぐ解決</b></h2>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-num">01</div>
+        <h4>メールでご連絡</h4>
+        <p>お困りの内容と、ご都合の良い日時をメールで教えてください。翌営業日以内にご返信します。</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">02</div>
+        <h4>自宅・店舗に伺う</h4>
+        <p>岡山県内であれば出張費は無料です。ご自宅・店舗・地域のカフェなどご希望の場所にお伺いします。</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">03</div>
+        <h4>その場で解決・説明</h4>
+        <p>急かさず、わかりやすく説明しながら解決します。「また同じ問題が起きたら？」の疑問にもお答えします。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="inner">
+    <div class="sec-eyebrow">03 — 料金</div>
+    <h2 class="sec-title" style="text-align:center;">明朗な<b>料金体系</b></h2>
+    <div class="price-box">
+      <h3>料金の目安（岡山県内・出張費込み）</h3>
+      <div class="price-row"><span class="label">基本料金（最初の1時間）</span><span class="amount">3,000円〜</span></div>
+      <div class="price-row"><span class="label">延長（30分ごと）</span><span class="amount">1,500円</span></div>
+      <div class="price-row"><span class="label">出張費</span><span class="amount">無料（岡山県内）</span></div>
+      <div class="price-row"><span class="label">初回相談</span><span class="amount">無料</span></div>
+      <p class="price-note">※ 作業前に内容と料金の見通しをご説明します。了承いただいてから作業を開始しますので、ご安心ください。</p>
+    </div>
+  </div>
+</section>
+
+<section class="bg-section cta-section">
+  <div class="inner">
+    <div class="sec-eyebrow">04 — Contact</div>
+    <h2>まず、<b>メールでご相談ください。</b></h2>
+    <p>「こんなことも頼めますか？」という質問だけでも大歓迎です。初回相談は無料です。</p>
+    <a href="mailto:degitail647@gmail.com" class="btn btn-dark">degitail647@gmail.com</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo-clip"><img src="icon.png" alt="degitail" class="footer-logo-img"></a>
+    <nav class="footer-nav">
+      <a href="index.html#services">Services</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <span>岡山県密着 デジタル支援</span>
+    <span>&copy; 2026 degitail. All rights reserved.</span>
+  </div>
+</footer>
+
+</body>
+</html>

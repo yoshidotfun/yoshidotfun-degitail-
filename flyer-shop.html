@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>degitail チラシ（店舗向け）</title>
+  <style>
+    @media print {
+      @page { size: A4 landscape; margin: 0; }
+      html, body { margin: 0; padding: 0; }
+      .no-print { display: none !important; }
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Helvetica Neue', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', Meiryo, sans-serif;
+      background: #b0b0b0;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 28px 16px; min-height: 100vh;
+    }
+    .no-print { margin-bottom: 16px; display: flex; gap: 14px; align-items: center; }
+    .print-btn { background: #111; color: #fff; border: none; padding: 11px 30px; font-size: .9rem; letter-spacing: .06em; cursor: pointer; }
+    .print-note { font-size: .78rem; color: #555; }
+
+    /* A4 landscape */
+    .flyer {
+      width: 297mm; height: 210mm;
+      background: #fff;
+      display: grid;
+      grid-template-columns: 78mm 1fr;
+      overflow: hidden;
+      box-shadow: 0 4px 32px rgba(0,0,0,.22);
+    }
+
+    /* ── LEFT: BRAND ── */
+    .panel-left {
+      background: #111;
+      color: #fff;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 10mm 8mm;
+    }
+    .cat-box {
+      width: 36mm; height: 36mm; overflow: hidden;
+      margin-bottom: 5mm;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cat-box img { width: 100%; height: 100%; object-fit: cover; filter: invert(1); }
+    .cat-fallback { font-size: 42px; display: none; }
+    .brand { font-family: 'Times New Roman', 'Yu Mincho', serif; font-size: 22pt; font-weight: 700; letter-spacing: .1em; margin-bottom: 3mm; }
+    .brand-bar { width: 18mm; height: 1px; background: #444; margin: 0 auto 4mm; }
+    .brand-sub { font-size: 8.5pt; color: #888; text-align: center; line-height: 2; margin-bottom: 7mm; }
+
+    .kv-block {
+      background: #fff; color: #111;
+      padding: 4mm 6mm; text-align: center; width: 100%; margin-bottom: 5mm;
+    }
+    .kv-block .kv-label { font-size: 7pt; letter-spacing: .14em; color: #999; margin-bottom: 1mm; }
+    .kv-block .kv-main { font-size: 13pt; font-weight: 700; line-height: 1.4; }
+
+    .area-list { font-size: 9pt; color: #777; text-align: center; line-height: 2.1; }
+
+    /* ── RIGHT ── */
+    .panel-right { display: flex; flex-direction: column; }
+
+    /* headline */
+    .headline {
+      padding: 6mm 8mm 5mm;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .hl-main { font-size: 15pt; font-weight: 700; color: #111; line-height: 1.45; margin-bottom: 2mm; }
+    .hl-sub { font-size: 9.5pt; color: #777; }
+
+    /* service 3-col */
+    .svc-area {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .svc-col {
+      padding: 6mm 6mm 5mm;
+      border-right: 1px solid #e0e0e0;
+      display: flex; flex-direction: column;
+    }
+    .svc-col:last-child { border-right: none; }
+    .svc-eyebrow { font-size: 7pt; letter-spacing: .16em; color: #bbb; text-transform: uppercase; margin-bottom: 2mm; }
+    .svc-name { font-size: 13pt; font-weight: 700; color: #111; line-height: 1.35; margin-bottom: 2.5mm; }
+    .svc-accent { height: 2px; background: #111; width: 7mm; margin-bottom: 3mm; }
+    .svc-desc { font-size: 10pt; color: #555; line-height: 1.9; flex: 1; }
+    .svc-price-area { margin-top: 3.5mm; }
+    .svc-price-label { font-size: 7pt; letter-spacing: .1em; color: #bbb; text-transform: uppercase; margin-bottom: 1mm; }
+    .svc-price { font-size: 13pt; font-weight: 700; color: #111; }
+    .svc-price small { font-size: 8.5pt; font-weight: 400; color: #777; }
+
+    /* bottom contact */
+    .contact-bar {
+      height: 22mm;
+      display: flex; align-items: center;
+      padding: 0 8mm; gap: 7mm;
+      border-top: 2px solid #111;
+      background: #f5f5f5;
+    }
+    .c-block { display: flex; flex-direction: column; gap: 2px; }
+    .c-label { font-size: 7pt; letter-spacing: .18em; color: #aaa; text-transform: uppercase; }
+    .c-val { font-size: 13pt; font-weight: 700; color: #111; letter-spacing: .03em; font-family: 'Times New Roman', serif; }
+    .c-sep { width: 1px; height: 10mm; background: #ddd; flex-shrink: 0; }
+    .c-site { font-size: 10pt; color: #777; }
+    .c-cta {
+      margin-left: auto;
+      background: #111; color: #fff;
+      font-size: 11pt; font-weight: 700;
+      padding: 3.5mm 9mm; letter-spacing: .04em; white-space: nowrap;
+    }
+
+    @media (max-width: 860px) {
+      .flyer { width: 100%; height: auto; grid-template-columns: 1fr; }
+      .panel-left { min-height: 65mm; padding: 8mm; }
+      .svc-area { grid-template-columns: 1fr; }
+      .svc-col { border-right: none; border-bottom: 1px solid #e0e0e0; }
+      .contact-bar { height: auto; padding: 5mm 6mm; flex-wrap: wrap; gap: 4mm; }
+      .c-cta { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="no-print">
+  <button class="print-btn" onclick="window.print()">印刷する / PDFに保存</button>
+  <span class="print-note">【店舗向け】用紙サイズ：A4横 ／ 余白：なし</span>
+</div>
+
+<div class="flyer">
+
+  <!-- ■ 左：ブランド -->
+  <div class="panel-left">
+    <div class="cat-box">
+      <img src="top.png" alt="degitail"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <span class="cat-fallback">🐈‍⬛</span>
+    </div>
+    <div class="brand">degitail</div>
+    <div class="brand-bar"></div>
+    <div class="brand-sub">地域のお店を<br>デジタルで強くする</div>
+    <div class="kv-block">
+      <div class="kv-label">初回 無料診断</div>
+      <div class="kv-main">いまのお店の<br>状態を診断します</div>
+    </div>
+    <div class="area-list">
+      岡山市・倉敷市・総社市<br>
+      津山市・岡山県内全域<br>
+      対面相談 承ります
+    </div>
+  </div>
+
+  <!-- ■ 右 -->
+  <div class="panel-right">
+
+    <div class="headline">
+      <div class="hl-main">「Googleに出ていない」「口コミを放置している」<br>そのままにしておくと、お客さんが来なくなります。</div>
+      <div class="hl-sub">苦手なデジタルはまるごとお任せください。岡山の個人商店・飲食店を専門にサポートします。</div>
+    </div>
+
+    <div class="svc-area">
+
+      <!-- Service 1 -->
+      <div class="svc-col">
+        <div class="svc-eyebrow">店舗デジタル化</div>
+        <div class="svc-name">Googleマップ<br>整備・更新代行</div>
+        <div class="svc-accent"></div>
+        <div class="svc-desc">
+          Googleマップへの正確な<br>
+          登録・写真掲載・営業時間<br>
+          更新を代行します。<br>
+          <br>
+          「検索すると出てくるお店」<br>
+          に生まれ変わります。
+        </div>
+        <div class="svc-price-area">
+          <div class="svc-price-label">初期費用</div>
+          <div class="svc-price">30,000円〜 <small>/ 一式</small></div>
+        </div>
+      </div>
+
+      <!-- Service 2 -->
+      <div class="svc-col">
+        <div class="svc-eyebrow">集客・評価管理</div>
+        <div class="svc-name">Google口コミ<br>返信代行</div>
+        <div class="svc-accent"></div>
+        <div class="svc-desc">
+          届いた口コミへの返信を<br>
+          毎回代行します。<br>
+          AIが文面を作成し、<br>
+          人が確認してから送信。<br>
+          <br>
+          件数に制限はありません。
+        </div>
+        <div class="svc-price-area">
+          <div class="svc-price-label">月額料金</div>
+          <div class="svc-price">25,000円〜 <small>/ 月</small></div>
+        </div>
+      </div>
+
+      <!-- Service 3 -->
+      <div class="svc-col">
+        <div class="svc-eyebrow">業務自動化</div>
+        <div class="svc-name">AI自動<br>電話応答</div>
+        <div class="svc-accent"></div>
+        <div class="svc-desc">
+          24時間、AIが電話を受け<br>
+          予約を自動で受け付けます。<br>
+          <br>
+          忙しい時間・閉店後も<br>
+          取り逃がしゼロへ。<br>
+          飲食店・美容室に最適。
+        </div>
+        <div class="svc-price-area">
+          <div class="svc-price-label">月額料金</div>
+          <div class="svc-price">要相談</div>
+        </div>
+      </div>
+
+    </div><!-- /svc-area -->
+
+    <!-- 連絡先 -->
+    <div class="contact-bar">
+      <div class="c-block">
+        <div class="c-label">お問い合わせ</div>
+        <div class="c-val">degitail647@gmail.com</div>
+      </div>
+      <div class="c-sep"></div>
+      <div class="c-block">
+        <div class="c-label">Web</div>
+        <div style="font-size:10pt;color:#777;">degitail.jp</div>
+      </div>
+      <div class="c-cta">無料診断　受付中</div>
+    </div>
+
+  </div><!-- /panel-right -->
+
+</div><!-- /flyer -->
+
+</body>
+</html>

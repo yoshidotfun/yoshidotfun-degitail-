@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google クチコミ返信代行 | degitail</title>
+  <meta name="description" content="AIがクチコミを解析・優先度判定・文面提案し、人が確認して返信。月額25,000円〜・件数無制限のGoogle口コミ返信代行サービス（岡山）。">
+  <link rel="icon" href="icon.png" type="image/png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #111; --ink: #1d1d1d; --gray-9: #2b2b2b;
+      --gray-6: #6b6b6b; --gray-4: #9a9a9a; --gray-2: #d8d8d8;
+      --gray-1: #ececec; --paper: #fff; --bg: #fafafa; --line: #e3e3e3;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Helvetica Neue','Hiragino Kaku Gothic ProN','Noto Sans JP',Meiryo,sans-serif;
+      color: var(--ink); background: var(--paper); line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    .serif { font-family: 'Times New Roman','Yu Mincho','Hiragino Mincho ProN',serif; }
+
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+    .header-inner {
+      max-width: 1080px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px; padding: 0 32px;
+    }
+    .back-link { font-size: .82rem; letter-spacing: .08em; color: var(--gray-6); text-transform: uppercase; transition: color .2s; }
+    .back-link:hover { color: var(--black); }
+    .logo-name { font-size: .82rem; letter-spacing: .12em; color: var(--gray-4); text-transform: uppercase; }
+    .nav-cta {
+      border: 1px solid var(--black); color: var(--black);
+      padding: 8px 20px; font-size: .82rem; letter-spacing: .06em;
+      transition: background .2s, color .2s;
+    }
+    .nav-cta:hover { background: var(--black); color: var(--paper); }
+
+    .hero { max-width: 1080px; margin: 0 auto; padding: 100px 32px 80px; border-bottom: 1px solid var(--line); }
+    .hero-cat { font-size: .72rem; letter-spacing: .28em; text-transform: uppercase; color: var(--gray-4); margin-bottom: 16px; }
+    .hero h1 { font-size: clamp(1.8rem, 4.5vw, 3rem); font-weight: 700; line-height: 1.3; margin-bottom: 28px; }
+    .hero-lead { max-width: 600px; font-size: 1rem; color: var(--gray-6); line-height: 1.85; }
+
+    section { padding: 80px 32px; }
+    .inner { max-width: 1080px; margin: 0 auto; }
+    .s-num { font-size: .72rem; letter-spacing: .22em; color: var(--gray-4); text-transform: uppercase; margin-bottom: 14px; }
+    .s-title { font-size: clamp(1.3rem, 3vw, 1.9rem); font-weight: 400; letter-spacing: .02em; line-height: 1.4; margin-bottom: 40px; }
+    .s-title b { font-weight: 700; }
+
+    /* FLOW — AI × 人 */
+    .flow-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; background: var(--line); border: 1px solid var(--line); }
+    @media (max-width: 640px) { .flow-grid { grid-template-columns: 1fr; } }
+    .flow-cell { background: var(--paper); padding: 36px 30px; }
+    .flow-n { font-size: 1.6rem; font-weight: 700; color: var(--gray-2); line-height: 1; margin-bottom: 16px; font-family: 'Times New Roman', serif; }
+    .flow-cell h4 { font-size: .96rem; font-weight: 700; margin-bottom: 8px; }
+    .flow-cell p  { font-size: .86rem; color: var(--gray-6); line-height: 1.75; }
+    .flow-badge {
+      display: inline-block; font-size: .68rem; letter-spacing: .08em;
+      border: 1px solid var(--gray-2); color: var(--gray-4);
+      padding: 2px 9px; border-radius: 99px; margin-bottom: 14px;
+    }
+
+    /* COMPARISON TABLE */
+    .compare-wrap { background: var(--bg); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .compare-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    .compare-table th, .compare-table td { padding: 18px 20px; text-align: left; border-bottom: 1px solid var(--line); }
+    .compare-table thead th { font-size: .72rem; letter-spacing: .14em; color: var(--gray-4); text-transform: uppercase; font-weight: 400; background: var(--bg); }
+    .compare-table td:first-child { color: var(--gray-6); font-size: .88rem; width: 30%; }
+    .compare-table td.good { font-weight: 700; }
+    .compare-table td.bad  { color: var(--gray-4); }
+    .overflow-x { overflow-x: auto; }
+
+    /* PRICING */
+    .price-box { border: 1px solid var(--line); padding: 48px 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+    @media (max-width: 640px) { .price-box { grid-template-columns: 1fr; padding: 32px 24px; } }
+    .price-label { font-size: .72rem; letter-spacing: .2em; color: var(--gray-4); text-transform: uppercase; margin-bottom: 10px; }
+    .price-amount { font-size: 2.2rem; font-weight: 700; letter-spacing: -.02em; }
+    .price-sub { font-size: .85rem; color: var(--gray-4); margin-top: 4px; }
+    .price-note { font-size: .88rem; color: var(--gray-6); margin-top: 14px; line-height: 1.8; }
+    .price-includes { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .price-includes li { display: flex; gap: 10px; font-size: .9rem; }
+    .price-includes li::before { content: '—'; color: var(--gray-4); flex-shrink: 0; }
+
+    .cta-section { background: var(--black); color: var(--paper); }
+    .cta-inner { max-width: 720px; margin: 0 auto; text-align: center; }
+    .cta-section h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 400; margin-bottom: 16px; }
+    .cta-section h2 b { font-weight: 700; }
+    .cta-section p  { color: #9a9a9a; margin-bottom: 36px; font-size: .96rem; }
+    .btn { display: inline-block; font-size: .9rem; letter-spacing: .05em; padding: 14px 36px; transition: all .2s; }
+    .btn-light { background: var(--paper); color: var(--black); }
+    .btn-light:hover { background: var(--gray-1); transform: translateY(-2px); }
+    .cta-mail { margin-top: 20px; font-size: .88rem; color: #6b6b6b; }
+
+    footer { background: var(--bg); border-top: 1px solid var(--line); padding: 40px 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; font-size: .78rem; color: var(--gray-4); letter-spacing: .04em; }
+    .foot-links { display: flex; gap: 28px; }
+    .foot-links a { color: var(--gray-6); }
+    .foot-links a:hover { color: var(--black); }
+
+    @media (max-width: 680px) { section { padding: 64px 24px; } .hero { padding: 72px 24px 60px; } .header-inner { padding: 0 20px; } .logo-name { display: none; } }
+    @media (prefers-reduced-motion: reduce) { * { transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="back-link">← degitail</a>
+    <span class="logo-name">Review Reply</span>
+    <a href="index.html#contact" class="nav-cta">無料相談</a>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-cat">II — データ分析各種代行</div>
+  <h1>Google クチコミ<br>返信代行</h1>
+  <p class="hero-lead">返信を後回しにしていませんか。良いクチコミへの感謝も、ネガティブなクチコミへの対応も、AIが最適な文面を提案し、人が確認して返信します。月額25,000円・件数無制限。</p>
+</div>
+
+<section>
+  <div class="inner">
+    <div class="s-num">How It Works</div>
+    <h2 class="s-title">AI×人の<b>ダブルチェック体制</b></h2>
+    <div class="flow-grid">
+      <div class="flow-cell">
+        <span class="flow-badge">STEP 01</span>
+        <div class="flow-n serif">AI解析</div>
+        <h4>クチコミを自動収集・分析</h4>
+        <p>新しいクチコミを検知し、内容を解析。感情（ポジティブ/ネガティブ）・返信すべき優先度・キーワードを自動判定します。</p>
+      </div>
+      <div class="flow-cell">
+        <span class="flow-badge">STEP 02</span>
+        <div class="flow-n serif">文面提案</div>
+        <h4>店舗の品格に合わせた返信案を作成</h4>
+        <p>ただのテンプレートではなく、クチコミの内容を読んだうえで個別に文面を生成。店舗のトーン・業種に合わせた言葉を選びます。</p>
+      </div>
+      <div class="flow-cell">
+        <span class="flow-badge">STEP 03</span>
+        <div class="flow-n serif">人が確認</div>
+        <h4>degitailが最終チェックして返信</h4>
+        <p>AIが作成した文面をdegitailスタッフが確認・修正し、問題なければオーナー確認を経て返信します。AIまかせにしない体制です。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="compare-wrap">
+  <div class="inner">
+    <div class="s-num">Comparison</div>
+    <h2 class="s-title">他の返信代行との<b>違い</b></h2>
+    <div class="overflow-x">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>比較項目</th>
+            <th>degitail</th>
+            <th>一般的な代行</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>返信の質</td>
+            <td class="good">AI解析 × 人の確認で個別対応</td>
+            <td class="bad">テンプレート文の流用が多い</td>
+          </tr>
+          <tr>
+            <td>優先度判定</td>
+            <td class="good">AIが返信すべき順位を自動判定</td>
+            <td class="bad">すべて同等に扱う</td>
+          </tr>
+          <tr>
+            <td>件数制限</td>
+            <td class="good">無制限（月何件でも同額）</td>
+            <td class="bad">件数ごとの課金が多い</td>
+          </tr>
+          <tr>
+            <td>月次レポート</td>
+            <td class="good">評価推移・返信率をレポート提供</td>
+            <td class="bad">なし or 別料金</td>
+          </tr>
+          <tr>
+            <td>対応エリア</td>
+            <td class="good">岡山密着・対面相談可</td>
+            <td class="bad">遠隔のみ</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="inner">
+    <div class="s-num">Pricing</div>
+    <h2 class="s-title">料金</h2>
+    <div class="price-box">
+      <div>
+        <div class="price-label">Monthly</div>
+        <div class="price-amount">25,000<small style="font-size:1rem;font-weight:400;color:var(--gray-6);">円〜</small></div>
+        <div class="price-sub">件数無制限・月単位のご契約</div>
+        <p class="price-note">長期の縛りはありません。いつでも解約・見直しが可能です。クチコミ数が多い店舗ほどコストメリットが大きくなります。</p>
+      </div>
+      <div>
+        <div class="price-label">Includes</div>
+        <ul class="price-includes">
+          <li>クチコミの自動収集・AI解析</li>
+          <li>優先度判定（高・中・低）</li>
+          <li>個別返信文案の作成（件数無制限）</li>
+          <li>スタッフによる文面確認</li>
+          <li>オーナー確認後に返信</li>
+          <li>月次レポート（評価推移・返信率）</li>
+          <li>初回設定サポート</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2>返信できていないクチコミが、<b>今も積み上がっています。</b></h2>
+    <p>初回相談は無料。まずはどれだけクチコミが溜まっているか、一緒に確認しましょう。</p>
+    <a href="index.html#contact" class="btn btn-light">無料相談フォームへ</a>
+    <div class="cta-mail">degitail647@gmail.com</div>
+  </div>
+</section>
+
+<footer>
+  <span>&copy; 2026 degitail</span>
+  <div class="foot-links">
+    <a href="index.html">← トップへ戻る</a>
+    <a href="data-analysis.html">データ分析</a>
+    <a href="aeo.html">AEO対策</a>
+  </div>
+</footer>
+
+</body>
+</html>

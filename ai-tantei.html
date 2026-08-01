@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI探偵 | degitail investigation — データとAIで真実に迫る</title>
+  <meta name="description" content="AIエンジニアが運営する調査サービス。SNS解析・OSINT・データ可視化レポートで、デジタル時代の問題を解決します。岡山県対応。">
+  <link rel="icon" href="icon.png" type="image/png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --water:     #14B8D4;
+      --water-dk:  #0E8DA0;
+      --water-lt:  #D8F5FA;
+      --water-xs:  #EEF9FC;
+      --ink:       #0A1E30;
+      --ink-md:    #2C4558;
+      --ink-lt:    #5A7A90;
+      --bg:        #F5FCFE;
+      --paper:     #FFFFFF;
+      --line:      #C8EAF0;
+      --mono:      'Courier New', 'Lucida Console', monospace;
+      --radius:    10px;
+      --shadow:    0 4px 24px rgba(14,141,160,.10);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Meiryo', sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ── PREP NOTICE ── */
+    .prep-bar {
+      background: var(--water);
+      color: var(--paper);
+      text-align: center;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      padding: 8px 16px;
+    }
+    .prep-bar span { opacity: .85; font-weight: 400; margin-left: 12px; }
+
+    /* ── HEADER ── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .header-inner {
+      max-width: 1080px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px; padding: 0 32px;
+    }
+    .logo-area { display: flex; align-items: center; gap: 12px; }
+    .logo-badge {
+      font-family: var(--mono);
+      font-size: .72rem; font-weight: 700; letter-spacing: .1em;
+      color: var(--paper); background: var(--water);
+      padding: 3px 10px; border-radius: 4px;
+    }
+    .logo-name { font-size: .9rem; font-weight: 700; color: var(--ink); letter-spacing: .04em; }
+    .logo-sub  { font-size: .7rem; color: var(--ink-lt); letter-spacing: .04em; margin-top: 1px; }
+    nav { display: flex; gap: 32px; align-items: center; }
+    nav a { font-size: .82rem; letter-spacing: .06em; color: var(--ink-lt); transition: color .2s; }
+    nav a:hover { color: var(--water-dk); }
+    .nav-cta {
+      border: 1.5px solid var(--water); color: var(--water) !important;
+      padding: 7px 18px; border-radius: var(--radius);
+      transition: background .2s, color .2s !important;
+    }
+    .nav-cta:hover { background: var(--water) !important; color: var(--paper) !important; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; overflow: hidden;
+      padding: 100px 32px 96px;
+      background: linear-gradient(160deg, #E8F8FC 0%, #F5FCFE 55%, #EAF6FF 100%);
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(20,184,212,.13) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 760px; margin: 0 auto; position: relative; z-index: 1; }
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: .73rem; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--water-dk); margin-bottom: 28px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5.5vw, 3.6rem);
+      font-weight: 900; line-height: 1.3; letter-spacing: .01em;
+      color: var(--ink); margin-bottom: 28px;
+    }
+    .hero h1 em { color: var(--water-dk); font-style: normal; }
+    .hero-lead {
+      font-size: 1.05rem; color: var(--ink-md); max-width: 600px;
+      line-height: 1.9; margin-bottom: 44px;
+    }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px; }
+    .hero-tag {
+      font-family: var(--mono); font-size: .72rem; letter-spacing: .06em;
+      border: 1px solid var(--water); color: var(--water-dk);
+      padding: 4px 12px; border-radius: 4px; background: rgba(20,184,212,.05);
+    }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; font-size: .92rem; font-weight: 700;
+      letter-spacing: .05em; padding: 14px 36px;
+      border-radius: var(--radius); transition: all .2s;
+    }
+    .btn-water {
+      background: var(--water); color: var(--paper);
+      box-shadow: 0 4px 16px rgba(20,184,212,.3);
+    }
+    .btn-water:hover { background: var(--water-dk); transform: translateY(-2px); }
+    .btn-outline { border: 1.5px solid var(--line); color: var(--ink-md); background: var(--paper); }
+    .btn-outline:hover { border-color: var(--water); color: var(--water-dk); }
+
+    /* ── SECTION BASE ── */
+    section { padding: 88px 32px; }
+    .section-inner { max-width: 1080px; margin: 0 auto; }
+    .section-head { margin-bottom: 56px; }
+    .section-num {
+      font-family: var(--mono); font-size: .72rem; letter-spacing: .22em;
+      text-transform: uppercase; color: var(--water-dk); margin-bottom: 14px;
+    }
+    .section-title {
+      font-size: clamp(1.5rem, 3.4vw, 2.2rem);
+      font-weight: 800; line-height: 1.4; color: var(--ink);
+    }
+    .section-desc { color: var(--ink-lt); font-size: .95rem; margin-top: 14px; max-width: 560px; }
+
+    /* ── WHY (3-UP) ── */
+    .why { background: var(--paper); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .why-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+    .why-cell { background: var(--paper); padding: 40px 32px; }
+    .why-cell .num {
+      font-family: var(--mono); font-size: 2.8rem; font-weight: 700;
+      color: var(--water-lt); line-height: 1; margin-bottom: 18px;
+      -webkit-text-stroke: 1px var(--water);
+    }
+    .why-cell h4 { font-size: 1rem; font-weight: 800; margin-bottom: 10px; color: var(--ink); }
+    .why-cell p  { font-size: .88rem; color: var(--ink-lt); line-height: 1.8; }
+
+    /* ── SERVICES ── */
+    .services { background: var(--water-xs); }
+    .svc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+    .svc-card {
+      background: var(--paper); border-radius: var(--radius);
+      padding: 36px 28px; box-shadow: var(--shadow);
+      border-top: 3px solid var(--water);
+      transition: transform .2s;
+    }
+    .svc-card:hover { transform: translateY(-4px); }
+    .svc-card .num {
+      font-family: var(--mono); font-size: .7rem; letter-spacing: .14em;
+      color: var(--water); margin-bottom: 16px;
+    }
+    .svc-card h3 { font-size: 1.05rem; font-weight: 800; color: var(--ink); margin-bottom: 12px; }
+    .svc-card p  { font-size: .87rem; color: var(--ink-lt); line-height: 1.8; margin-bottom: 18px; }
+    .svc-tags    { display: flex; flex-wrap: wrap; gap: 6px; }
+    .svc-tag {
+      font-size: .7rem; letter-spacing: .04em;
+      border: 1px solid var(--line); color: var(--ink-lt);
+      padding: 3px 10px; border-radius: 4px;
+    }
+
+    /* ── PROCESS ── */
+    .process { background: var(--paper); border-top: 1px solid var(--line); }
+    .steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; position: relative; }
+    .steps::before {
+      content: '';
+      position: absolute; top: 36px; left: 12.5%; right: 12.5%; height: 1px;
+      background: var(--line);
+    }
+    .step { text-align: center; padding: 0 16px; }
+    .step-num {
+      width: 72px; height: 72px; margin: 0 auto 20px;
+      border-radius: 50%; background: var(--water-lt);
+      border: 2px solid var(--water);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono); font-size: 1.2rem; font-weight: 700;
+      color: var(--water-dk); position: relative; z-index: 1;
+    }
+    .step h4 { font-size: .95rem; font-weight: 800; color: var(--ink); margin-bottom: 8px; }
+    .step p  { font-size: .82rem; color: var(--ink-lt); line-height: 1.7; }
+
+    /* ── COMPARISON ── */
+    .compare { background: var(--water-xs); }
+    .compare-table {
+      width: 100%; border-collapse: collapse;
+      border: 1px solid var(--line); border-radius: var(--radius);
+      overflow: hidden; background: var(--paper);
+    }
+    .compare-table th, .compare-table td {
+      padding: 16px 24px; font-size: .88rem; border-bottom: 1px solid var(--line);
+      text-align: left; line-height: 1.6;
+    }
+    .compare-table thead th {
+      background: var(--ink); color: var(--paper);
+      font-size: .78rem; letter-spacing: .1em; font-weight: 700; text-transform: uppercase;
+    }
+    .compare-table thead th:nth-child(2) { background: var(--water); }
+    .compare-table tbody tr:last-child td { border-bottom: none; }
+    .compare-table tbody td:first-child { color: var(--ink-lt); font-size: .82rem; }
+    .compare-table .ai  { color: var(--water-dk); font-weight: 700; }
+    .compare-table .std { color: var(--ink-lt); }
+
+    /* ── AREA ── */
+    .area { background: var(--paper); border-top: 1px solid var(--line); }
+    .area-box {
+      background: var(--water-xs); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 40px 44px;
+      display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap;
+    }
+    .area-icon { font-size: 2.8rem; flex-shrink: 0; }
+    .area-body h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 10px; color: var(--ink); }
+    .area-body p  { font-size: .9rem; color: var(--ink-lt); margin-bottom: 16px; }
+    .area-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .area-tag {
+      background: var(--paper); border: 1px solid var(--water);
+      color: var(--water-dk); font-size: .78rem; font-weight: 700;
+      padding: 4px 14px; border-radius: 99px;
+    }
+
+    /* ── PROFILE ── */
+    .profile { background: var(--ink); color: var(--paper); }
+    .profile-inner { max-width: 1080px; margin: 0 auto; display: flex; gap: 56px; align-items: flex-start; flex-wrap: wrap; }
+    .profile-label {
+      font-family: var(--mono); font-size: .7rem; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--water); margin-bottom: 12px;
+    }
+    .profile-name { font-size: 1.4rem; font-weight: 800; margin-bottom: 6px; }
+    .profile-role { font-size: .82rem; color: rgba(255,255,255,.55); margin-bottom: 24px; letter-spacing: .06em; }
+    .profile-body { font-size: .92rem; color: rgba(255,255,255,.8); line-height: 1.9; max-width: 520px; }
+    .profile-skills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+    .profile-skill {
+      font-family: var(--mono); font-size: .72rem; letter-spacing: .04em;
+      border: 1px solid rgba(20,184,212,.4); color: var(--water);
+      padding: 4px 12px; border-radius: 4px;
+    }
+    .profile-avatar {
+      width: 120px; height: 120px; border-radius: 50%;
+      border: 3px solid var(--water); flex-shrink: 0;
+      background: var(--water-xs);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem;
+    }
+
+    /* ── CONTACT ── */
+    .contact { background: var(--bg); border-top: 1px solid var(--line); }
+    .contact-box {
+      background: linear-gradient(135deg, var(--water-dk) 0%, var(--water) 100%);
+      border-radius: var(--radius); padding: 64px 48px; text-align: center; color: var(--paper);
+    }
+    .contact-box h2 { font-size: clamp(1.5rem, 3.2vw, 2.1rem); font-weight: 800; margin-bottom: 14px; }
+    .contact-box p  { opacity: .9; font-size: .96rem; margin-bottom: 36px; }
+    .contact-note  { margin-top: 22px; font-size: .78rem; opacity: .7; }
+    .btn-white {
+      background: var(--paper); color: var(--water-dk);
+      box-shadow: 0 4px 16px rgba(0,0,0,.15);
+    }
+    .btn-white:hover { background: var(--water-lt); transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink); color: rgba(255,255,255,.55);
+      padding: 40px 32px 28px;
+    }
+    .footer-inner {
+      max-width: 1080px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 20px;
+    }
+    .footer-logo { display: flex; align-items: center; gap: 10px; }
+    .footer-badge {
+      font-family: var(--mono); font-size: .68rem; color: var(--water);
+      border: 1px solid rgba(20,184,212,.4); padding: 2px 8px; border-radius: 3px;
+    }
+    footer p { font-size: .76rem; margin-top: 0; }
+    .footer-bottom {
+      max-width: 1080px; margin: 24px auto 0; padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,.1);
+      font-size: .74rem; color: rgba(255,255,255,.35);
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    }
+    .footer-bottom a { color: rgba(255,255,255,.45); }
+    .footer-bottom a:hover { color: var(--water); }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: rgba(10,30,48,.6); align-items: center; justify-content: center; padding: 24px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: var(--paper); width: 100%; max-width: 520px;
+      max-height: 90vh; overflow-y: auto; position: relative;
+      padding: 44px 40px; border-radius: var(--radius);
+      border-top: 3px solid var(--water);
+      box-shadow: 0 16px 48px rgba(10,30,48,.25);
+    }
+    .modal-close {
+      position: absolute; top: 14px; right: 18px; background: none; border: none;
+      font-size: 1.6rem; cursor: pointer; color: var(--ink-lt); line-height: 1;
+    }
+    .modal-close:hover { color: var(--ink); }
+    .modal-box h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 6px; color: var(--ink); }
+    .modal-sub    { font-size: .84rem; color: var(--ink-lt); margin-bottom: 28px; line-height: 1.7; }
+    .form-group   { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: .8rem; font-weight: 700; letter-spacing: .04em; margin-bottom: 7px; color: var(--ink-md); }
+    .form-group .req  { color: var(--water-dk); font-size: .72rem; margin-left: 6px; }
+    .form-group .opt  { color: var(--ink-lt);   font-size: .72rem; margin-left: 6px; font-weight: 400; }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%; border: 1.5px solid var(--line); border-radius: 8px;
+      padding: 10px 14px; font-size: .9rem; font-family: inherit;
+      color: var(--ink); background: var(--bg); transition: border-color .2s;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      outline: none; border-color: var(--water);
+    }
+    .form-group textarea { height: 110px; resize: vertical; }
+    .modal-submit {
+      width: 100%; background: var(--water); color: var(--paper); border: none;
+      border-radius: 99px; padding: 14px; font-size: .95rem; font-weight: 700;
+      cursor: pointer; transition: background .2s, transform .2s; margin-top: 6px;
+      letter-spacing: .04em;
+    }
+    .modal-submit:hover { background: var(--water-dk); transform: translateY(-1px); }
+    .modal-submit:disabled { opacity: .55; cursor: not-allowed; transform: none; }
+    .form-error { display: none; color: #b91c1c; font-size: .82rem; text-align: center; margin-top: 12px; }
+    .form-success { text-align: center; padding: 44px 16px; }
+    .form-success .ic { font-size: 2.8rem; margin-bottom: 14px; }
+    .form-success h4 { font-size: 1.1rem; font-weight: 800; color: var(--ink); margin-bottom: 8px; }
+    .form-success p  { font-size: .9rem; color: var(--ink-lt); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 820px) {
+      .why-grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: repeat(2,1fr); gap: 32px; }
+      .steps::before { display: none; }
+    }
+    @media (max-width: 600px) {
+      nav a:not(.nav-cta) { display: none; }
+      section { padding: 64px 20px; }
+      .hero { padding: 72px 20px 72px; }
+      .compare-table th, .compare-table td { padding: 12px 14px; font-size: .82rem; }
+      .area-box { padding: 28px 24px; }
+      .contact-box { padding: 44px 24px; }
+      .modal-box { padding: 36px 24px; }
+      .steps { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- PREP NOTICE -->
+<div class="prep-bar">
+  探偵業届出手続き中 — サービス開始まで事前相談を受付しています
+  <span>| 届出完了次第、正式営業開始予定</span>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="logo-area">
+      <div>
+        <span class="logo-badge">AI探偵</span>
+      </div>
+      <div>
+        <div class="logo-name">degitail investigation</div>
+        <div class="logo-sub">データとAIで真実に迫る</div>
+      </div>
+    </div>
+    <nav>
+      <a href="#why">特徴</a>
+      <a href="#services">サービス</a>
+      <a href="#process">依頼の流れ</a>
+      <a href="#contact" class="nav-cta" onclick="openModal();return false;">相談を申し込む</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">degitail investigation — AI-powered detective service</div>
+    <h1>データは、<em>嘘をつかない。</em></h1>
+    <p class="hero-lead">
+      AIエンジニアが運営する、デジタル時代の調査サービスです。SNS解析・公開情報収集（OSINT）・デジタルフットプリント分析で、従来の探偵業では追えなかった真実を、データとして明らかにします。
+    </p>
+    <div class="hero-tags">
+      <span class="hero-tag">SNS行動分析</span>
+      <span class="hero-tag">OSINT調査</span>
+      <span class="hero-tag">証拠可視化</span>
+      <span class="hero-tag">弁護士連携対応</span>
+      <span class="hero-tag">岡山県対応</span>
+    </div>
+    <div class="hero-actions">
+      <a href="#" class="btn btn-water" onclick="openModal();return false;">事前相談を申し込む（無料）</a>
+      <a href="#services" class="btn btn-outline">サービス内容を見る</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why" id="why">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-num">01 — Why AI探偵</div>
+      <h2 class="section-title">AIエンジニアが探偵をする、<br>理由と強み</h2>
+      <p class="section-desc">従来の探偵業との違いは「誰が、どう調べるか」にあります。</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-cell">
+        <div class="num">01</div>
+        <h4>デジタルの痕跡を、AIで網羅的に追う</h4>
+        <p>SNSの投稿・フォロー関係・タイムラインを人の手では不可能な量で解析。行動パターン・交友関係・時系列をデータとして可視化します。</p>
+      </div>
+      <div class="why-cell">
+        <div class="num">02</div>
+        <h4>客観的なデータレポートで法的利用に耐える</h4>
+        <p>「見た」「聞いた」ではなく、データに基づく客観的な調査レポートを提出。弁護士が証拠として活用できる形式で提供します。</p>
+      </div>
+      <div class="why-cell">
+        <div class="num">03</div>
+        <h4>技術力を自ら証明できる</h4>
+        <p>degitailとして価格リサーチツール・AI画像処理ツールを開発・運用している実績があります。調査にも同じ技術力を直接投入します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-num">02 — Services</div>
+      <h2 class="section-title">提供する調査サービス</h2>
+      <p class="section-desc">すべて公開情報・合法的な手段のみで実施します。</p>
+    </div>
+    <div class="svc-grid">
+
+      <div class="svc-card">
+        <div class="num">SERVICE 01</div>
+        <h3>SNS・デジタル行動分析</h3>
+        <p>対象者の公開SNSアカウントの投稿・いいね・フォロー関係・投稿時間帯などをAIで解析。行動パターンと人間関係を時系列でまとめます。</p>
+        <div class="svc-tags">
+          <span class="svc-tag">Instagram</span>
+          <span class="svc-tag">X（旧Twitter）</span>
+          <span class="svc-tag">行動パターン分析</span>
+          <span class="svc-tag">タイムライン可視化</span>
+        </div>
+      </div>
+
+      <div class="svc-card">
+        <div class="num">SERVICE 02</div>
+        <h3>OSINT調査（公開情報収集）</h3>
+        <p>Web上に点在する公開情報を体系的に収集・分析。デジタルフットプリントを追跡し、信頼できる情報の整合性と矛盾点を特定します。</p>
+        <div class="svc-tags">
+          <span class="svc-tag">Web調査</span>
+          <span class="svc-tag">公開データ収集</span>
+          <span class="svc-tag">整合性チェック</span>
+          <span class="svc-tag">デジタル足跡</span>
+        </div>
+      </div>
+
+      <div class="svc-card">
+        <div class="num">SERVICE 03</div>
+        <h3>証拠データの整理・可視化レポート</h3>
+        <p>収集したデータをAIで分類・整理し、時系列グラフ・関係図・地図などで視覚化した調査レポートを作成。弁護士への提出用として活用できます。</p>
+        <div class="svc-tags">
+          <span class="svc-tag">調査レポート</span>
+          <span class="svc-tag">データ可視化</span>
+          <span class="svc-tag">関係図作成</span>
+          <span class="svc-tag">法的手続き対応</span>
+        </div>
+      </div>
+
+      <div class="svc-card">
+        <div class="num">SERVICE 04</div>
+        <h3>弁護士・法的手続きサポート</h3>
+        <p>離婚・慰謝料請求・その他法的手続きで必要なデジタル調査を代行。弁護士の指示のもと、客観的データとして証拠を整理・提供します。</p>
+        <div class="svc-tags">
+          <span class="svc-tag">弁護士連携</span>
+          <span class="svc-tag">離婚・慰謝料</span>
+          <span class="svc-tag">証拠収集支援</span>
+          <span class="svc-tag">B2B対応可</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-num">03 — Process</div>
+      <h2 class="section-title">依頼から納品までの流れ</h2>
+      <p class="section-desc">初回相談は無料。守秘義務のもとで対応します。</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h4>無料相談</h4>
+        <p>フォームまたはメールで状況をお聞かせください。相談内容は厳守します。</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h4>調査方針の確定</h4>
+        <p>ご要望をもとに、調査対象・手法・費用・期間を提案します。</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h4>AI調査の実施</h4>
+        <p>合法的な公開情報・データ分析ツールを用いて調査を進めます。</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h4>レポート納品</h4>
+        <p>調査結果を分かりやすいレポートにまとめて提出します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section class="compare">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-num">04 — Comparison</div>
+      <h2 class="section-title">AI探偵 vs 従来型探偵</h2>
+      <p class="section-desc">アプローチの違いが、調査できる対象の違いに直結します。</p>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>比較項目</th>
+            <th>AI探偵（degitail）</th>
+            <th style="background:#2C4558;">従来型探偵</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>調査の中心</td>
+            <td class="ai">デジタル・データ解析</td>
+            <td class="std">物理的な張り込み・尾行</td>
+          </tr>
+          <tr>
+            <td>記録の客観性</td>
+            <td class="ai">データログ・スクリーンショット（改ざん不可）</td>
+            <td class="std">写真・ビデオ（状況依存）</td>
+          </tr>
+          <tr>
+            <td>SNS・Web調査</td>
+            <td class="ai">AI解析で網羅的に対応</td>
+            <td class="std">対応が限られる場合が多い</td>
+          </tr>
+          <tr>
+            <td>費用感</td>
+            <td class="ai">個別見積（デジタル主体で抑えやすい）</td>
+            <td class="std">張り込み時間により高額になりやすい</td>
+          </tr>
+          <tr>
+            <td>弁護士連携</td>
+            <td class="ai">レポート形式で提出、対応しやすい</td>
+            <td class="std">事務所によって対応差あり</td>
+          </tr>
+          <tr>
+            <td>物理的な尾行</td>
+            <td class="std">非対応（デジタル調査に特化）</td>
+            <td class="ai">対応可能</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- AREA -->
+<section class="area">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-num">05 — Service Area</div>
+      <h2 class="section-title">対応エリア</h2>
+    </div>
+    <div class="area-box">
+      <div class="area-icon">📍</div>
+      <div class="area-body">
+        <h3>岡山県密着 + デジタル案件は全国対応</h3>
+        <p>ヒアリング・対面相談は岡山県内を中心に対応。SNS解析・OSINT・レポート作成などデジタルで完結する調査は、全国からご相談いただけます。弁護士事務所からのご依頼も歓迎です。</p>
+        <div class="area-tags">
+          <span class="area-tag">岡山市</span>
+          <span class="area-tag">倉敷市</span>
+          <span class="area-tag">津山市</span>
+          <span class="area-tag">岡山県全域</span>
+          <span class="area-tag">デジタル案件は全国</span>
+          <span class="area-tag">弁護士事務所向けB2B</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OPERATOR PROFILE -->
+<section class="profile">
+  <div class="profile-inner">
+    <div class="profile-avatar">🤖</div>
+    <div style="flex:1; min-width:280px;">
+      <div class="profile-label">Operator Profile</div>
+      <div class="profile-name">degitail 運営者</div>
+      <div class="profile-role">AIエンジニア / degitail代表</div>
+      <p class="profile-body">
+        本職はAIエンジニア。機械学習・データ分析・自動化ツール開発を生業とし、degitailでは中小企業向けのデータ分析支援やAI活用支援を行ってきました。<br><br>
+        探偵業をAIで再定義するという視点から、デジタル調査サービスを新たに開始します。SNS・Webの解析やデータ可視化は本職のスキルそのものであり、「AIを使いこなせる調査員」として従来の探偵業とは異なる価値を提供します。
+      </p>
+      <div class="profile-skills">
+        <span class="profile-skill">機械学習</span>
+        <span class="profile-skill">データ分析</span>
+        <span class="profile-skill">Python</span>
+        <span class="profile-skill">OSINT</span>
+        <span class="profile-skill">自動化ツール開発</span>
+        <span class="profile-skill">AI画像認識</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-inner" style="max-width:760px; text-align:center;">
+    <div class="contact-box">
+      <h2>まず、話してみてください。</h2>
+      <p>
+        現在、届出手続き中のため事前相談として対応しています。<br>
+        「こんな悩みでも調査できるか？」という段階から、お気軽にどうぞ。相談内容は守秘義務のもとで厳守します。
+      </p>
+      <a href="#" class="btn btn-white" onclick="openModal();return false;">事前相談を申し込む（無料）</a>
+      <p class="contact-note">degitail647@gmail.com | 1〜2営業日以内に返信します</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <span class="footer-badge">AI探偵</span>
+      <span style="font-size:.82rem; color:rgba(255,255,255,.5); letter-spacing:.04em;">degitail investigation</span>
+    </div>
+    <p>岡山県密着 | AIエンジニアによるデジタル調査サービス</p>
+  </div>
+  <div class="footer-bottom">
+    <span>探偵業届出準備中 — 正式営業開始後、届出番号を掲載します</span>
+    <span>
+      <a href="index.html">degitail Core</a> &nbsp;|&nbsp;
+      &copy; 2026 degitail. All rights reserved.
+    </span>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="contactModal" onclick="closeModalOutside(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()" aria-label="閉じる">&times;</button>
+    <h3>事前相談フォーム</h3>
+    <p class="modal-sub">
+      現在、探偵業届出手続き中のため正式受付ではありません。<br>
+      内容を確認のうえ1〜2営業日以内にご返信します。相談内容は守秘義務のもとで厳守します。
+    </p>
+    <form id="contactForm" onsubmit="submitForm(event)">
+      <div class="form-group">
+        <label>お名前<span class="req">必須</span></label>
+        <input type="text" id="cf-name" placeholder="例：山田 太郎" required>
+      </div>
+      <div class="form-group">
+        <label>メールアドレス<span class="req">必須</span></label>
+        <input type="email" id="cf-email" placeholder="例：example@mail.com" required>
+      </div>
+      <div class="form-group">
+        <label>相談の種類<span class="opt">任意</span></label>
+        <select id="cf-type">
+          <option value="">選択してください</option>
+          <option>SNS・デジタル行動分析</option>
+          <option>OSINT調査（公開情報収集）</option>
+          <option>証拠データの整理・可視化レポート</option>
+          <option>弁護士・法的手続きサポート</option>
+          <option>その他・まだわからない</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>ご相談内容<span class="req">必須</span></label>
+        <textarea id="cf-msg" placeholder="状況をざっくりで構いません。個人名・詳細は送らなくて大丈夫です。" required></textarea>
+      </div>
+      <button type="submit" class="modal-submit">送信する</button>
+      <p id="form-error" class="form-error">送信に失敗しました。時間をおいて再度お試しください。</p>
+    </form>
+  </div>
+</div>
+
+<script>
+  function openModal() {
+    document.getElementById('contactModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    document.getElementById('contactModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function closeModalOutside(e) {
+    if (e.target === document.getElementById('contactModal')) closeModal();
+  }
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+
+  /* Formspree endpoint — degitail647@gmail.com と同じものを使うか、
+     新規フォームを https://formspree.io で作成して下記に貼ってください */
+  var FORMSPREE_ENDPOINT = 'https://formspree.io/f/xbdpgvbe';
+
+  async function submitForm(e) {
+    e.preventDefault();
+    var btn = document.querySelector('.modal-submit');
+    var errEl = document.getElementById('form-error');
+    errEl.style.display = 'none';
+    btn.textContent = '送信中...';
+    btn.disabled = true;
+
+    var payload = {
+      name:    document.getElementById('cf-name').value,
+      email:   document.getElementById('cf-email').value,
+      type:    document.getElementById('cf-type').value || 'なし',
+      message: document.getElementById('cf-msg').value,
+      _subject: '[AI探偵] 事前相談フォームからの問い合わせ',
+    };
+
+    try {
+      var res = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error();
+      document.getElementById('contactForm').innerHTML =
+        '<div class="form-success"><div class="ic">✓</div>' +
+        '<h4>送信が完了しました</h4>' +
+        '<p>1〜2営業日以内にご連絡いたします。<br>しばらくお待ちください。</p></div>';
+    } catch (_) {
+      errEl.style.display = 'block';
+      btn.textContent = '送信する';
+      btn.disabled = false;
+    }
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>degitail チラシ</title>
+  <style>
+    @media print {
+      @page { size: A4 landscape; margin: 0; }
+      html, body { margin: 0; padding: 0; }
+      .no-print { display: none !important; }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:  #111111;
+      --ink:    #1d1d1d;
+      --g5:     #555555;
+      --g3:     #aaaaaa;
+      --g1:     #eeeeee;
+      --paper:  #ffffff;
+      --line:   #dddddd;
+      --serif:  'Times New Roman', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+      --sans:   'Helvetica Neue', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', Meiryo, sans-serif;
+    }
+
+    body {
+      font-family: var(--sans);
+      background: #c0c0c0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 28px 16px;
+      min-height: 100vh;
+    }
+
+    .no-print {
+      margin-bottom: 18px;
+      display: flex; gap: 14px; align-items: center;
+    }
+    .print-btn {
+      background: var(--black); color: var(--paper);
+      border: none; padding: 11px 30px; font-size: .9rem;
+      letter-spacing: .06em; cursor: pointer; font-family: var(--sans);
+    }
+    .print-btn:hover { background: #333; }
+    .print-note { font-size: .78rem; color: #555; }
+
+    /* ============================================================
+       FLYER  A4 landscape = 297 × 210 mm
+       Layout: brand(78mm) | 3 service cols(219mm ÷ 3 = 73mm each)
+    ============================================================ */
+    .flyer {
+      width: 297mm;
+      height: 210mm;
+      background: var(--paper);
+      display: grid;
+      grid-template-columns: 78mm 1fr;
+      grid-template-rows: 1fr;
+      overflow: hidden;
+      box-shadow: 0 4px 32px rgba(0,0,0,.22);
+      position: relative;
+    }
+
+    /* ── LEFT BRAND PANEL ── */
+    .panel-brand {
+      background: var(--black);
+      color: var(--paper);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 9mm 7mm;
+      gap: 0;
+    }
+
+    .cat-wrap {
+      width: 38mm; height: 38mm;
+      border: 1px solid #333;
+      overflow: hidden;
+      margin-bottom: 5mm;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cat-wrap img { width: 100%; height: 100%; object-fit: cover; filter: invert(1); }
+    .cat-emoji { font-size: 40px; display: none; }
+
+    .brand-name {
+      font-family: var(--serif);
+      font-size: 22pt;
+      font-weight: 700;
+      letter-spacing: .1em;
+      color: var(--paper);
+      margin-bottom: 4mm;
+    }
+
+    .brand-line { width: 22mm; height: 1px; background: #444; margin: 0 auto 5mm; }
+
+    .brand-catch {
+      font-size: 9.5pt;
+      color: #999;
+      text-align: center;
+      line-height: 2;
+      margin-bottom: 7mm;
+    }
+
+    .brand-area {
+      font-size: 10pt;
+      color: #888;
+      text-align: center;
+      line-height: 2;
+      margin-bottom: 7mm;
+    }
+
+    .brand-free {
+      border: 1px solid #555;
+      padding: 3mm 7mm;
+      text-align: center;
+    }
+    .brand-free-label {
+      font-size: 7.5pt;
+      letter-spacing: .18em;
+      color: #777;
+      text-transform: uppercase;
+      margin-bottom: 2mm;
+    }
+    .brand-free-main {
+      font-size: 13pt;
+      font-weight: 700;
+      color: var(--paper);
+      letter-spacing: .06em;
+    }
+
+    /* ── RIGHT: services + contact ── */
+    .panel-right {
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid #ccc;
+    }
+
+    /* 3-col service grid */
+    .svc-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .svc-col {
+      padding: 8mm 7mm 5mm;
+      border-right: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+    }
+    .svc-col:last-child { border-right: none; }
+
+    /* category eyebrow */
+    .svc-eyebrow {
+      font-size: 7pt;
+      letter-spacing: .2em;
+      color: var(--g3);
+      text-transform: uppercase;
+      margin-bottom: 3mm;
+    }
+
+    /* service title — LARGE for readability */
+    .svc-title {
+      font-size: 13.5pt;
+      font-weight: 700;
+      color: var(--black);
+      line-height: 1.35;
+      margin-bottom: 4mm;
+    }
+
+    .svc-rule { height: 2px; background: var(--black); width: 8mm; margin-bottom: 4mm; }
+
+    /* description — 10.5pt, short */
+    .svc-desc {
+      font-size: 10.5pt;
+      color: var(--g5);
+      line-height: 1.9;
+      margin-bottom: 5mm;
+      flex: 1;
+    }
+
+    /* price — prominent */
+    .svc-price {
+      display: inline-block;
+      font-size: 12pt;
+      font-weight: 700;
+      color: var(--paper);
+      background: var(--black);
+      padding: 2mm 5mm;
+      letter-spacing: .03em;
+      align-self: flex-start;
+    }
+    .svc-price.ghost {
+      color: var(--black);
+      background: transparent;
+      border: 1.5px solid var(--black);
+    }
+
+    /* ── CONTACT FOOTER ── */
+    .contact-bar {
+      height: 26mm;
+      background: var(--g1);
+      border-top: 2px solid var(--black);
+      display: flex;
+      align-items: center;
+      padding: 0 8mm;
+      gap: 7mm;
+    }
+
+    .contact-label {
+      font-size: 7pt;
+      letter-spacing: .2em;
+      color: var(--g3);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .contact-email {
+      font-family: var(--serif);
+      font-size: 14pt;
+      font-weight: 700;
+      color: var(--black);
+      letter-spacing: .04em;
+    }
+
+    .contact-sep {
+      width: 1px;
+      height: 12mm;
+      background: var(--line);
+      flex-shrink: 0;
+    }
+
+    .contact-site {
+      font-size: 10pt;
+      color: var(--g5);
+      letter-spacing: .04em;
+    }
+
+    .contact-cta {
+      margin-left: auto;
+      background: var(--black);
+      color: var(--paper);
+      font-size: 11pt;
+      font-weight: 700;
+      letter-spacing: .05em;
+      padding: 3.5mm 9mm;
+      white-space: nowrap;
+    }
+
+    /* RESPONSIVE preview */
+    @media (max-width: 860px) {
+      .flyer {
+        width: 100%;
+        height: auto;
+        grid-template-columns: 1fr;
+      }
+      .panel-brand { min-height: 60mm; padding: 8mm; }
+      .svc-grid { grid-template-columns: 1fr; }
+      .svc-col { border-right: none; border-bottom: 1px solid var(--line); }
+      .contact-bar { height: auto; padding: 5mm 6mm; flex-wrap: wrap; gap: 4mm; }
+      .contact-cta { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="no-print">
+  <button class="print-btn" onclick="window.print()">印刷する / PDFに保存</button>
+  <span class="print-note">印刷設定：用紙サイズ「A4 横」・余白「なし」</span>
+</div>
+
+<div class="flyer">
+
+  <!-- ■ LEFT: BRAND -->
+  <div class="panel-brand">
+    <div class="cat-wrap">
+      <img src="top.png" alt="degitail"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <span class="cat-emoji">🐈‍⬛</span>
+    </div>
+    <div class="brand-name">degitail</div>
+    <div class="brand-line"></div>
+    <div class="brand-catch">AIと、データで<br>地域の事業者を強くする</div>
+    <div class="brand-area">岡山市・倉敷市・総社市<br>津山市など県内全域対応<br>対面相談 承ります</div>
+    <div class="brand-free">
+      <div class="brand-free-label">First Consultation</div>
+      <div class="brand-free-main">初回相談　無料</div>
+    </div>
+  </div>
+
+  <!-- ■ RIGHT: SERVICES + CONTACT -->
+  <div class="panel-right">
+
+    <div class="svc-grid">
+
+      <!-- Service 1 -->
+      <div class="svc-col">
+        <div class="svc-eyebrow">DX推進</div>
+        <div class="svc-title">AI自動<br>電話応答システム</div>
+        <div class="svc-rule"></div>
+        <div class="svc-desc">
+          24時間、AIが電話を受けて<br>
+          予約の受付・確定・通知まで<br>
+          自動で対応します。<br>
+          <br>
+          深夜でも、忙しい時間でも<br>
+          電話の取り逃がしがなくなります。
+        </div>
+        <div class="svc-price ghost">要相談（パイロット募集中）</div>
+      </div>
+
+      <!-- Service 2 -->
+      <div class="svc-col">
+        <div class="svc-eyebrow">集客・口コミ対策</div>
+        <div class="svc-title">Google口コミ<br>返信代行</div>
+        <div class="svc-rule"></div>
+        <div class="svc-desc">
+          お客さまのGoogle口コミへの<br>
+          返信文を作成・代行します。<br>
+          <br>
+          AIが内容を分析し、丁寧な<br>
+          文面を提案。件数に制限なし。
+        </div>
+        <div class="svc-price">月額　25,000円〜</div>
+      </div>
+
+      <!-- Service 3 -->
+      <div class="svc-col">
+        <div class="svc-eyebrow">探偵業（届出完了）</div>
+        <div class="svc-title">素行調査</div>
+        <div class="svc-rule"></div>
+        <div class="svc-desc">
+          パートナーや家族の行動が<br>
+          心配な方へ。<br>
+          <br>
+          公安委員会届出済みの<br>
+          探偵業として、丁寧・秘密厳守で<br>
+          調査いたします。
+        </div>
+        <div class="svc-price ghost">要相談（秘密厳守）</div>
+      </div>
+
+    </div><!-- /svc-grid -->
+
+    <!-- Contact bar -->
+    <div class="contact-bar">
+      <div class="contact-label">お問い合わせ</div>
+      <div class="contact-email">degitail647@gmail.com</div>
+      <div class="contact-sep"></div>
+      <div class="contact-site">degitail.jp</div>
+      <div class="contact-cta">無料相談　受付中</div>
+    </div>
+
+  </div><!-- /panel-right -->
+
+</div><!-- /flyer -->
+
+</body>
+</html>

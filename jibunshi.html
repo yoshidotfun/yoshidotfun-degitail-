@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>自分史・回顧録 出張製本サービス | degitail</title>
+  <meta name="description" content="ご自宅で語るだけ。AIが文字起こし、人が編集・製本。あなたの人生を世界に一冊の本にします。岡山県内出張対応。30,000円〜。">
+  <link rel="icon" href="icon.png" type="image/png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #111; --ink: #1d1d1d; --g6: #6b6b6b; --g4: #9a9a9a;
+      --g2: #d8d8d8; --g1: #ececec; --paper: #fff; --bg: #fafafa; --line: #e3e3e3;
+    }
+    body { font-family: 'Helvetica Neue','Hiragino Kaku Gothic ProN','Noto Sans JP',Meiryo,sans-serif; color: var(--ink); background: var(--paper); line-height: 1.8; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+
+    header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+    .header-inner { max-width: 1080px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 72px; padding: 0 32px; }
+    .logo-clip { width: 116px; height: 66px; overflow: hidden; position: relative; }
+    .logo-img { width: 116px; position: absolute; top: -66px; left: 0; }
+    nav { display: flex; gap: 32px; align-items: center; }
+    nav a { font-size: .82rem; letter-spacing: .08em; color: var(--g6); text-transform: uppercase; }
+    nav .nav-cta { border: 1px solid var(--black); color: var(--black); padding: 8px 20px; transition: background .2s, color .2s; }
+    nav .nav-cta:hover { background: var(--black); color: var(--paper); }
+
+    .hero { max-width: 1080px; margin: 0 auto; padding: 100px 32px 80px; border-bottom: 1px solid var(--line); }
+    .hero-eyebrow { font-size: .76rem; letter-spacing: .28em; text-transform: uppercase; color: var(--g4); margin-bottom: 24px; }
+    .hero h1 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 400; line-height: 1.35; margin-bottom: 28px; }
+    .hero h1 b { font-weight: 700; }
+    .hero-lead { max-width: 620px; font-size: 1.05rem; color: var(--g6); margin-bottom: 40px; line-height: 1.9; }
+    .btn { display: inline-block; font-size: .9rem; letter-spacing: .05em; padding: 15px 38px; transition: all .2s; }
+    .btn-dark { background: var(--black); color: var(--paper); }
+    .btn-dark:hover { background: #333; }
+
+    section { padding: 88px 32px; }
+    .inner { max-width: 1080px; margin: 0 auto; }
+    .sec-eyebrow { font-size: .76rem; letter-spacing: .24em; color: var(--g4); text-transform: uppercase; margin-bottom: 16px; }
+    .sec-title { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 400; margin-bottom: 40px; line-height: 1.45; }
+    .sec-title b { font-weight: 700; }
+    .bg-section { background: var(--bg); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+    /* who */
+    .who-block { background: var(--black); color: var(--paper); padding: 48px; }
+    .who-block .lead { font-size: 1.1rem; line-height: 2; margin-bottom: 24px; }
+    .who-list { list-style: none; display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; }
+    .who-list li { font-size: .95rem; color: #ccc; padding-left: 20px; position: relative; }
+    .who-list li::before { content: '—'; position: absolute; left: 0; color: #666; }
+
+    /* flow */
+    .flow-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+    .flow-cell { background: var(--paper); padding: 32px 24px; }
+    .flow-num { font-family: 'Times New Roman',serif; font-size: 2rem; font-weight: 700; color: var(--g2); line-height: 1; margin-bottom: 14px; }
+    .flow-cell h4 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .flow-cell p { font-size: .88rem; color: var(--g6); line-height: 1.85; }
+    .flow-note { margin-top: 24px; font-size: .84rem; color: var(--g6); line-height: 1.8; }
+
+    /* plan */
+    .plan-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 24px; }
+    .plan-card { border: 1px solid var(--line); padding: 36px 28px; }
+    .plan-card.featured { border-color: var(--black); }
+    .plan-label { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--g4); margin-bottom: 12px; }
+    .plan-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+    .plan-price { font-size: 1.7rem; font-weight: 700; margin-bottom: 20px; }
+    .plan-price small { font-size: .85rem; font-weight: 400; color: var(--g6); }
+    .plan-items { list-style: none; }
+    .plan-items li { font-size: .9rem; color: var(--g6); padding: 7px 0; border-bottom: 1px solid var(--g1); padding-left: 18px; position: relative; }
+    .plan-items li::before { content: '✓'; position: absolute; left: 0; color: var(--black); font-weight: 700; }
+
+    /* voice */
+    .voice-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 24px; }
+    .voice-card { border: 1px solid var(--line); padding: 28px; }
+    .voice-mark { font-size: 2rem; color: var(--g2); line-height: 1; margin-bottom: 10px; }
+    .voice-text { font-size: .95rem; color: var(--g6); line-height: 1.9; margin-bottom: 14px; }
+    .voice-from { font-size: .78rem; color: var(--g4); letter-spacing: .08em; }
+
+    /* faq */
+    .faq-item { border-top: 1px solid var(--line); }
+    .faq-item:last-child { border-bottom: 1px solid var(--line); }
+    .faq-q { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 20px 0; cursor: pointer; font-size: .95rem; font-weight: 700; background: none; border: none; width: 100%; text-align: left; }
+    .faq-q .mark { position: relative; width: 22px; height: 22px; flex-shrink: 0; }
+    .faq-q .mark::before, .faq-q .mark::after { content: ''; position: absolute; background: var(--black); }
+    .faq-q .mark::before { top: 10px; left: 0; width: 22px; height: 1.5px; }
+    .faq-q .mark::after  { left: 10px; top: 0; width: 1.5px; height: 22px; transition: transform .25s; }
+    .faq-item.open .faq-q .mark::after { transform: scaleY(0); }
+    .faq-a { display: none; padding: 0 0 20px; font-size: .92rem; color: var(--g6); line-height: 1.85; }
+    .faq-item.open .faq-a { display: block; }
+
+    /* cta */
+    .cta-section { text-align: center; }
+    .cta-section h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 400; margin-bottom: 16px; }
+    .cta-section h2 b { font-weight: 700; }
+    .cta-section p { color: var(--g6); margin-bottom: 36px; }
+
+    footer { background: var(--bg); border-top: 1px solid var(--line); padding: 48px 32px 36px; }
+    .footer-inner { max-width: 1080px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
+    .footer-logo-clip { width: 120px; height: 68px; overflow: hidden; position: relative; }
+    .footer-logo-img { width: 120px; position: absolute; top: -68px; left: 0; }
+    .footer-nav { display: flex; gap: 32px; }
+    .footer-nav a { font-size: .82rem; letter-spacing: .06em; color: var(--g6); }
+    .footer-bottom { max-width: 1080px; margin: 32px auto 0; padding-top: 20px; border-top: 1px solid var(--line); font-size: .76rem; color: var(--g4); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+    @media (max-width: 680px) {
+      .who-list { grid-template-columns: 1fr; }
+      .flow-grid { grid-template-columns: 1fr 1fr; }
+      .plan-grid { grid-template-columns: 1fr; }
+      .voice-grid { grid-template-columns: 1fr; }
+      section { padding: 64px 24px; }
+      .hero { padding: 72px 24px 56px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo-clip"><img src="icon.png" alt="degitail" class="logo-img"></a>
+    <nav>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="index.html" class="nav-cta" onclick="history.back();return false;">← 戻る</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-eyebrow">degitail — 地域密着サービス / 自分史・回顧録 出張製本</div>
+  <h1>語るだけでいい。<br><b>あなたの人生を、一冊の本に。</b></h1>
+  <p class="hero-lead">「子どもや孫に伝えたい話がある」「自分の記憶が薄れていく前に残したい」——ご自宅に伺い、お話を録音します。AIが自動で文字にして、人が丁寧に編集・製本。世界にたった一冊の本を、あなたのご家族にお届けします。</p>
+  <a href="mailto:degitail647@gmail.com" class="btn btn-dark">無料相談をする</a>
+</div>
+
+<section>
+  <div class="inner">
+    <div class="sec-eyebrow">01 — こんな方へ</div>
+    <h2 class="sec-title">「書けない」ではなく、<b>「話せばいい」</b></h2>
+    <div class="who-block">
+      <p class="lead">文章を書くのが苦手でも大丈夫。パソコンが使えなくても大丈夫。昔話をするように語っていただくだけで、あとはすべてお任せください。</p>
+      <ul class="who-list">
+        <li>戦後の暮らしや仕事の話を孫に残したい</li>
+        <li>親の話をまとめて兄弟姉妹にプレゼントしたい</li>
+        <li>定年後・還暦・古希の記念に一冊作りたい</li>
+        <li>認知症が進む前に、記憶を形にしておきたい</li>
+        <li>終活・エンディングノートの代わりにしたい</li>
+        <li>結婚・長寿のお祝いに家族から贈りたい</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="bg-section">
+  <div class="inner">
+    <div class="sec-eyebrow">02 — 制作の流れ</div>
+    <h2 class="sec-title">4つのステップで、<b>本になります</b></h2>
+    <div class="flow-grid">
+      <div class="flow-cell">
+        <div class="flow-num">01</div>
+        <h4>無料ご相談</h4>
+        <p>メールまたはご自宅への訪問で、どんなことを残したいかをヒアリングします。どんな話でも大丈夫です。</p>
+      </div>
+      <div class="flow-cell">
+        <div class="flow-num">02</div>
+        <h4>出張録音（1〜2時間）</h4>
+        <p>ご自宅に伺い、リラックスした状態でお話しいただきます。録音はdegitailが担当。何度でも言い直せます。</p>
+      </div>
+      <div class="flow-cell">
+        <div class="flow-num">03</div>
+        <h4>AI文字起こし・編集</h4>
+        <p>録音をAIで文字起こし後、人が読みやすく編集・校正します。写真や年表を加えることもできます。</p>
+      </div>
+      <div class="flow-cell">
+        <div class="flow-num">04</div>
+        <h4>印刷・製本・お届け</h4>
+        <p>A5判ソフトカバー、約50〜100ページで製本。ご指定の冊数を印刷してご自宅にお届けします。</p>
+      </div>
+    </div>
+    <p class="flow-note">※ 録音から納品まで、おおよそ3〜4週間。追加取材（2回目の訪問）をご希望の場合は別途ご相談ください。</p>
+  </div>
+</section>
+
+<section>
+  <div class="inner">
+    <div class="sec-eyebrow">03 — 料金プラン</div>
+    <h2 class="sec-title">シンプルな<b>2プラン</b></h2>
+    <div class="plan-grid">
+      <div class="plan-card featured">
+        <div class="plan-label">スタンダード</div>
+        <div class="plan-name">おひとりの自分史</div>
+        <div class="plan-price">30,000<small>円〜（税込）</small></div>
+        <ul class="plan-items">
+          <li>訪問録音 1回（約1〜2時間）</li>
+          <li>AI文字起こし・編集・校正</li>
+          <li>A5判ソフトカバー製本 3冊</li>
+          <li>写真掲載（10枚まで）</li>
+          <li>データ（PDF）での納品も可</li>
+        </ul>
+      </div>
+      <div class="plan-card">
+        <div class="plan-label">ファミリー</div>
+        <div class="plan-name">家族の歴史・夫婦の記録</div>
+        <div class="plan-price">50,000<small>円〜（税込）</small></div>
+        <ul class="plan-items">
+          <li>訪問録音 2回（複数人対応）</li>
+          <li>AI文字起こし・編集・校正</li>
+          <li>A5判ソフトカバー製本 5冊</li>
+          <li>写真掲載（20枚まで）</li>
+          <li>年表・家族紹介ページ付き</li>
+          <li>追加印刷 1冊あたり1,500円〜</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-section">
+  <div class="inner">
+    <div class="sec-eyebrow">04 — お客様の声</div>
+    <h2 class="sec-title">できあがった本を<b>手にしたとき</b></h2>
+    <div class="voice-grid">
+      <div class="voice-card">
+        <div class="voice-mark">"</div>
+        <p class="voice-text">「自分の話なんて…」と最初は恥ずかしかったのですが、話しているうちに止まらなくなりました。できあがった本を子どもたちに渡したら、「お父さんってこんな人だったんだ」と涙を流してくれました。</p>
+        <div class="voice-from">岡山市 ・ 78歳 男性</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-mark">"</div>
+        <p class="voice-text">母が認知症になる前に、と思い頼みました。戦時中の話、若い頃の恋愛、子育ての苦労……全部ちゃんと残してもらえました。兄弟全員に配れたのもよかったです。</p>
+        <div class="voice-from">倉敷市 ・ 50代女性（母の自分史として依頼）</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="inner">
+    <div class="sec-eyebrow">05 — よくある質問</div>
+    <h2 class="sec-title"><b>FAQ</b></h2>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>話すのが苦手でも大丈夫ですか？</span>
+        <span class="mark"></span>
+      </button>
+      <div class="faq-a">はい。会話形式で質問しながら引き出しますので、「うまく話さなければ」と身構える必要はありません。方言でも、話が行ったり来たりしても大丈夫です。あとで編集する際に整えます。</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>どのくらいの量の本になりますか？</span>
+        <span class="mark"></span>
+      </button>
+      <div class="faq-a">1〜2時間の録音で、A5判・50〜80ページ程度の本になることが多いです。内容によって前後しますが、ページ数は納品前にご確認いただけます。</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>古い写真や手紙も入れられますか？</span>
+        <span class="mark"></span>
+      </button>
+      <div class="faq-a">はい。お手持ちの写真をスキャンしてレイアウトに組み込めます（10枚まで基本料金内）。手紙や賞状などの書類も同様です。枚数が多い場合は別途ご相談ください。</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>内容は外部に漏れませんか？</span>
+        <span class="mark"></span>
+      </button>
+      <div class="faq-a">録音データ・原稿はdegitail内のみで管理し、第三者に提供することは一切ありません。納品後はご要望に応じてデータを削除します。</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>岡山県外でも依頼できますか？</span>
+        <span class="mark"></span>
+      </button>
+      <div class="faq-a">出張録音は岡山県内のみ対応しています。県外の方でも、オンライン（Zoom等）での録音対応は可能ですのでご相談ください。製本・郵送は全国対応です。</div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-section cta-section">
+  <div class="inner">
+    <div class="sec-eyebrow">06 — ご相談</div>
+    <h2>まず、<b>無料でご相談ください。</b></h2>
+    <p>「どんな話を残せばいいか分からない」「費用の目安を知りたい」——どんなことでも、メールでお気軽にどうぞ。</p>
+    <a href="mailto:degitail647@gmail.com" class="btn btn-dark">degitail647@gmail.com</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo-clip"><img src="icon.png" alt="degitail" class="footer-logo-img"></a>
+    <nav class="footer-nav">
+      <a href="index.html#services">Services</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <span>岡山県密着 デジタル支援</span>
+    <span>&copy; 2026 degitail. All rights reserved.</span>
+  </div>
+</footer>
+
+<script>
+function toggleFaq(btn) {
+  btn.closest('.faq-item').classList.toggle('open');
+}
+</script>
+</body>
+</html>

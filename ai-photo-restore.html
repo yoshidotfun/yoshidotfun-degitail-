@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>古い写真・遺影のAI修復 | degitail</title>
+  <meta name="description" content="色あせた写真の鮮明化・白黒写真のカラー化・遺影のAI修復。岡山県内対応、1枚3,000円〜。データ納品なので焼き増し自由。">
+  <link rel="icon" href="icon.png" type="image/png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #111; --ink: #1d1d1d; --g6: #6b6b6b; --g4: #9a9a9a;
+      --g2: #d8d8d8; --g1: #ececec; --paper: #fff; --bg: #fafafa; --line: #e3e3e3;
+    }
+    body { font-family: 'Helvetica Neue','Hiragino Kaku Gothic ProN','Noto Sans JP',Meiryo,sans-serif; color: var(--ink); background: var(--paper); line-height: 1.8; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+    .header-inner { max-width: 1080px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 72px; padding: 0 32px; }
+    .logo-clip { width: 116px; height: 66px; overflow: hidden; position: relative; }
+    .logo-img { width: 116px; position: absolute; top: -66px; left: 0; }
+    nav { display: flex; gap: 32px; align-items: center; }
+    nav a { font-size: .82rem; letter-spacing: .08em; color: var(--g6); text-transform: uppercase; }
+    nav a:hover { color: var(--black); }
+    nav .nav-cta { border: 1px solid var(--black); color: var(--black); padding: 8px 20px; transition: background .2s, color .2s; }
+    nav .nav-cta:hover { background: var(--black); color: var(--paper); }
+
+    .hero { max-width: 1080px; margin: 0 auto; padding: 100px 32px 80px; border-bottom: 1px solid var(--line); }
+    .hero-eyebrow { font-size: .76rem; letter-spacing: .28em; text-transform: uppercase; color: var(--g4); margin-bottom: 24px; }
+    .hero h1 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 400; line-height: 1.35; margin-bottom: 28px; }
+    .hero h1 b { font-weight: 700; }
+    .hero-lead { max-width: 620px; font-size: 1.05rem; color: var(--g6); margin-bottom: 40px; line-height: 1.9; }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn { display: inline-block; font-size: .9rem; letter-spacing: .05em; padding: 15px 38px; transition: all .2s; }
+    .btn-dark { background: var(--black); color: var(--paper); }
+    .btn-dark:hover { background: #333; }
+    .btn-ghost { border: 1px solid var(--g2); color: var(--ink); }
+    .btn-ghost:hover { border-color: var(--black); }
+
+    section { padding: 88px 32px; }
+    .inner { max-width: 1080px; margin: 0 auto; }
+    .sec-eyebrow { font-size: .76rem; letter-spacing: .24em; color: var(--g4); text-transform: uppercase; margin-bottom: 16px; }
+    .sec-title { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 400; margin-bottom: 40px; }
+    .sec-title b { font-weight: 700; }
+    .bg-section { background: var(--bg); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+    /* before/after demo */
+    .demo-row {
+      display: grid; grid-template-columns: 1fr auto 1fr; gap: 32px; align-items: center; margin-bottom: 56px;
+    }
+    .demo-box {
+      background: var(--bg); border: 1px solid var(--line);
+      aspect-ratio: 4/3; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 12px;
+      padding: 32px;
+    }
+    .demo-box .demo-icon { font-size: 2.4rem; }
+    .demo-box .demo-label { font-size: .82rem; letter-spacing: .1em; text-transform: uppercase; color: var(--g4); }
+    .demo-box .demo-desc { font-size: .93rem; color: var(--g6); text-align: center; }
+    .demo-arrow { font-size: 2rem; color: var(--g4); }
+    .demo-box.after { background: var(--black); border-color: var(--black); }
+    .demo-box.after .demo-label { color: #777; }
+    .demo-box.after .demo-desc { color: #bbb; }
+
+    /* what-we-do */
+    .cap-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+    .cap-cell { background: var(--paper); padding: 32px 28px; }
+    .cap-num { font-family: 'Times New Roman', serif; font-size: 2.4rem; font-weight: 700; color: var(--g2); line-height: 1; margin-bottom: 14px; }
+    .cap-cell h4 { font-size: 1.05rem; font-weight: 700; margin-bottom: 10px; }
+    .cap-cell p { font-size: .92rem; color: var(--g6); }
+
+    /* price */
+    .price-wrap { max-width: 680px; margin: 0 auto; }
+    .price-row { display: flex; justify-content: space-between; align-items: baseline; padding: 16px 0; border-bottom: 1px solid var(--line); }
+    .price-row:first-child { border-top: 1px solid var(--line); }
+    .price-row .pl { font-size: .98rem; }
+    .price-row .pr { font-size: 1.1rem; font-weight: 700; }
+    .price-note { margin-top: 20px; font-size: .84rem; color: var(--g6); line-height: 1.8; }
+
+    /* flow */
+    .flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--line); }
+    .flow-step { padding: 28px 22px; border-right: 1px solid var(--line); }
+    .flow-step:last-child { border-right: none; }
+    .flow-num { font-family: 'Times New Roman', serif; font-size: 2rem; font-weight: 700; color: var(--g2); line-height: 1; margin-bottom: 12px; }
+    .flow-step h4 { font-size: .98rem; font-weight: 700; margin-bottom: 8px; }
+    .flow-step p { font-size: .88rem; color: var(--g6); }
+
+    /* faq */
+    .faq-list { border-top: 1px solid var(--line); }
+    .faq-item { border-bottom: 1px solid var(--line); }
+    .faq-q { width: 100%; background: none; border: none; cursor: pointer; display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; padding: 22px 4px; text-align: left; font-family: inherit; font-size: 1rem; font-weight: 700; color: var(--ink); line-height: 1.6; }
+    .faq-q .mark { flex-shrink: 0; width: 20px; height: 20px; position: relative; margin-top: 4px; }
+    .faq-q .mark::before, .faq-q .mark::after { content: ''; position: absolute; background: var(--g6); transition: transform .25s, opacity .25s; }
+    .faq-q .mark::before { top: 9px; left: 0; width: 20px; height: 1.5px; }
+    .faq-q .mark::after  { left: 9px; top: 0; width: 1.5px; height: 20px; }
+    .faq-item.open .faq-q .mark::after { transform: scaleY(0); opacity: 0; }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+    .faq-a-inner { padding: 0 32px 24px 4px; color: var(--g6); font-size: .93rem; }
+
+    .cta-section { text-align: center; }
+    .cta-section h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 400; margin-bottom: 16px; }
+    .cta-section h2 b { font-weight: 700; }
+    .cta-section p { color: var(--g6); margin-bottom: 36px; max-width: 560px; margin-left: auto; margin-right: auto; }
+
+    footer { background: var(--bg); border-top: 1px solid var(--line); padding: 48px 32px 36px; }
+    .footer-inner { max-width: 1080px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
+    .footer-logo-clip { width: 120px; height: 68px; overflow: hidden; position: relative; }
+    .footer-logo-img { width: 120px; position: absolute; top: -68px; left: 0; }
+    .footer-nav { display: flex; gap: 32px; }
+    .footer-nav a { font-size: .82rem; letter-spacing: .06em; color: var(--g6); }
+    .footer-bottom { max-width: 1080px; margin: 32px auto 0; padding-top: 20px; border-top: 1px solid var(--line); font-size: .76rem; color: var(--g4); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+    @media (max-width: 680px) {
+      .demo-row { grid-template-columns: 1fr; }
+      .demo-arrow { transform: rotate(90deg); }
+      .cap-grid { grid-template-columns: 1fr; }
+      .flow { grid-template-columns: repeat(2, 1fr); }
+      section { padding: 64px 24px; }
+      .hero { padding: 72px 24px 56px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo-clip"><img src="icon.png" alt="degitail" class="logo-img"></a>
+    <nav>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="index.html" class="nav-cta" onclick="history.back();return false;">← 戻る</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-eyebrow">degitail — 地域密着サービス / 写真・遺影のAI修復</div>
+  <h1>大切な記憶を、<br><b>もう一度、鮮やかに。</b></h1>
+  <p class="hero-lead">色あせた古い写真、白黒の遺影——AIの技術で鮮明に蘇らせます。お仏壇の遺影を大きく引き伸ばしたい、昔の白黒写真をカラーにして子どもたちに渡したい。そんなご要望にお応えします。1枚からお気軽にどうぞ。</p>
+  <div class="hero-actions">
+    <a href="mailto:degitail647@gmail.com" class="btn btn-dark">写真を送って相談する</a>
+    <a href="#price" class="btn btn-ghost">料金を見る</a>
+  </div>
+</div>
+
+<section class="bg-section">
+  <div class="inner">
+    <div class="sec-eyebrow">01 — できること</div>
+    <h2 class="sec-title">3つの<b>AI修復メニュー</b></h2>
+    <div class="cap-grid">
+      <div class="cap-cell">
+        <div class="cap-num">01</div>
+        <h4>白黒写真のカラー化</h4>
+        <p>昔の白黒写真をAIがカラーに変換。当時の服の色・肌の色・背景の雰囲気が自然に再現されます。家族へのプレゼントにも喜ばれます。</p>
+      </div>
+      <div class="cap-cell">
+        <div class="cap-num">02</div>
+        <h4>色あせ・傷みの修復</h4>
+        <p>長年で色あせてしまった写真や、折れ目・傷みがある写真をAIで補正・修復。印刷前に確認画像をお送りします。</p>
+      </div>
+      <div class="cap-cell">
+        <div class="cap-num">03</div>
+        <h4>遺影の高解像度化・引き伸ばし</h4>
+        <p>小さな写真しかない場合でも、AIで解像度を上げて引き伸ばし。A4サイズ以上でのプリントに耐える品質にします。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="price">
+  <div class="inner">
+    <div class="sec-eyebrow">02 — 料金</div>
+    <h2 class="sec-title">1枚からの<b>明朗な料金</b></h2>
+    <div class="price-wrap">
+      <div class="price-row"><span class="pl">白黒→カラー化（1枚）</span><span class="pr">3,000円</span></div>
+      <div class="price-row"><span class="pl">色あせ・傷み修復（1枚）</span><span class="pr">2,000円</span></div>
+      <div class="price-row"><span class="pl">遺影 高解像度化・引き伸ばし（1枚）</span><span class="pr">3,000円</span></div>
+      <div class="price-row"><span class="pl">カラー化＋修復セット（1枚）</span><span class="pr">4,500円</span></div>
+      <div class="price-row"><span class="pl">まとめてお得（5枚以上）</span><span class="pr">1枚あたり20%引き</span></div>
+      <div class="price-row"><span class="pl">写真スキャン（お持ちでない場合）</span><span class="pr">別途 500円/枚</span></div>
+      <p class="price-note">
+        ※ 修復後の仕上がりは必ず事前にご確認いただいてからお支払いいただきます。<br>
+        ※ 写真はスマートフォンで撮影したものをメールで送るだけでOKです。<br>
+        ※ 岡山県内の方は出張スキャンも承ります（別途相談）。
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="bg-section">
+  <div class="inner">
+    <div class="sec-eyebrow">03 — ご利用の流れ</div>
+    <h2 class="sec-title">メール1本で<b>完結します</b></h2>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-num">01</div>
+        <h4>写真を撮って送る</h4>
+        <p>スマートフォンで写真を撮影してメールに添付。または現物を郵送していただいてもOKです。</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">02</div>
+        <h4>仕上がりを確認</h4>
+        <p>1〜3営業日以内に修復後の画像をメールでお送りします。納得いただいてからお支払い。</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">03</div>
+        <h4>お支払い</h4>
+        <p>銀行振込またはPayPayでのお支払いに対応しています。</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">04</div>
+        <h4>データを受け取る</h4>
+        <p>高解像度データをメールまたはUSBメモリでお渡し。写真店での焼き増し・プリントに使えます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="inner">
+    <div class="sec-eyebrow">04 — よくある質問</div>
+    <h2 class="sec-title">ご不明な点は<b>こちら</b></h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">スマホの操作が苦手でも大丈夫ですか？<span class="mark"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">大丈夫です。写真の送り方がわからない場合は、岡山県内であれば自宅に伺ってスキャンすることもできます。また、電話で操作を一緒に確認しながら対応することも可能です。</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">仕上がりが気に入らなければ払わなくてよいですか？<span class="mark"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">はい。仕上がりの画像を先にご確認いただき、納得いただいた場合にのみお支払いをお願いしています。気に入らなければキャンセルしていただいて構いません。</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">白黒写真はどの程度カラーになりますか？<span class="mark"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">AIが写真の内容を解析して自然なカラーに変換します。当時の実際の色と完全に一致するものではありませんが、時代感・雰囲気を大切にした自然な仕上がりになります。事前に見本をお見せすることも可能です。</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">古い写真を郵送してもよいですか？<span class="mark"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">はい、書留郵便での郵送に対応しています。スキャン後に元の写真をそのままお返しします。大切な写真ですので、取扱いには細心の注意を払います。</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-section cta-section">
+  <div class="inner">
+    <div class="sec-eyebrow">05 — Contact</div>
+    <h2>まず、<b>1枚試してみてください。</b></h2>
+    <p>「うまくいくかな…」と思ったら、まず1枚だけ試してみてください。気に入らなければ費用は一切かかりません。お気軽にメールをお送りください。</p>
+    <a href="mailto:degitail647@gmail.com" class="btn btn-dark">degitail647@gmail.com</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo-clip"><img src="icon.png" alt="degitail" class="footer-logo-img"></a>
+    <nav class="footer-nav">
+      <a href="index.html#services">Services</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <span>岡山県密着 デジタル支援</span>
+    <span>&copy; 2026 degitail. All rights reserved.</span>
+  </div>
+</footer>
+
+<script>
+  function toggleFaq(btn) {
+    var item = btn.parentElement;
+    var ans = item.querySelector('.faq-a');
+    var isOpen = item.classList.toggle('open');
+    ans.style.maxHeight = isOpen ? (ans.scrollHeight + 'px') : null;
+  }
+</script>
+
+</body>
+</html>

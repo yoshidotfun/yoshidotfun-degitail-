@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work | degitail — 開発プロダクト集</title>
+  <meta name="description" content="degitailが開発してきたプロダクト集。価格リサーチ・スクレイピングツール、AI画像認識による自動処理ツールなど。">
+  <link rel="icon" href="icon.png" type="image/png">
+
+  <!-- ▼ 公開時：https://degitail.jp/ を実URLに置き換えてください -->
+  <link rel="canonical" href="https://degitail.jp/work.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="degitail">
+  <meta property="og:title" content="Work | degitail — 開発プロダクト集">
+  <meta property="og:description" content="価格リサーチ・スクレイピングツール、AI画像認識による自動処理ツールなど、degitailの開発プロダクト集。">
+  <meta property="og:url" content="https://degitail.jp/work.html">
+  <meta property="og:image" content="https://degitail.jp/og-image.png">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Work | degitail — 開発プロダクト集">
+  <meta name="twitter:description" content="価格リサーチ・スクレイピングツール、AI画像認識による自動処理ツールなど、degitailの開発プロダクト集。">
+  <meta name="twitter:image" content="https://degitail.jp/og-image.png">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:#111111; --ink:#1d1d1d; --gray-9:#2b2b2b;
+      --gray-6:#6b6b6b; --gray-4:#9a9a9a; --gray-2:#d8d8d8;
+      --gray-1:#ececec; --paper:#ffffff; --bg:#fafafa; --line:#e3e3e3;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Helvetica Neue', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', Meiryo, sans-serif;
+      color: var(--ink); background: var(--paper); line-height: 1.8; -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    .serif { font-family: 'Times New Roman', 'Yu Mincho', 'Hiragino Mincho ProN', serif; }
+
+    /* HEADER */
+    header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+    .header-inner { max-width: 1080px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 72px; padding: 0 32px; }
+    .logo-clip { width: 116px; height: 66px; overflow: hidden; position: relative; }
+    .logo-img { width: 116px; position: absolute; top: -66px; left: 0; }
+    nav { display: flex; gap: 36px; align-items: center; }
+    nav a { font-size: .82rem; letter-spacing: .08em; color: var(--gray-6); text-transform: uppercase; transition: color .2s; }
+    nav a:hover, nav a.active { color: var(--black); }
+    nav .nav-cta { border: 1px solid var(--black); color: var(--black); padding: 8px 20px; }
+    nav .nav-cta:hover { background: var(--black); color: var(--paper); }
+
+    /* PAGE HEAD */
+    .page-head { max-width: 1080px; margin: 0 auto; padding: 100px 32px 70px; border-bottom: 1px solid var(--line); }
+    .page-head .eyebrow { font-size: .76rem; letter-spacing: .28em; text-transform: uppercase; color: var(--gray-4); margin-bottom: 26px; }
+    .page-head h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 400; line-height: 1.35; margin-bottom: 28px; }
+    .page-head h1 b { font-weight: 700; }
+    .page-head p { max-width: 620px; color: var(--gray-6); font-size: 1rem; }
+
+    /* WORK LIST */
+    .work-section { padding: 40px 32px 96px; }
+    .work-inner { max-width: 1080px; margin: 0 auto; }
+    .work-item {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center;
+      padding: 72px 0; border-bottom: 1px solid var(--line);
+    }
+    .work-item:nth-child(even) .work-visual { order: 2; }
+    .work-meta { font-size: .76rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gray-4); margin-bottom: 18px; }
+    .work-body h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; margin-bottom: 16px; letter-spacing: .01em; }
+    .work-body .role { font-size: .82rem; letter-spacing: .06em; color: var(--gray-6); margin-bottom: 22px; }
+    .work-body > p { color: var(--gray-6); font-size: .96rem; margin-bottom: 26px; }
+    .feat-list { list-style: none; margin-bottom: 28px; }
+    .feat-list li { font-size: .9rem; color: var(--ink); padding: 9px 0 9px 26px; position: relative; border-top: 1px solid var(--line); }
+    .feat-list li:first-child { border-top: none; }
+    .feat-list li::before { content: '—'; position: absolute; left: 0; color: var(--gray-4); }
+    .tech-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tech { font-size: .73rem; letter-spacing: .04em; color: var(--gray-6); border: 1px solid var(--gray-2); padding: 4px 12px; }
+
+    /* VISUAL placeholder */
+    .work-visual {
+      aspect-ratio: 4 / 3; background: var(--bg); border: 1px solid var(--line);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      color: var(--gray-4); position: relative; overflow: hidden;
+    }
+    .work-visual::after {
+      content: ''; position: absolute; inset: 0;
+      background-image: linear-gradient(var(--gray-1) 1px, transparent 1px), linear-gradient(90deg, var(--gray-1) 1px, transparent 1px);
+      background-size: 28px 28px; opacity: .5;
+    }
+    .work-visual .vlabel { position: relative; z-index: 1; text-align: center; }
+    .work-visual .vlabel .big { font-family: 'Times New Roman', serif; font-size: 3.4rem; color: var(--gray-2); line-height: 1; }
+    .work-visual .vlabel .small { font-size: .74rem; letter-spacing: .14em; text-transform: uppercase; margin-top: 12px; }
+
+    /* MORE / CTA */
+    .more { background: var(--bg); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 80px 32px; text-align: center; }
+    .more .inner { max-width: 640px; margin: 0 auto; }
+    .more h3 { font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 400; margin-bottom: 16px; }
+    .more h3 b { font-weight: 700; }
+    .more p { color: var(--gray-6); margin-bottom: 36px; }
+    .btn { display: inline-block; font-size: .9rem; letter-spacing: .05em; padding: 15px 38px; transition: all .2s; }
+    .btn-dark { background: var(--black); color: var(--paper); }
+    .btn-dark:hover { background: var(--gray-9); transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer { background: var(--bg); border-top: 1px solid var(--line); padding: 56px 32px 40px; }
+    .footer-inner { max-width: 1080px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 32px; }
+    .footer-logo-clip { width: 120px; height: 68px; overflow: hidden; position: relative; }
+    .footer-logo-img { width: 120px; position: absolute; top: -68px; left: 0; }
+    .footer-nav { display: flex; gap: 36px; flex-wrap: wrap; }
+    .footer-nav a { font-size: .82rem; letter-spacing: .06em; color: var(--gray-6); text-transform: uppercase; }
+    .footer-nav a:hover { color: var(--black); }
+    .footer-bottom { max-width: 1080px; margin: 40px auto 0; padding-top: 24px; border-top: 1px solid var(--line); font-size: .76rem; color: var(--gray-4); letter-spacing: .04em; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+    @media (max-width: 760px) {
+      .work-item { grid-template-columns: 1fr; gap: 28px; padding: 56px 0; }
+      .work-item:nth-child(even) .work-visual { order: 0; }
+      nav a:not(.nav-cta) { display: none; }
+      .page-head { padding: 72px 24px 54px; }
+      .work-section { padding: 24px 24px 72px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo-clip"><img src="icon.png" alt="degitail" class="logo-img"></a>
+    <nav>
+      <a href="index.html">Core</a>
+      <a href="work.html" class="active">Work</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="index.html#contact" class="nav-cta">無料相談</a>
+    </nav>
+  </div>
+</header>
+
+<!-- PAGE HEAD -->
+<section class="page-head">
+  <div class="eyebrow">degitail work — Products &amp; Prototypes</div>
+  <h1>つくることで、<br><b>支援の幅を広げる。</b></h1>
+  <p>degitailは支援サービスだけでなく、自らツールを開発します。ここでは、これまでに手がけた自社プロダクト・試作品をご紹介します。同様の仕組みを、お客様の課題に合わせて開発することも可能です。</p>
+</section>
+
+<!-- WORK LIST -->
+<section class="work-section">
+  <div class="work-inner">
+
+    <!-- PRODUCT 01 -->
+    <div class="work-item">
+      <div class="work-visual">
+        <div class="vlabel">
+          <div class="big serif">01</div>
+          <div class="small">Price Research Tool</div>
+        </div>
+      </div>
+      <div class="work-body">
+        <div class="work-meta">Product 01 — Data Scraping</div>
+        <h2>価格リサーチ・スクレイピングツール</h2>
+        <div class="role">市場調査の自動化 / Python・データベース構築</div>
+        <p>ECサイトの商品価格を自動で収集・蓄積し、相場と比較して「割安な商品」を抽出するリサーチツール。手作業の価格チェックを完全に自動化し、仕入れ・販売判断の精度を高めます。</p>
+        <ul class="feat-list">
+          <li>指定キーワード・商品の価格を定期自動取得</li>
+          <li>データベースに履歴を蓄積し価格推移を分析</li>
+          <li>相場より割安な商品を自動でレポート出力</li>
+          <li>毎日自動実行（バッチ処理）に対応</li>
+        </ul>
+        <div class="tech-row">
+          <span class="tech">Python</span>
+          <span class="tech">Webスクレイピング</span>
+          <span class="tech">SQLite</span>
+          <span class="tech">データ分析</span>
+          <span class="tech">自動レポート</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCT 02 -->
+    <div class="work-item">
+      <div class="work-visual">
+        <div class="vlabel">
+          <div class="big serif">02</div>
+          <div class="small">AI Auto-Processing</div>
+        </div>
+      </div>
+      <div class="work-body">
+        <div class="work-meta">Product 02 — Computer Vision</div>
+        <h2>AI画像認識・自動モザイク処理ツール</h2>
+        <div class="role">画像認識による自動化 / デスクトップアプリ開発</div>
+        <p>動画の中から対象を自動で検出し、フレームごとにモザイク・ぼかし処理を施すデスクトップアプリ。手作業では膨大な時間がかかる映像加工を、AIの物体検出で自動化します。プライバシー保護や情報マスキングの用途に応用できます。</p>
+        <ul class="feat-list">
+          <li>AI物体検出で対象を自動認識（フレーム単位）</li>
+          <li>検出箇所へモザイク・ぼかしを自動適用</li>
+          <li>追従処理で動く対象もなめらかにマスク</li>
+          <li>ドラッグ＆ドロップ対応のGUIアプリとして配布</li>
+        </ul>
+        <div class="tech-row">
+          <span class="tech">Python</span>
+          <span class="tech">OpenCV</span>
+          <span class="tech">AI物体検出</span>
+          <span class="tech">Tkinter (GUI)</span>
+          <span class="tech">動画処理</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- MORE / CTA -->
+<section class="more">
+  <div class="inner">
+    <h3>「こんな作業を<b>自動化したい」</b>はありませんか？</h3>
+    <p>データ収集・集計・画像処理など、繰り返しの手作業はツールで自動化できます。御社の業務に合わせたツール開発もご相談ください。</p>
+    <a href="index.html#contact" class="btn btn-dark">開発について相談する</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo-clip"><img src="icon.png" alt="degitail" class="footer-logo-img"></a>
+    <nav class="footer-nav">
+      <a href="index.html">Core</a>
+      <a href="work.html">Work</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <span>岡山県密着 中小企業向けデジタル支援</span>
+    <span>&copy; 2026 degitail. All rights reserved.</span>
+  </div>
+</footer>
+
+</body>
+</html>

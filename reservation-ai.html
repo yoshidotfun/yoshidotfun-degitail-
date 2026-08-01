@@ -1,0 +1,782 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI電話予約システム｜24時間自動予約対応 | degitail</title>
+<meta name="description" content="AIが電話に出て、自動で予約を完結させます。飲食店・美容室・整体院向けの24時間AI予約システム。岡山県を中心にパイロット導入企業を募集中。">
+
+<style>
+/* ===== TOKEN SYSTEM ===== */
+:root {
+  --bg:        #080C0A;
+  --surface:   #101815;
+  --surface-2: #182420;
+  --border:    #243028;
+  --accent:    #00D4A0;
+  --accent-dk: #00A87D;
+  --accent-gl: rgba(0,212,160,.12);
+  --accent-bd: rgba(0,212,160,.22);
+  --amber:     #F5A623;
+  --text:      #E4EDE9;
+  --muted:     #7A9B8E;
+  --faint:     #3A5048;
+  --mono: 'Courier New', 'Courier', monospace;
+  --sans: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  --r:  6px;
+  --rL: 12px;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg:        #F0F5F2;
+    --surface:   #FFFFFF;
+    --surface-2: #E5EDE9;
+    --border:    #C5D8CF;
+    --accent:    #008F6C;
+    --accent-dk: #00704F;
+    --accent-gl: rgba(0,143,108,.08);
+    --accent-bd: rgba(0,143,108,.25);
+    --amber:     #D4820A;
+    --text:      #0B1E15;
+    --muted:     #4A6E62;
+    --faint:     #A8C8BE;
+  }
+}
+:root[data-theme="dark"] {
+  --bg:#080C0A; --surface:#101815; --surface-2:#182420;
+  --border:#243028; --accent:#00D4A0; --accent-dk:#00A87D;
+  --accent-gl:rgba(0,212,160,.12); --accent-bd:rgba(0,212,160,.22);
+  --amber:#F5A623; --text:#E4EDE9; --muted:#7A9B8E; --faint:#3A5048;
+}
+:root[data-theme="light"] {
+  --bg:#F0F5F2; --surface:#FFFFFF; --surface-2:#E5EDE9;
+  --border:#C5D8CF; --accent:#008F6C; --accent-dk:#00704F;
+  --accent-gl:rgba(0,143,108,.08); --accent-bd:rgba(0,143,108,.25);
+  --amber:#D4820A; --text:#0B1E15; --muted:#4A6E62; --faint:#A8C8BE;
+}
+
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; }
+
+/* ===== NAV ===== */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .875rem 2rem;
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-brand {
+  display: flex; align-items: center; gap: .75rem;
+}
+.nav-logo {
+  font-family: var(--mono);
+  font-size: .8rem;
+  color: var(--accent);
+  letter-spacing: .06em;
+}
+.nav-sep { color: var(--faint); font-size: .75rem; }
+.nav-name { font-size: .8rem; color: var(--muted); }
+.nav-cta {
+  background: var(--accent);
+  color: var(--bg);
+  padding: .5rem 1.25rem;
+  border-radius: var(--r);
+  font-size: .82rem;
+  font-weight: 700;
+  transition: background .18s, transform .15s;
+}
+.nav-cta:hover { background: var(--accent-dk); transform: translateY(-1px); }
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 7rem 2rem 5rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: .35;
+}
+.hero-vignette {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 70% at 50% 50%, transparent 0%, var(--bg) 100%);
+}
+.hero-inner {
+  position: relative; z-index: 1;
+  max-width: 640px;
+  width: 100%;
+  text-align: center;
+}
+.hero-eyebrow {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: .7rem;
+  color: var(--accent);
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  padding: .3rem .9rem;
+  border: 1px solid var(--accent-bd);
+  border-radius: 100px;
+  margin-bottom: 1.5rem;
+}
+.hero-title {
+  font-size: clamp(2.2rem, 6vw, 3.75rem);
+  font-weight: 900;
+  letter-spacing: -.04em;
+  line-height: 1.08;
+  text-wrap: balance;
+  margin-bottom: 1.25rem;
+}
+.hero-title em { font-style: normal; color: var(--accent); }
+.hero-sub {
+  font-size: 1rem;
+  color: var(--muted);
+  line-height: 1.75;
+  max-width: 440px;
+  margin: 0 auto 2.25rem;
+  text-wrap: balance;
+}
+.hero-ctas {
+  display: flex; gap: .875rem; justify-content: center;
+  flex-wrap: wrap; margin-bottom: 3.5rem;
+}
+.btn-p {
+  background: var(--accent); color: var(--bg);
+  padding: .85rem 2rem; border-radius: var(--r);
+  font-weight: 700; font-size: .92rem;
+  transition: background .18s, transform .15s;
+}
+.btn-p:hover { background: var(--accent-dk); transform: translateY(-1px); }
+.btn-g {
+  border: 1px solid var(--border); color: var(--muted);
+  padding: .85rem 2rem; border-radius: var(--r);
+  font-size: .92rem;
+  transition: border-color .18s, color .18s;
+}
+.btn-g:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ===== TERMINAL ===== */
+.terminal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--rL);
+  overflow: hidden;
+  text-align: left;
+  box-shadow: 0 0 80px var(--accent-gl), 0 20px 60px rgba(0,0,0,.4);
+}
+.term-bar {
+  background: var(--surface-2);
+  padding: .7rem 1rem;
+  display: flex; align-items: center; gap: .5rem;
+  border-bottom: 1px solid var(--border);
+}
+.term-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--faint); }
+.term-label {
+  font-family: var(--mono); font-size: .7rem;
+  color: var(--muted); margin-left: .25rem;
+}
+.term-body {
+  padding: 1.25rem 1.5rem;
+  min-height: 230px;
+  font-family: var(--mono);
+  font-size: .8rem;
+  line-height: 1.9;
+}
+.t-row {
+  display: flex; gap: .875rem;
+  opacity: 0; transform: translateY(3px);
+  transition: opacity .25s, transform .25s;
+}
+.t-row.show { opacity: 1; transform: none; }
+.t-ts { color: var(--faint); white-space: nowrap; min-width: 3.2rem; }
+.t-ai  { color: var(--accent); }
+.t-usr { color: var(--muted); }
+.t-sys { color: var(--amber); }
+.t-msg { color: var(--text); }
+.t-cursor {
+  display: inline-block; width: 6px; height: .9em;
+  background: var(--accent); vertical-align: text-bottom;
+  animation: blink 1s step-end infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* ===== SECTION COMMONS ===== */
+section { padding: 5rem 2rem; }
+.inner { max-width: 960px; margin: 0 auto; }
+.s-eye {
+  font-family: var(--mono); font-size: .68rem;
+  letter-spacing: .15em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: .875rem;
+}
+.s-title {
+  font-size: clamp(1.55rem, 2.8vw, 2.1rem);
+  font-weight: 800; letter-spacing: -.025em;
+  line-height: 1.2; text-wrap: balance;
+  margin-bottom: .875rem;
+}
+.s-sub {
+  color: var(--muted); font-size: .95rem;
+  line-height: 1.75; max-width: 500px;
+  margin-bottom: 2.75rem;
+}
+
+/* ===== PAIN SECTION ===== */
+.pain-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--rL);
+  overflow: hidden;
+}
+.pain-card {
+  background: var(--surface);
+  padding: 2rem 1.5rem;
+}
+.pain-ico { font-size: 1.4rem; margin-bottom: .875rem; display: block; }
+.pain-h { font-weight: 700; font-size: .92rem; margin-bottom: .4rem; }
+.pain-p { font-size: .82rem; color: var(--muted); line-height: 1.65; }
+
+/* ===== FLOW SECTION ===== */
+.flow-wrap { background: var(--surface); }
+.flow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  gap: 0;
+  align-items: center;
+}
+@media (max-width: 640px) {
+  .flow { grid-template-columns: 1fr; }
+  .flow-arrow { display: none; }
+}
+.flow-step { padding: 2rem 1.5rem; text-align: center; }
+.flow-arrow { color: var(--faint); font-size: 1.2rem; padding: 0 .5rem; }
+.flow-num {
+  font-family: var(--mono); font-size: .65rem;
+  color: var(--accent); letter-spacing: .1em;
+  margin-bottom: .75rem; display: block;
+}
+.flow-ico-wrap {
+  width: 52px; height: 52px;
+  background: var(--accent-gl);
+  border: 1px solid var(--accent-bd);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1.1rem;
+  font-size: 1.3rem;
+}
+.flow-h { font-weight: 700; font-size: .92rem; margin-bottom: .4rem; }
+.flow-p { font-size: .8rem; color: var(--muted); line-height: 1.6; }
+
+/* ===== FEATURES ===== */
+.feat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1.1rem;
+}
+.feat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--rL);
+  padding: 1.75rem;
+  transition: border-color .18s, box-shadow .18s;
+}
+.feat-card:hover {
+  border-color: var(--accent-bd);
+  box-shadow: 0 0 24px var(--accent-gl);
+}
+.feat-ico { font-size: 1.6rem; margin-bottom: .875rem; display: block; }
+.feat-h { font-weight: 700; font-size: .92rem; margin-bottom: .45rem; }
+.feat-p { font-size: .82rem; color: var(--muted); line-height: 1.65; }
+
+/* ===== TARGETS ===== */
+.target-wrap { background: var(--surface); }
+.chips {
+  display: flex; flex-wrap: wrap; gap: .625rem;
+  margin-top: 1.5rem;
+}
+.chip {
+  display: flex; align-items: center; gap: .4rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: .45rem 1rem;
+  font-size: .84rem;
+}
+
+/* ===== PILOT BOX ===== */
+.pilot-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--rL);
+  padding: 2.75rem;
+  position: relative;
+  overflow: hidden;
+}
+.pilot-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent);
+}
+.pilot-badge {
+  display: inline-block;
+  background: var(--accent); color: var(--bg);
+  font-family: var(--mono); font-size: .68rem;
+  letter-spacing: .1em; font-weight: 700;
+  padding: .3rem .85rem; border-radius: 100px;
+  margin-bottom: 1.35rem;
+}
+.pilot-h {
+  font-size: 1.6rem; font-weight: 800;
+  letter-spacing: -.02em; margin-bottom: .875rem;
+}
+.pilot-note {
+  color: var(--muted); font-size: .88rem;
+  line-height: 1.75; max-width: 500px; margin-bottom: 2rem;
+}
+.pilot-list {
+  list-style: none;
+  display: flex; flex-direction: column; gap: .7rem;
+  margin-bottom: 2.25rem;
+}
+.pilot-list li {
+  display: flex; align-items: flex-start; gap: .7rem;
+  font-size: .88rem;
+}
+.pilot-list li::before {
+  content: '✓';
+  color: var(--accent); font-weight: 700;
+  flex-shrink: 0; margin-top: .1rem;
+}
+
+/* ===== CONTACT ===== */
+.contact-wrap { background: var(--surface); }
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 4rem;
+  align-items: start;
+}
+@media (max-width: 700px) {
+  .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+.contact-info-note {
+  font-size: .85rem; color: var(--muted);
+  line-height: 1.75; margin-top: 1.25rem;
+}
+.contact-info-note strong { color: var(--text); }
+.contact-form {
+  display: flex; flex-direction: column; gap: .875rem;
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: .875rem; }
+@media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
+.f-group { display: flex; flex-direction: column; gap: .375rem; }
+.f-label {
+  font-size: .75rem; font-weight: 600;
+  color: var(--muted); letter-spacing: .03em;
+}
+.f-req { color: var(--accent); margin-left: .15rem; }
+.f-input, .f-select, .f-area {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: .88rem;
+  padding: .7rem .9rem;
+  transition: border-color .18s;
+  width: 100%;
+}
+.f-input:focus, .f-select:focus, .f-area:focus {
+  outline: none; border-color: var(--accent);
+}
+.f-select { cursor: pointer; }
+.f-area { resize: vertical; min-height: 90px; }
+.f-submit {
+  background: var(--accent); color: var(--bg);
+  border: none; border-radius: var(--r);
+  font-family: var(--sans); font-size: .92rem;
+  font-weight: 700; padding: .9rem;
+  cursor: pointer; margin-top: .375rem;
+  transition: background .18s, transform .15s;
+}
+.f-submit:hover { background: var(--accent-dk); transform: translateY(-1px); }
+.f-submit:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 2px;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  padding: 2rem;
+  text-align: center;
+  border-top: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: .72rem;
+  color: var(--faint);
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+.foot-links { display: flex; gap: 1.5rem; justify-content: center; }
+.foot-links a { color: var(--muted); transition: color .15s; }
+.foot-links a:hover { color: var(--accent); }
+
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <a href="index.html" class="nav-logo">degitail</a>
+    <span class="nav-sep">/</span>
+    <span class="nav-name">AI予約システム</span>
+  </div>
+  <a href="#contact" class="nav-cta">導入相談する</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-vignette"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">AI Reservation System</div>
+    <h1 class="hero-title">電話が鳴るたびに、<br><em>AIが動く。</em></h1>
+    <p class="hero-sub">席の確認も、名前の聞き取りも、予約の入力も。<br>深夜でも、手が離せない時間でも、AIが対応します。</p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn-p">無料で相談する</a>
+      <a href="#how" class="btn-g">仕組みを見る</a>
+    </div>
+
+    <!-- TERMINAL DEMO -->
+    <div class="terminal" id="terminal">
+      <div class="term-bar">
+        <div class="term-dot"></div>
+        <div class="term-dot"></div>
+        <div class="term-dot"></div>
+        <span class="term-label">AI予約エージェント — ライブデモ</span>
+      </div>
+      <div class="term-body" id="termBody">
+        <div class="t-row" id="r0">
+          <span class="t-ts">22:41</span>
+          <span class="t-sys">☎</span>
+          <span class="t-msg">着信あり — 090-XXXX-XXXX</span>
+        </div>
+        <div class="t-row" id="r1">
+          <span class="t-ts">22:41</span>
+          <span class="t-ai">AI</span>
+          <span class="t-msg">はい、〇〇サロンでございます。</span>
+        </div>
+        <div class="t-row" id="r2">
+          <span class="t-ts">22:41</span>
+          <span class="t-usr">客</span>
+          <span class="t-msg">明日の夜、予約できますか？</span>
+        </div>
+        <div class="t-row" id="r3">
+          <span class="t-ts">22:42</span>
+          <span class="t-ai">AI</span>
+          <span class="t-msg">ありがとうございます。何名様でご利用でしょうか？</span>
+        </div>
+        <div class="t-row" id="r4">
+          <span class="t-ts">22:42</span>
+          <span class="t-usr">客</span>
+          <span class="t-msg">2名です。19時ごろで。</span>
+        </div>
+        <div class="t-row" id="r5">
+          <span class="t-ts">22:42</span>
+          <span class="t-ai">AI</span>
+          <span class="t-msg">19時、2名様、承りました。お名前とご連絡先をどうぞ。</span>
+        </div>
+        <div class="t-row" id="r6">
+          <span class="t-ts">22:43</span>
+          <span class="t-usr">客</span>
+          <span class="t-msg">田中です。090-XXXX-XXXX です。</span>
+        </div>
+        <div class="t-row" id="r7">
+          <span class="t-ts">22:43</span>
+          <span class="t-ai">AI</span>
+          <span class="t-msg">田中様、明日19時に2名でご予約承りました。お待ちしております。</span>
+        </div>
+        <div class="t-row" id="r8">
+          <span class="t-ts">22:43</span>
+          <span class="t-sys">✓</span>
+          <span class="t-msg">予約確定：田中様 2名 19:00 — スプレッドシートに記録完了</span>
+        </div>
+        <div class="t-row" id="r9">
+          <span class="t-ts">22:43</span>
+          <span class="t-sys">📲</span>
+          <span class="t-msg">LINE通知送信完了 — 店舗オーナーへ</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAIN -->
+<section>
+  <div class="inner">
+    <div class="s-eye">よくある課題</div>
+    <h2 class="s-title">予約電話の「取り逃がし」、<br>毎日何件ありますか？</h2>
+    <p class="s-sub">仕込み中、接客中、定休日。店が動いていない時間に鳴る電話は、そのまま競合店への流入になります。</p>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <span class="pain-ico">📵</span>
+        <div class="pain-h">営業中は電話に出られない</div>
+        <p class="pain-p">調理中・施術中・接客中に鳴る電話は取れない。留守電には半数が残さない。</p>
+      </div>
+      <div class="pain-card">
+        <span class="pain-ico">🌙</span>
+        <div class="pain-h">夜間・早朝の予約を逃す</div>
+        <p class="pain-p">翌日の予約を決めるのは夜。営業時間外の電話に気づいた時には手遅れなことも。</p>
+      </div>
+      <div class="pain-card">
+        <span class="pain-ico">📋</span>
+        <div class="pain-h">予約台帳の記入ミス</div>
+        <p class="pain-p">人が手書きする限りダブルブッキングと名前の聞き間違いはゼロにならない。</p>
+      </div>
+      <div class="pain-card">
+        <span class="pain-ico">💸</span>
+        <div class="pain-h">スタッフへの電話番シフト</div>
+        <p class="pain-p">電話対応のためだけに人件費をかける。24時間は現実的に回せない。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="flow-wrap" id="how">
+  <div class="inner">
+    <div class="s-eye">仕組み</div>
+    <h2 class="s-title">電話が来てから予約完了まで、<br>人は一切介在しない</h2>
+    <p class="s-sub">技術的に複雑なことをしていますが、店舗側が操作するのは「LINEで通知を受け取る」と「スプレッドシートで予約を確認する」だけです。</p>
+    <div class="flow">
+      <div class="flow-step">
+        <span class="flow-num">STEP 01</span>
+        <div class="flow-ico-wrap">☎</div>
+        <div class="flow-h">電話を受ける</div>
+        <p class="flow-p">お客さんが電話をかける。AIが即座に応答し、自然な日本語で会話を開始します。</p>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <span class="flow-num">STEP 02</span>
+        <div class="flow-ico-wrap">🤖</div>
+        <div class="flow-h">AIが予約を受付</div>
+        <p class="flow-p">日時・人数・氏名・連絡先を自然に聞き取り、空き確認のうえ予約を確定します。</p>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <span class="flow-num">STEP 03</span>
+        <div class="flow-ico-wrap">✅</div>
+        <div class="flow-h">即時通知と記録</div>
+        <p class="flow-p">予約内容はGoogleスプレッドシートに自動記録。オーナーのLINEに即時通知が届きます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section>
+  <div class="inner">
+    <div class="s-eye">特徴</div>
+    <h2 class="s-title">導入してわかること</h2>
+    <p class="s-sub">技術的な管理は degitail が担います。店舗側に必要なのは、スマホとLINEアカウントだけです。</p>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <span class="feat-ico">🕛</span>
+        <div class="feat-h">24時間365日対応</div>
+        <p class="feat-p">定休日も深夜も、電話が来れば必ず応答。取り逃がしをゼロに近づけます。</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-ico">🗣️</span>
+        <div class="feat-h">自然な日本語会話</div>
+        <p class="feat-p">AIとわかりにくい自然な話し言葉で対応。お客さんに違和感を与えません。</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-ico">📊</span>
+        <div class="feat-h">Googleスプレッドシート管理</div>
+        <p class="feat-p">専用ソフト不要。使い慣れたスプレッドシートに予約が自動入力されます。</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-ico">📲</span>
+        <div class="feat-h">LINE即時通知</div>
+        <p class="feat-p">予約が入るたびにLINEへ通知。日本の店舗オーナーに最も馴染みのある手段を選びました。</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-ico">🏪</span>
+        <div class="feat-h">店舗ごとにカスタム設定</div>
+        <p class="feat-p">営業時間・メニュー・席数など、各店舗の情報をAIに事前設定します。</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-ico">🔒</span>
+        <div class="feat-h">岡山密着・直接サポート</div>
+        <p class="feat-p">遠方のSaaSではなく、岡山在住のエンジニアが直接導入・運用サポートします。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TARGETS -->
+<section class="target-wrap">
+  <div class="inner">
+    <div class="s-eye">対象業種</div>
+    <h2 class="s-title">「電話で予約を受ける」店舗なら<br>基本的に対応できます</h2>
+    <p class="s-sub">席・スタッフ・施術時間など、空き状況の管理方法に応じて設定します。まずはご相談ください。</p>
+    <div class="chips">
+      <div class="chip">🍽️ 飲食店・居酒屋</div>
+      <div class="chip">✂️ 美容室・ヘアサロン</div>
+      <div class="chip">💅 ネイルサロン</div>
+      <div class="chip">💆 整体・マッサージ</div>
+      <div class="chip">🌸 エステ・脱毛</div>
+      <div class="chip">🦷 歯科・クリニック</div>
+      <div class="chip">🎸 音楽教室・習い事</div>
+      <div class="chip">📸 フォトスタジオ</div>
+      <div class="chip">🐾 トリミング・ペットサロン</div>
+      <div class="chip">🚗 車検・整備工場</div>
+    </div>
+  </div>
+</section>
+
+<!-- PILOT -->
+<section>
+  <div class="inner">
+    <div class="pilot-card">
+      <div class="pilot-badge">PILOT RECRUITING</div>
+      <h2 class="pilot-h">パイロット導入企業を募集しています</h2>
+      <p class="pilot-note">
+        現在、岡山県内の店舗を対象に初期導入モニターを受付中です。
+        実際の電話環境でシステムを動かし、店舗の状況に合わせた調整を行います。
+        モニター期間中は通常より低コストで導入いただけます。
+      </p>
+      <ul class="pilot-list">
+        <li>初月は導入費・設定費を大幅割引（詳細はご相談）</li>
+        <li>専用電話番号の取得から設定まで degitail が対応</li>
+        <li>Googleスプレッドシートの予約管理表テンプレートを提供</li>
+        <li>LINEセットアップを含む初期導入を直接サポート</li>
+        <li>運用開始後1ヶ月は無制限でプロンプト調整・改善を対応</li>
+      </ul>
+      <a href="#contact" class="btn-p" style="display:inline-block;">相談・見積もりを依頼する →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-wrap" id="contact">
+  <div class="inner">
+    <div class="contact-grid">
+      <div>
+        <div class="s-eye">お問い合わせ</div>
+        <h2 class="s-title">まずは<br>気軽にご相談を</h2>
+        <p class="contact-info-note">
+          「うちの業種でも使えるの？」「費用はどれくらい？」<br>
+          どんな段階でも構いません。岡山在住のエンジニアが<strong>直接</strong>お答えします。<br><br>
+          返信は通常<strong>24時間以内</strong>です。
+        </p>
+      </div>
+      <form class="contact-form" action="https://formspree.io/f/xbdpgvbe" method="POST">
+        <input type="hidden" name="_subject" value="【AI予約システム】お問い合わせ">
+        <input type="hidden" name="source" value="reservation-ai.html">
+        <div class="form-row">
+          <div class="f-group">
+            <label class="f-label" for="name">お名前<span class="f-req">*</span></label>
+            <input class="f-input" type="text" id="name" name="name" placeholder="田中 太郎" required>
+          </div>
+          <div class="f-group">
+            <label class="f-label" for="shop">店舗・会社名</label>
+            <input class="f-input" type="text" id="shop" name="shop" placeholder="〇〇サロン">
+          </div>
+        </div>
+        <div class="f-group">
+          <label class="f-label" for="email">メールアドレス<span class="f-req">*</span></label>
+          <input class="f-input" type="email" id="email" name="email" placeholder="example@email.com" required>
+        </div>
+        <div class="f-group">
+          <label class="f-label" for="industry">業種</label>
+          <select class="f-select" id="industry" name="industry">
+            <option value="">選択してください</option>
+            <option>飲食店・居酒屋</option>
+            <option>美容室・ヘアサロン</option>
+            <option>ネイルサロン</option>
+            <option>整体・マッサージ</option>
+            <option>エステ・脱毛</option>
+            <option>歯科・クリニック</option>
+            <option>音楽教室・習い事</option>
+            <option>その他</option>
+          </select>
+        </div>
+        <div class="f-group">
+          <label class="f-label" for="msg">ご質問・ご要望</label>
+          <textarea class="f-area" id="msg" name="message" placeholder="月の予約電話は大体〇〇件程度です。費用の目安を教えてほしい、など"></textarea>
+        </div>
+        <button class="f-submit" type="submit">送信する</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-links">
+    <a href="index.html">degitail トップ</a>
+    <a href="ai-tantei.html">AI探偵サービス</a>
+    <a href="mailto:degitail647@gmail.com">degitail647@gmail.com</a>
+  </div>
+  <div>© 2026 degitail — 岡山県密着のデジタル支援</div>
+</footer>
+
+<script>
+(function(){
+  var rows = [];
+  for(var i=0;i<10;i++){
+    var el = document.getElementById('r'+i);
+    if(el) rows.push(el);
+  }
+
+  var delays = [600, 1200, 2200, 3000, 4200, 5100, 6400, 7500, 8600, 9500];
+
+  function showRow(i){
+    if(i >= rows.length) return;
+    rows[i].classList.add('show');
+  }
+
+  // Start animation when terminal is in view
+  var started = false;
+  var obs = new IntersectionObserver(function(entries){
+    if(entries[0].isIntersecting && !started){
+      started = true;
+      delays.forEach(function(d,i){ setTimeout(function(){ showRow(i); }, d); });
+    }
+  }, { threshold: 0.3 });
+
+  var term = document.getElementById('terminal');
+  if(term) obs.observe(term);
+})();
+</script>
+</body>
+</html>
