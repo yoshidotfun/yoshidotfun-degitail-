@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>個人の方へ | degitail</title>
+  <meta name="description" content="degitailの個人向けサービス。スマホ出張サポート・自分史製本・AI写真修復・老舗デジタル化・探偵業。岡山県全域対応・初回相談無料。">
+  <link rel="icon" href="icon.png" type="image/png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black:  #111111; --ink: #1d1d1d; --gray-9: #2b2b2b;
+      --gray-6: #6b6b6b; --gray-4: #9a9a9a; --gray-2: #d8d8d8;
+      --gray-1: #ececec; --paper: #ffffff; --bg: #fafafa; --line: #e3e3e3;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Helvetica Neue', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', Meiryo, sans-serif;
+      color: var(--ink); background: var(--paper); line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    .serif { font-family: 'Times New Roman', 'Yu Mincho', 'Hiragino Mincho ProN', serif; }
+
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+    .header-inner {
+      max-width: 1080px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 72px; padding: 0 32px;
+    }
+    .logo-clip { width: 116px; height: 66px; overflow: hidden; position: relative; }
+    .logo-img  { width: 116px; position: absolute; top: -66px; left: 0; }
+    nav { display: flex; gap: 28px; align-items: center; }
+    nav a {
+      font-size: .82rem; letter-spacing: .08em; color: var(--gray-6);
+      text-transform: uppercase; transition: color .2s;
+    }
+    nav a:hover { color: var(--black); }
+    nav a.active { color: var(--black); font-weight: 700; }
+    nav .nav-cta {
+      border: 1px solid var(--black); color: var(--black);
+      padding: 8px 20px; letter-spacing: .06em; transition: background .2s, color .2s;
+    }
+    nav .nav-cta:hover { background: var(--black); color: var(--paper); }
+
+    .hero {
+      max-width: 1080px; margin: 0 auto;
+      padding: 96px 32px 80px; border-bottom: 1px solid var(--line);
+    }
+    .hero-eyebrow {
+      font-size: .76rem; letter-spacing: .28em; text-transform: uppercase;
+      color: var(--gray-4); margin-bottom: 28px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 400;
+      line-height: 1.35; letter-spacing: .01em; margin-bottom: 32px;
+    }
+    .hero h1 b { font-weight: 700; }
+    .hero-lead { max-width: 620px; font-size: 1.02rem; color: var(--gray-6); margin-bottom: 44px; }
+    .hero-actions { display: flex; gap: 18px; flex-wrap: wrap; }
+    .btn { display: inline-block; font-size: .9rem; letter-spacing: .05em; padding: 15px 38px; transition: all .2s; }
+    .btn-dark { background: var(--black); color: var(--paper); }
+    .btn-dark:hover { background: var(--gray-9); transform: translateY(-2px); }
+    .btn-ghost { border: 1px solid var(--gray-2); color: var(--ink); }
+    .btn-ghost:hover { border-color: var(--black); }
+
+    section { padding: 96px 32px; }
+    .section-inner { max-width: 1080px; margin: 0 auto; }
+    .section-head { margin-bottom: 64px; }
+    .section-num { font-size: .76rem; letter-spacing: .24em; color: var(--gray-4); text-transform: uppercase; margin-bottom: 16px; }
+    .section-title { font-size: clamp(1.5rem, 3.4vw, 2.2rem); font-weight: 400; letter-spacing: .02em; line-height: 1.4; }
+    .section-title b { font-weight: 700; }
+    .section-desc { max-width: 600px; color: var(--gray-6); font-size: .96rem; margin-top: 18px; }
+
+    .services { background: var(--bg); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .svc-cat {
+      display: flex; align-items: baseline; gap: 20px;
+      padding: 52px 0 22px; border-top: 2px solid var(--black);
+    }
+    .svc-cat:first-child { border-top: none; padding-top: 0; }
+    .svc-cat-n { font-size: 1.7rem; font-weight: 700; color: var(--gray-2); line-height: 1; min-width: 36px; }
+    .svc-cat-name { font-size: 1.08rem; font-weight: 700; letter-spacing: .02em; }
+    .svc-cat-sub  { font-size: .76rem; color: var(--gray-4); margin-top: 3px; letter-spacing: .06em; }
+    .svc-list { display: grid; gap: 0; }
+    .svc-item {
+      display: grid; grid-template-columns: 64px 1fr auto;
+      gap: 40px; align-items: start;
+      padding: 36px 0; border-top: 1px solid var(--line);
+      cursor: pointer; transition: padding-left .25s;
+    }
+    .svc-item:last-child { border-bottom: 1px solid var(--line); }
+    .svc-item:hover { padding-left: 12px; }
+    .svc-idx { font-size: 1rem; color: var(--gray-4); letter-spacing: .05em; padding-top: 4px; }
+    .svc-body h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 10px; letter-spacing: .01em; }
+    .svc-body p { color: var(--gray-6); font-size: .95rem; max-width: 540px; }
+    .svc-tags { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .svc-tag {
+      font-size: .72rem; letter-spacing: .04em; color: var(--gray-6);
+      border: 1px solid var(--gray-2); padding: 4px 11px; border-radius: 99px;
+    }
+    .svc-link {
+      display: inline-block; margin-top: 16px;
+      font-size: .8rem; letter-spacing: .06em; color: var(--gray-6);
+      border-bottom: 1px solid var(--gray-2); padding-bottom: 1px;
+      transition: color .2s, border-color .2s;
+    }
+    .svc-item:hover .svc-link { color: var(--black); border-color: var(--black); }
+    .svc-meta { text-align: right; padding-top: 4px; min-width: 120px; }
+    .svc-meta .label { font-size: .72rem; letter-spacing: .14em; color: var(--gray-4); text-transform: uppercase; }
+    .svc-meta .price { font-size: 1.1rem; font-weight: 700; margin-top: 4px; white-space: nowrap; }
+    .svc-meta .price small { font-size: .78rem; font-weight: 400; color: var(--gray-6); }
+
+    .why-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+      background: var(--line); border: 1px solid var(--line);
+    }
+    .why-cell { background: var(--paper); padding: 40px 34px; }
+    .why-cell .k { font-family: 'Times New Roman', serif; font-size: 2.4rem; font-weight: 700; line-height: 1; margin-bottom: 18px; }
+    .why-cell h4 { font-size: 1.05rem; font-weight: 700; margin-bottom: 10px; }
+    .why-cell p  { font-size: .9rem; color: var(--gray-6); }
+
+    .faq { background: var(--bg); border-top: 1px solid var(--line); }
+    .faq-list { border-top: 1px solid var(--line); }
+    .faq-item { border-bottom: 1px solid var(--line); }
+    .faq-q {
+      width: 100%; background: none; border: none; cursor: pointer;
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 24px;
+      padding: 26px 4px; text-align: left; font-family: inherit;
+      font-size: 1.02rem; font-weight: 700; color: var(--ink); line-height: 1.6;
+    }
+    .faq-q:hover { color: var(--black); }
+    .faq-q .mark { flex-shrink: 0; width: 22px; height: 22px; position: relative; margin-top: 4px; }
+    .faq-q .mark::before, .faq-q .mark::after {
+      content: ''; position: absolute; background: var(--gray-6); transition: transform .25s, opacity .25s;
+    }
+    .faq-q .mark::before { top: 10px; left: 0; width: 22px; height: 1.5px; }
+    .faq-q .mark::after  { left: 10px; top: 0; width: 1.5px; height: 22px; }
+    .faq-item.open .faq-q .mark::after { transform: scaleY(0); opacity: 0; }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+    .faq-a-inner { padding: 0 36px 28px 4px; color: var(--gray-6); font-size: .94rem; }
+
+    .contact { border-top: 1px solid var(--line); }
+    .contact .section-inner { max-width: 720px; text-align: center; }
+    .contact h2 { font-size: clamp(1.6rem, 3.4vw, 2.3rem); font-weight: 400; margin-bottom: 18px; }
+    .contact h2 b { font-weight: 700; }
+    .contact p { color: var(--gray-6); margin-bottom: 40px; }
+    .contact-mail { font-family: 'Times New Roman', serif; font-size: 1.1rem; letter-spacing: .04em; margin-top: 24px; color: var(--gray-6); }
+
+    footer { background: var(--bg); border-top: 1px solid var(--line); padding: 56px 32px 40px; }
+    .footer-inner {
+      max-width: 1080px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 32px;
+    }
+    .footer-logo-clip { width: 120px; height: 68px; overflow: hidden; position: relative; }
+    .footer-logo-img  { width: 120px; position: absolute; top: -68px; left: 0; }
+    .footer-nav { display: flex; gap: 36px; flex-wrap: wrap; align-items: center; }
+    .footer-nav a { font-size: .82rem; letter-spacing: .06em; color: var(--gray-6); text-transform: uppercase; }
+    .footer-nav a:hover { color: var(--black); }
+    .footer-bottom {
+      max-width: 1080px; margin: 40px auto 0; padding-top: 24px;
+      border-top: 1px solid var(--line); font-size: .76rem; color: var(--gray-4); letter-spacing: .04em;
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    }
+
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: rgba(17,17,17,.55); align-items: center; justify-content: center; padding: 24px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: var(--paper); width: 100%; max-width: 520px;
+      max-height: 90vh; overflow-y: auto; position: relative;
+      padding: 44px 40px; border: 1px solid var(--line);
+    }
+    .modal-close { position: absolute; top: 16px; right: 20px; background: none; border: none; font-size: 1.6rem; cursor: pointer; color: var(--gray-4); line-height: 1; }
+    .modal-close:hover { color: var(--black); }
+    .modal-box h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 6px; }
+    .modal-sub { font-size: .85rem; color: var(--gray-6); margin-bottom: 30px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: .8rem; font-weight: 700; letter-spacing: .04em; margin-bottom: 7px; }
+    .form-group .req { color: var(--black); font-size: .72rem; margin-left: 6px; }
+    .form-group .opt { color: var(--gray-4); font-size: .72rem; margin-left: 6px; font-weight: 400; }
+    .form-group input, .form-group textarea {
+      width: 100%; border: 1px solid var(--gray-2); padding: 11px 14px;
+      font-size: .9rem; font-family: inherit; color: var(--ink); background: var(--paper); transition: border-color .2s;
+    }
+    .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--black); }
+    .form-group textarea { height: 120px; resize: vertical; }
+    .form-check-group { display: flex; flex-direction: column; gap: 10px; }
+    .form-check-group label { display: flex; align-items: center; gap: 9px; font-weight: 400; cursor: pointer; }
+    .form-check-group input[type="checkbox"] { width: 17px; height: 17px; flex-shrink: 0; accent-color: var(--black); }
+    .modal-submit {
+      width: 100%; background: var(--black); color: var(--paper); border: none;
+      padding: 15px; font-size: .95rem; letter-spacing: .05em; cursor: pointer; transition: background .2s; margin-top: 8px;
+    }
+    .modal-submit:hover { background: var(--gray-9); }
+    .modal-submit:disabled { opacity: .55; cursor: not-allowed; }
+    .form-error { display: none; color: #b91c1c; font-size: .82rem; text-align: center; margin-top: 12px; }
+    .form-success { text-align: center; padding: 44px 16px; }
+    .form-success .ic { font-size: 2.6rem; margin-bottom: 14px; }
+    .form-success h4 { font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; }
+    .form-success p  { font-size: .9rem; color: var(--gray-6); }
+
+    @media (max-width: 820px) { .why-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 680px) {
+      nav { gap: 18px; }
+      nav a:not(.nav-cta) { display: none; }
+      .svc-item { grid-template-columns: 1fr; gap: 12px; }
+      .svc-meta { text-align: left; }
+      section { padding: 72px 24px; }
+      .hero { padding: 72px 24px 56px; }
+      .modal-box { padding: 36px 24px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo-clip"><img src="icon.png" alt="degitail" class="logo-img"></a>
+    <nav>
+      <a href="index.html">Top</a>
+      <a href="personal.html" class="active">個人の方へ</a>
+      <a href="business.html">法人様へ</a>
+      <a href="#" class="nav-cta" onclick="openModal();return false;">無料相談</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-eyebrow">個人の方・地域の方へ — 岡山県全域 / 出張対応 / 初回相談無料</div>
+  <h1>難しいことは、<br><b>全部任せてください。</b></h1>
+  <p class="hero-lead">スマホの使い方から思い出の整理、大切な写真の修復まで。ご自宅に伺って、ゆっくり一緒に解決します。難しい言葉は使いません。急かしません。</p>
+  <div class="hero-actions">
+    <a href="#" class="btn btn-dark" onclick="openModal();return false;">無料で相談する</a>
+    <a href="#services" class="btn btn-ghost">サービスを見る</a>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-num">01 — Services</div>
+      <h2 class="section-title">個人の方向けの<b>サービス一覧</b></h2>
+      <p class="section-desc">岡山県内・ご自宅への出張対応。単体でもご利用いただけます。</p>
+    </div>
+
+    <div class="svc-list">
+
+      <div class="svc-cat">
+        <span class="svc-cat-n serif">I</span>
+        <div>
+          <div class="svc-cat-name">スマホ・PC サポート</div>
+          <div class="svc-cat-sub">出張で解決・ていねい対応</div>
+        </div>
+      </div>
+
+      <div class="svc-item" onclick="location.href='smartphone-support.html'">
+        <div class="svc-idx serif">01</div>
+        <div class="svc-body">
+          <h3>スマホ・PC 出張サポート</h3>
+          <p>「LINEが使えない」「写真が消えた」「メールが届かない」。スマートフォンやパソコンのトラブルを自宅や店舗に伺って解決します。難しい説明は不要。その場で一緒に確認しながら対応します。</p>
+          <div class="svc-tags">
+            <span class="svc-tag">自宅・店舗に訪問</span>
+            <span class="svc-tag">LINE設定</span>
+            <span class="svc-tag">スマホ操作</span>
+            <span class="svc-tag">即日対応</span>
+            <span class="svc-tag">岡山県内</span>
+          </div>
+          <a href="smartphone-support.html" class="svc-link" onclick="event.stopPropagation()">詳細を見る →</a>
+        </div>
+        <div class="svc-meta">
+          <div class="label">Per Visit</div>
+          <div class="price">3,000<small>円〜</small></div>
+        </div>
+      </div>
+
+      <div class="svc-cat">
+        <span class="svc-cat-n serif">II</span>
+        <div>
+          <div class="svc-cat-name">思い出・記録の保存</div>
+          <div class="svc-cat-sub">大切な記憶をかたちに残す</div>
+        </div>
+      </div>
+
+      <div class="svc-item" onclick="location.href='jibunshi.html'">
+        <div class="svc-idx serif">02</div>
+        <div class="svc-body">
+          <h3>自分史・回顧録 出張製本サービス</h3>
+          <p>語るだけでいい。ご自宅に伺い、人生のお話を録音。AIが文字起こしし、人が編集・製本して世界に一冊の本をお届けします。孫へのプレゼント、終活、還暦・古希の記念に。</p>
+          <div class="svc-tags">
+            <span class="svc-tag">出張録音</span>
+            <span class="svc-tag">AI文字起こし</span>
+            <span class="svc-tag">編集・製本</span>
+            <span class="svc-tag">写真掲載可</span>
+            <span class="svc-tag">岡山県内対応</span>
+          </div>
+          <a href="jibunshi.html" class="svc-link" onclick="event.stopPropagation()">詳細を見る →</a>
+        </div>
+        <div class="svc-meta">
+          <div class="label">Per Book</div>
+          <div class="price">30,000<small>円〜</small></div>
+        </div>
+      </div>
+
+      <div class="svc-item" onclick="location.href='ai-photo-restore.html'">
+        <div class="svc-idx serif">03</div>
+        <div class="svc-body">
+          <h3>古い写真・遺影のAI修復</h3>
+          <p>色あせた白黒写真をAIで鮮明化・カラー化します。お仏壇の遺影を大きくきれいにしたい、昔の家族写真を残したい——そんなご要望にお応えします。データでお渡しするので、焼き増しやプリントも自由にできます。</p>
+          <div class="svc-tags">
+            <span class="svc-tag">白黒カラー化</span>
+            <span class="svc-tag">遺影修復</span>
+            <span class="svc-tag">高解像度化</span>
+            <span class="svc-tag">データ納品</span>
+            <span class="svc-tag">1枚から対応</span>
+          </div>
+          <a href="ai-photo-restore.html" class="svc-link" onclick="event.stopPropagation()">詳細を見る →</a>
+        </div>
+        <div class="svc-meta">
+          <div class="label">Per Photo</div>
+          <div class="price">3,000<small>円〜</small></div>
+        </div>
+      </div>
+
+      <div class="svc-cat">
+        <span class="svc-cat-n serif">III</span>
+        <div>
+          <div class="svc-cat-name">店舗・調査</div>
+          <div class="svc-cat-sub">個人商店のデジタル化・素行調査</div>
+        </div>
+      </div>
+
+      <div class="svc-item" onclick="location.href='shop-digital.html'">
+        <div class="svc-idx serif">04</div>
+        <div class="svc-body">
+          <h3>老舗・個人商店のデジタル化</h3>
+          <p>Googleマップへの店舗登録・営業時間の更新・写真の掲載・QRコードメニューの作成を一括対応。「うちはデジタルが苦手で…」という店主様のかわりに、地元のお店をネット上に正しく表示させます。</p>
+          <div class="svc-tags">
+            <span class="svc-tag">Googleマップ登録</span>
+            <span class="svc-tag">MEO対応</span>
+            <span class="svc-tag">QRメニュー作成</span>
+            <span class="svc-tag">月次更新代行</span>
+            <span class="svc-tag">個人商店歓迎</span>
+          </div>
+          <a href="shop-digital.html" class="svc-link" onclick="event.stopPropagation()">詳細を見る →</a>
+        </div>
+        <div class="svc-meta">
+          <div class="label">Initial</div>
+          <div class="price">30,000<small>円〜</small></div>
+        </div>
+      </div>
+
+      <div class="svc-item" onclick="location.href='ai-tantei.html'">
+        <div class="svc-idx serif">05</div>
+        <div class="svc-body">
+          <h3>探偵業（素行調査）</h3>
+          <p>公安委員会への届出が完了した正規の探偵業です。パートナーや家族の素行調査など、AIとOSINT技術を組み合わせた丁寧で確実な調査を行います。秘密厳守・岡山県内対応。</p>
+          <div class="svc-tags">
+            <span class="svc-tag">素行調査</span>
+            <span class="svc-tag">秘密厳守</span>
+            <span class="svc-tag">AI活用</span>
+            <span class="svc-tag">届出完了</span>
+            <span class="svc-tag">岡山県内対応</span>
+          </div>
+          <a href="ai-tantei.html" class="svc-link" onclick="event.stopPropagation()">詳細・ご相談 →</a>
+        </div>
+        <div class="svc-meta">
+          <div class="label">Case by Case</div>
+          <div class="price">個別見積</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-num">02 — Why degitail</div>
+      <h2 class="section-title">安心して<b>頼める理由</b></h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-cell">
+        <div class="k serif">01</div>
+        <h4>急かしません・わかりやすく説明</h4>
+        <p>操作が遅くても、同じことを何度聞いてもかまいません。「なんとなくわかった」ではなく「自分でできる」を目指して、ていねいにお伝えします。</p>
+      </div>
+      <div class="why-cell">
+        <div class="k serif">02</div>
+        <h4>ご自宅まで伺います</h4>
+        <p>岡山市・倉敷市・総社市・津山市など県内全域に対応。お店や修理センターに持っていく必要はありません。使い慣れた環境で、その場で解決します。</p>
+      </div>
+      <div class="why-cell">
+        <div class="k serif">03</div>
+        <h4>納得してからお支払い</h4>
+        <p>初回のご相談は無料です。作業内容と料金を事前に説明し、ご納得いただいてから進めます。無理な追加提案は一切いたしません。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-num">03 — FAQ</div>
+      <h2 class="section-title">よくある<b>ご質問</b></h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">対応エリアはどこですか？<span class="mark"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">岡山市・倉敷市をはじめ岡山県全域に対応しています。遠方の場合は交通費をいただく場合があります。まずはご相談ください。</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">当日・急ぎの対応はできますか？<span class="mark"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">スマホ・PCサポートは即日対応が可能な場合があります。ご連絡いただいた際に空き状況をお伝えします。</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">料金はどのくらいかかりますか？<span class="mark"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">スマホ・PCサポートは3,000円〜、AI写真修復は3,000円〜/1枚、自分史製本は30,000円〜です。作業前に必ず金額をお伝えし、ご了承いただいてから進めます。</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">相談だけでも大丈夫ですか？<span class="mark"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">もちろんです。初回相談は無料で、無理な勧誘は一切いたしません。「こんなこと頼んでいいのかな」と思うような内容でもお気軽にどうぞ。</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="section-inner">
+    <div class="section-num" style="text-align:center;">04 — Contact</div>
+    <h2>まずは、<b>お気軽にご相談ください。</b></h2>
+    <p>「こんなこと相談していいの？」と思うような内容でも大歓迎です。初回相談は無料です。</p>
+    <a href="#" class="btn btn-dark" onclick="openModal();return false;">無料相談フォームを開く</a>
+    <div class="contact-mail">degitail647@gmail.com</div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo-clip"><img src="icon.png" alt="degitail" class="footer-logo-img"></a>
+    <nav class="footer-nav">
+      <a href="index.html">Top</a>
+      <a href="personal.html">個人の方へ</a>
+      <a href="business.html">法人様へ</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <span>岡山県密着 個人向けデジタルサポート</span>
+    <span>&copy; 2026 degitail. All rights reserved.</span>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="contactModal" onclick="closeModalOutside(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()" aria-label="閉じる">&times;</button>
+    <h3>無料相談フォーム</h3>
+    <p class="modal-sub">送信後1〜2営業日以内にご返信いたします。</p>
+    <form id="contactForm" onsubmit="submitForm(event)">
+      <div class="form-group">
+        <label>お名前<span class="req">必須</span></label>
+        <input type="text" id="cf-name" placeholder="例：山田 太郎" required>
+      </div>
+      <div class="form-group">
+        <label>メールアドレス<span class="req">必須</span></label>
+        <input type="email" id="cf-email" placeholder="例：example@mail.com" required>
+      </div>
+      <div class="form-group">
+        <label>ご関心のサービス</label>
+        <div class="form-check-group">
+          <label><input type="checkbox"> スマホ・PC 出張サポート</label>
+          <label><input type="checkbox"> 自分史・回顧録 出張製本</label>
+          <label><input type="checkbox"> 古い写真・遺影のAI修復</label>
+          <label><input type="checkbox"> 老舗・個人商店のデジタル化</label>
+          <label><input type="checkbox"> 探偵業（素行調査）</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>お問い合わせ内容<span class="req">必須</span></label>
+        <textarea id="cf-msg" placeholder="ご相談内容をご記入ください。" required></textarea>
+      </div>
+      <button type="submit" class="modal-submit">送信する</button>
+      <p id="form-error" class="form-error">送信に失敗しました。時間をおいて再度お試しください。</p>
+    </form>
+  </div>
+</div>
+
+<script>
+  function openModal() {
+    document.getElementById('contactModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    document.getElementById('contactModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function closeModalOutside(e) {
+    if (e.target === document.getElementById('contactModal')) closeModal();
+  }
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+
+  function toggleFaq(btn) {
+    var item = btn.parentElement;
+    var ans  = item.querySelector('.faq-a');
+    var isOpen = item.classList.toggle('open');
+    ans.style.maxHeight = isOpen ? (ans.scrollHeight + 'px') : null;
+  }
+
+  var FORMSPREE = 'https://formspree.io/f/xbdpgvbe';
+
+  async function submitForm(e) {
+    e.preventDefault();
+    var btn   = document.querySelector('.modal-submit');
+    var errEl = document.getElementById('form-error');
+    errEl.style.display = 'none';
+    btn.textContent = '送信中...';
+    btn.disabled = true;
+
+    var sv = Array.from(document.querySelectorAll('.form-check-group input[type="checkbox"]:checked'))
+                  .map(function(cb) { return cb.parentElement.textContent.trim(); });
+
+    var payload = {
+      name:     document.getElementById('cf-name').value,
+      email:    document.getElementById('cf-email').value,
+      services: sv.join('、') || 'なし',
+      message:  document.getElementById('cf-msg').value,
+      _subject: '【degitail】個人向けサービス お問い合わせ',
+    };
+
+    try {
+      var res = await fetch(FORMSPREE, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error();
+      document.getElementById('contactForm').innerHTML =
+        '<div class="form-success"><div class="ic">✓</div>' +
+        '<h4>送信が完了しました</h4>' +
+        '<p>1〜2営業日以内にご連絡いたします。<br>しばらくお待ちください。</p></div>';
+    } catch (_) {
+      errEl.style.display = 'block';
+      btn.textContent = '送信する';
+      btn.disabled = false;
+    }
+  }
+</script>
+
+</body>
+</html>

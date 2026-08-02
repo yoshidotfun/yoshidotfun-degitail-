@@ -3,62 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>degitail | 岡山のデジタルサポート</title>
-  <meta name="description" content="degitailは岡山県密着のデジタル支援。スマホサポートから法人DX推進・データ分析・探偵業まで。個人の方も法人様も初回相談無料。">
+  <title>法人様へ | degitail</title>
+  <meta name="description" content="degitailの法人向けサービス。AI自動電話応答・データ分析・Googleクチコミ返信代行・AEO対策。岡山県内事業者向け・初回相談無料。">
   <link rel="icon" href="icon.png" type="image/png">
-  <link rel="canonical" href="https://degitail.jp/">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="degitail">
-  <meta property="og:title" content="degitail | 岡山のデジタルサポート">
-  <meta property="og:description" content="スマホサポートから法人DX推進まで。岡山県密着のデジタル支援パートナー。初回相談無料。">
-  <meta property="og:url" content="https://degitail.jp/">
-  <meta property="og:image" content="https://degitail.jp/og-image.png">
-  <meta property="og:locale" content="ja_JP">
-  <meta name="twitter:card" content="summary_large_image">
-
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --black:  #111111;
-      --ink:    #1d1d1d;
-      --gray-9: #2b2b2b;
-      --gray-6: #6b6b6b;
-      --gray-4: #9a9a9a;
-      --gray-2: #d8d8d8;
-      --gray-1: #ececec;
-      --paper:  #ffffff;
-      --bg:     #fafafa;
-      --line:   #e3e3e3;
+      --black:  #111111; --ink: #1d1d1d; --gray-9: #2b2b2b;
+      --gray-6: #6b6b6b; --gray-4: #9a9a9a; --gray-2: #d8d8d8;
+      --gray-1: #ececec; --paper: #ffffff; --bg: #fafafa; --line: #e3e3e3;
     }
-
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Helvetica Neue', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', Meiryo, sans-serif;
-      color: var(--ink);
-      background: var(--paper);
-      line-height: 1.8;
+      color: var(--ink); background: var(--paper); line-height: 1.8;
       -webkit-font-smoothing: antialiased;
     }
     a { color: inherit; text-decoration: none; }
     img { display: block; max-width: 100%; }
     .serif { font-family: 'Times New Roman', 'Yu Mincho', 'Hiragino Mincho ProN', serif; }
 
-    /* ===== SPLASH ===== */
-    #splash {
-      position: fixed; inset: 0; z-index: 9999;
-      background: var(--paper);
-      display: flex; align-items: center; justify-content: center;
-      transition: opacity .75s ease;
-    }
-    #splash.out { opacity: 0; pointer-events: none; }
-    #splash img { width: min(300px, 65vw); height: auto; }
-
-    /* ===== HEADER ===== */
     header {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(255,255,255,.92);
-      backdrop-filter: blur(8px);
+      background: rgba(255,255,255,.92); backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--line);
     }
     .header-inner {
@@ -68,131 +35,95 @@
     }
     .logo-clip { width: 116px; height: 66px; overflow: hidden; position: relative; }
     .logo-img  { width: 116px; position: absolute; top: -66px; left: 0; }
-    nav { display: flex; gap: 36px; align-items: center; }
+    nav { display: flex; gap: 28px; align-items: center; }
     nav a {
       font-size: .82rem; letter-spacing: .08em; color: var(--gray-6);
       text-transform: uppercase; transition: color .2s;
     }
     nav a:hover { color: var(--black); }
+    nav a.active { color: var(--black); font-weight: 700; }
     nav .nav-cta {
       border: 1px solid var(--black); color: var(--black);
-      padding: 8px 20px; letter-spacing: .06em;
-      transition: background .2s, color .2s;
+      padding: 8px 20px; letter-spacing: .06em; transition: background .2s, color .2s;
     }
     nav .nav-cta:hover { background: var(--black); color: var(--paper); }
 
-    /* ===== HERO ===== */
     .hero {
       max-width: 1080px; margin: 0 auto;
-      padding: 110px 32px 90px;
-      border-bottom: 1px solid var(--line);
+      padding: 96px 32px 80px; border-bottom: 1px solid var(--line);
     }
     .hero-eyebrow {
       font-size: .76rem; letter-spacing: .28em; text-transform: uppercase;
       color: var(--gray-4); margin-bottom: 28px;
     }
     .hero h1 {
-      font-size: clamp(2rem, 5vw, 3.4rem);
-      font-weight: 400; line-height: 1.35; letter-spacing: .01em;
-      margin-bottom: 32px;
+      font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 400;
+      line-height: 1.35; letter-spacing: .01em; margin-bottom: 32px;
     }
     .hero h1 b { font-weight: 700; }
-    .hero-lead {
-      max-width: 620px;
-      font-size: 1.02rem; color: var(--gray-6); margin-bottom: 44px;
-    }
+    .hero-lead { max-width: 620px; font-size: 1.02rem; color: var(--gray-6); margin-bottom: 44px; }
     .hero-actions { display: flex; gap: 18px; flex-wrap: wrap; }
-    .btn {
-      display: inline-block; font-size: .9rem; letter-spacing: .05em;
-      padding: 15px 38px; transition: all .2s;
-    }
+    .btn { display: inline-block; font-size: .9rem; letter-spacing: .05em; padding: 15px 38px; transition: all .2s; }
     .btn-dark { background: var(--black); color: var(--paper); }
     .btn-dark:hover { background: var(--gray-9); transform: translateY(-2px); }
     .btn-ghost { border: 1px solid var(--gray-2); color: var(--ink); }
     .btn-ghost:hover { border-color: var(--black); }
 
-    /* ===== SECTION BASE ===== */
     section { padding: 96px 32px; }
     .section-inner { max-width: 1080px; margin: 0 auto; }
     .section-head { margin-bottom: 64px; }
-    .section-num {
-      font-size: .76rem; letter-spacing: .24em; color: var(--gray-4);
-      text-transform: uppercase; margin-bottom: 16px;
-    }
-    .section-title {
-      font-size: clamp(1.5rem, 3.4vw, 2.2rem);
-      font-weight: 400; letter-spacing: .02em; line-height: 1.4;
-    }
+    .section-num { font-size: .76rem; letter-spacing: .24em; color: var(--gray-4); text-transform: uppercase; margin-bottom: 16px; }
+    .section-title { font-size: clamp(1.5rem, 3.4vw, 2.2rem); font-weight: 400; letter-spacing: .02em; line-height: 1.4; }
     .section-title b { font-weight: 700; }
-    .section-desc {
-      max-width: 600px; color: var(--gray-6);
-      font-size: .96rem; margin-top: 18px;
-    }
+    .section-desc { max-width: 600px; color: var(--gray-6); font-size: .96rem; margin-top: 18px; }
 
-    /* ===== GATEWAY ===== */
-    .gw-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2px;
-      background: var(--line);
+    .services { background: var(--bg); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .svc-cat {
+      display: flex; align-items: baseline; gap: 20px;
+      padding: 52px 0 22px; border-top: 2px solid var(--black);
     }
-    .gw-card {
-      padding: 60px 52px;
-      cursor: pointer;
-      transition: background .2s;
-      display: flex; flex-direction: column;
+    .svc-cat:first-child { border-top: none; padding-top: 0; }
+    .svc-cat-n { font-size: 1.7rem; font-weight: 700; color: var(--gray-2); line-height: 1; min-width: 36px; }
+    .svc-cat-name { font-size: 1.08rem; font-weight: 700; letter-spacing: .02em; }
+    .svc-cat-sub  { font-size: .76rem; color: var(--gray-4); margin-top: 3px; letter-spacing: .06em; }
+    .svc-list { display: grid; gap: 0; }
+    .svc-item {
+      display: grid; grid-template-columns: 64px 1fr auto;
+      gap: 40px; align-items: start;
+      padding: 36px 0; border-top: 1px solid var(--line);
+      cursor: pointer; transition: padding-left .25s;
     }
-    .gw-card--light { background: var(--paper); }
-    .gw-card--light:hover { background: var(--bg); }
-    .gw-card--dark { background: var(--black); }
-    .gw-card--dark:hover { background: var(--gray-9); }
-    .gw-eyebrow {
-      font-size: .72rem; letter-spacing: .28em; text-transform: uppercase; margin-bottom: 20px;
+    .svc-item:last-child { border-bottom: 1px solid var(--line); }
+    .svc-item:hover { padding-left: 12px; }
+    .svc-idx { font-size: 1rem; color: var(--gray-4); letter-spacing: .05em; padding-top: 4px; }
+    .svc-body h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 10px; letter-spacing: .01em; }
+    .svc-body p { color: var(--gray-6); font-size: .95rem; max-width: 540px; }
+    .svc-tags { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .svc-tag {
+      font-size: .72rem; letter-spacing: .04em; color: var(--gray-6);
+      border: 1px solid var(--gray-2); padding: 4px 11px; border-radius: 99px;
     }
-    .gw-card--light .gw-eyebrow { color: var(--gray-4); }
-    .gw-card--dark .gw-eyebrow  { color: var(--gray-6); }
-    .gw-title {
-      font-size: clamp(1.8rem, 3.2vw, 2.4rem); font-weight: 700; line-height: 1.25;
-      margin-bottom: 22px;
+    .svc-link {
+      display: inline-block; margin-top: 16px;
+      font-size: .8rem; letter-spacing: .06em; color: var(--gray-6);
+      border-bottom: 1px solid var(--gray-2); padding-bottom: 1px;
+      transition: color .2s, border-color .2s;
     }
-    .gw-card--dark .gw-title { color: var(--paper); }
-    .gw-desc { font-size: .96rem; line-height: 1.85; margin-bottom: 36px; }
-    .gw-card--light .gw-desc { color: var(--gray-6); }
-    .gw-card--dark .gw-desc  { color: var(--gray-4); }
-    .gw-list {
-      list-style: none; display: flex; flex-direction: column; gap: 11px;
-      margin-bottom: 44px; flex: 1;
-    }
-    .gw-list li { font-size: .9rem; display: flex; align-items: center; gap: 12px; }
-    .gw-card--light .gw-list li { color: var(--gray-6); }
-    .gw-card--dark .gw-list li  { color: var(--gray-4); }
-    .gw-list li::before { content: '—'; flex-shrink: 0; }
-    .gw-card--light .gw-list li::before { color: var(--gray-2); }
-    .gw-card--dark .gw-list li::before  { color: var(--gray-6); }
-    .gw-btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: .88rem; font-weight: 700; letter-spacing: .04em;
-      padding: 14px 28px; transition: all .2s; align-self: flex-start;
-    }
-    .gw-card--light .gw-btn { background: var(--black); color: var(--paper); }
-    .gw-card--light .gw-btn:hover { background: var(--gray-9); transform: translateY(-2px); }
-    .gw-card--dark .gw-btn { background: var(--paper); color: var(--black); }
-    .gw-card--dark .gw-btn:hover { background: var(--gray-1); transform: translateY(-2px); }
+    .svc-item:hover .svc-link { color: var(--black); border-color: var(--black); }
+    .svc-meta { text-align: right; padding-top: 4px; min-width: 120px; }
+    .svc-meta .label { font-size: .72rem; letter-spacing: .14em; color: var(--gray-4); text-transform: uppercase; }
+    .svc-meta .price { font-size: 1.1rem; font-weight: 700; margin-top: 4px; white-space: nowrap; }
+    .svc-meta .price small { font-size: .78rem; font-weight: 400; color: var(--gray-6); }
 
-    /* ===== WHY ===== */
     .why-grid {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
       background: var(--line); border: 1px solid var(--line);
     }
     .why-cell { background: var(--paper); padding: 40px 34px; }
-    .why-cell .k {
-      font-family: 'Times New Roman', serif;
-      font-size: 2.4rem; font-weight: 700; line-height: 1; margin-bottom: 18px;
-    }
+    .why-cell .k { font-family: 'Times New Roman', serif; font-size: 2.4rem; font-weight: 700; line-height: 1; margin-bottom: 18px; }
     .why-cell h4 { font-size: 1.05rem; font-weight: 700; margin-bottom: 10px; }
     .why-cell p  { font-size: .9rem; color: var(--gray-6); }
 
-    /* ===== FAQ ===== */
     .faq { background: var(--bg); border-top: 1px solid var(--line); }
     .faq-list { border-top: 1px solid var(--line); }
     .faq-item { border-bottom: 1px solid var(--line); }
@@ -205,8 +136,7 @@
     .faq-q:hover { color: var(--black); }
     .faq-q .mark { flex-shrink: 0; width: 22px; height: 22px; position: relative; margin-top: 4px; }
     .faq-q .mark::before, .faq-q .mark::after {
-      content: ''; position: absolute; background: var(--gray-6);
-      transition: transform .25s, opacity .25s;
+      content: ''; position: absolute; background: var(--gray-6); transition: transform .25s, opacity .25s;
     }
     .faq-q .mark::before { top: 10px; left: 0; width: 22px; height: 1.5px; }
     .faq-q .mark::after  { left: 10px; top: 0; width: 1.5px; height: 22px; }
@@ -214,42 +144,29 @@
     .faq-a { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
     .faq-a-inner { padding: 0 36px 28px 4px; color: var(--gray-6); font-size: .94rem; }
 
-    /* ===== CONTACT ===== */
     .contact { border-top: 1px solid var(--line); }
     .contact .section-inner { max-width: 720px; text-align: center; }
     .contact h2 { font-size: clamp(1.6rem, 3.4vw, 2.3rem); font-weight: 400; margin-bottom: 18px; }
     .contact h2 b { font-weight: 700; }
     .contact p { color: var(--gray-6); margin-bottom: 40px; }
-    .contact-mail {
-      font-family: 'Times New Roman', serif; font-size: 1.1rem;
-      letter-spacing: .04em; margin-top: 24px; color: var(--gray-6);
-    }
+    .contact-mail { font-family: 'Times New Roman', serif; font-size: 1.1rem; letter-spacing: .04em; margin-top: 24px; color: var(--gray-6); }
 
-    /* ===== FOOTER ===== */
-    footer {
-      background: var(--bg); border-top: 1px solid var(--line);
-      padding: 56px 32px 40px;
-    }
+    footer { background: var(--bg); border-top: 1px solid var(--line); padding: 56px 32px 40px; }
     .footer-inner {
       max-width: 1080px; margin: 0 auto;
-      display: flex; justify-content: space-between; align-items: flex-start;
-      flex-wrap: wrap; gap: 32px;
+      display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 32px;
     }
     .footer-logo-clip { width: 120px; height: 68px; overflow: hidden; position: relative; }
     .footer-logo-img  { width: 120px; position: absolute; top: -68px; left: 0; }
     .footer-nav { display: flex; gap: 36px; flex-wrap: wrap; align-items: center; }
-    .footer-nav a {
-      font-size: .82rem; letter-spacing: .06em; color: var(--gray-6); text-transform: uppercase;
-    }
+    .footer-nav a { font-size: .82rem; letter-spacing: .06em; color: var(--gray-6); text-transform: uppercase; }
     .footer-nav a:hover { color: var(--black); }
     .footer-bottom {
       max-width: 1080px; margin: 40px auto 0; padding-top: 24px;
-      border-top: 1px solid var(--line);
-      font-size: .76rem; color: var(--gray-4); letter-spacing: .04em;
+      border-top: 1px solid var(--line); font-size: .76rem; color: var(--gray-4); letter-spacing: .04em;
       display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
     }
 
-    /* ===== MODAL ===== */
     .modal-overlay {
       display: none; position: fixed; inset: 0; z-index: 200;
       background: rgba(17,17,17,.55); align-items: center; justify-content: center; padding: 24px;
@@ -260,10 +177,7 @@
       max-height: 90vh; overflow-y: auto; position: relative;
       padding: 44px 40px; border: 1px solid var(--line);
     }
-    .modal-close {
-      position: absolute; top: 16px; right: 20px; background: none; border: none;
-      font-size: 1.6rem; cursor: pointer; color: var(--gray-4); line-height: 1;
-    }
+    .modal-close { position: absolute; top: 16px; right: 20px; background: none; border: none; font-size: 1.6rem; cursor: pointer; color: var(--gray-4); line-height: 1; }
     .modal-close:hover { color: var(--black); }
     .modal-box h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 6px; }
     .modal-sub { font-size: .85rem; color: var(--gray-6); margin-bottom: 30px; }
@@ -273,8 +187,7 @@
     .form-group .opt { color: var(--gray-4); font-size: .72rem; margin-left: 6px; font-weight: 400; }
     .form-group input, .form-group textarea {
       width: 100%; border: 1px solid var(--gray-2); padding: 11px 14px;
-      font-size: .9rem; font-family: inherit; color: var(--ink); background: var(--paper);
-      transition: border-color .2s;
+      font-size: .9rem; font-family: inherit; color: var(--ink); background: var(--paper); transition: border-color .2s;
     }
     .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--black); }
     .form-group textarea { height: 120px; resize: vertical; }
@@ -283,8 +196,7 @@
     .form-check-group input[type="checkbox"] { width: 17px; height: 17px; flex-shrink: 0; accent-color: var(--black); }
     .modal-submit {
       width: 100%; background: var(--black); color: var(--paper); border: none;
-      padding: 15px; font-size: .95rem; letter-spacing: .05em; cursor: pointer;
-      transition: background .2s; margin-top: 8px;
+      padding: 15px; font-size: .95rem; letter-spacing: .05em; cursor: pointer; transition: background .2s; margin-top: 8px;
     }
     .modal-submit:hover { background: var(--gray-9); }
     .modal-submit:disabled { opacity: .55; cursor: not-allowed; }
@@ -294,18 +206,15 @@
     .form-success h4 { font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; }
     .form-success p  { font-size: .9rem; color: var(--gray-6); }
 
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 820px) {
-      .why-grid { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 820px) { .why-grid { grid-template-columns: 1fr; } }
     @media (max-width: 680px) {
       nav { gap: 18px; }
       nav a:not(.nav-cta) { display: none; }
+      .svc-item { grid-template-columns: 1fr; gap: 12px; }
+      .svc-meta { text-align: left; }
       section { padding: 72px 24px; }
-      .hero { padding: 80px 24px 64px; }
+      .hero { padding: 72px 24px 56px; }
       .modal-box { padding: 36px 24px; }
-      .gw-grid { grid-template-columns: 1fr; }
-      .gw-card { padding: 44px 28px; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
@@ -314,64 +223,132 @@
 </head>
 <body>
 
-<div id="splash">
-  <img src="top.png" alt="degitail">
-</div>
-
 <header>
   <div class="header-inner">
     <a href="index.html" class="logo-clip"><img src="icon.png" alt="degitail" class="logo-img"></a>
     <nav>
+      <a href="index.html">Top</a>
       <a href="personal.html">個人の方へ</a>
-      <a href="business.html">法人様へ</a>
+      <a href="business.html" class="active">法人様へ</a>
       <a href="#" class="nav-cta" onclick="openModal();return false;">無料相談</a>
     </nav>
   </div>
 </header>
 
 <section class="hero">
-  <div class="hero-eyebrow">degitail — 個人の方・法人様 ともに対応 / 岡山県全域 / 初回相談無料</div>
-  <h1>岡山で、<b>デジタルの</b><br><b>困りごとを解決する。</b></h1>
-  <p class="hero-lead">スマホの使い方から法人のDX推進まで。岡山県に密着し、個人のお客様も地域の事業者様もAIとデジタルでサポートします。</p>
+  <div class="hero-eyebrow">法人様・事業者の方へ — 岡山県全域対応 / 対面打ち合わせ可 / 初回相談無料</div>
+  <h1>AIと、データで、<br><b>地域の事業者を強くする。</b></h1>
+  <p class="hero-lead">岡山県内の飲食店・美容室・整体院・小売店をAIとデータで支援します。電話の自動対応・口コミ管理・経営分析まで、地元密着のデジタルパートナーとして対面でサポートします。</p>
   <div class="hero-actions">
-    <a href="personal.html" class="btn btn-dark">個人の方はこちら</a>
-    <a href="business.html" class="btn btn-ghost">法人様はこちら</a>
+    <a href="#" class="btn btn-dark" onclick="openModal();return false;">無料で相談する</a>
+    <a href="#services" class="btn btn-ghost">サービスを見る</a>
   </div>
 </section>
 
-<section style="background:var(--bg); border-top:1px solid var(--line); border-bottom:1px solid var(--line);" id="entry">
+<section class="services" id="services">
   <div class="section-inner">
     <div class="section-head">
-      <div class="section-num">01 — For You</div>
-      <h2 class="section-title">ご状況に合わせて<br><b>お進みください</b></h2>
-      <p class="section-desc">サービスは個人の方向けと法人様向けの2つに分かれています。当てはまる方からどうぞ。</p>
+      <div class="section-num">01 — Services</div>
+      <h2 class="section-title">法人様向けの<b>サービス一覧</b></h2>
+      <p class="section-desc">DX推進・データ分析代行。単体でも組み合わせでもご利用いただけます。</p>
     </div>
-    <div class="gw-grid">
-      <div class="gw-card gw-card--light" onclick="location.href='personal.html'">
-        <div class="gw-eyebrow">For Individuals</div>
-        <div class="gw-title">個人の方・<br>地域の方へ</div>
-        <p class="gw-desc">スマホの困りごとから思い出の整理まで。ご自宅に伺って、丁寧にサポートします。難しい言葉は使いません。</p>
-        <ul class="gw-list">
-          <li>スマホ・PC 出張サポート</li>
-          <li>自分史・回顧録 出張製本</li>
-          <li>古い写真・遺影のAI修復</li>
-          <li>老舗・個人商店のデジタル化</li>
-          <li>探偵業（素行調査）</li>
-        </ul>
-        <a href="personal.html" class="gw-btn" onclick="event.stopPropagation()">個人向けサービスを見る →</a>
+
+    <div class="svc-list">
+
+      <div class="svc-cat">
+        <span class="svc-cat-n serif">I</span>
+        <div>
+          <div class="svc-cat-name">DX推進</div>
+          <div class="svc-cat-sub">業務の自動化・デジタル変革</div>
+        </div>
       </div>
-      <div class="gw-card gw-card--dark" onclick="location.href='business.html'">
-        <div class="gw-eyebrow">For Business</div>
-        <div class="gw-title">法人様・<br>事業者の方へ</div>
-        <p class="gw-desc">DX推進・AI活用・データ分析で、岡山の事業者の競争力を高めます。対面ヒアリングから伴走支援まで。</p>
-        <ul class="gw-list">
-          <li>AI 自動電話応答システム</li>
-          <li>データ分析・経営支援プログラム</li>
-          <li>Google クチコミ返信代行</li>
-          <li>AEO 対策（AI検索最適化）</li>
-        </ul>
-        <a href="business.html" class="gw-btn" onclick="event.stopPropagation()">法人向けサービスを見る →</a>
+
+      <div class="svc-item" onclick="location.href='reservation-ai.html'">
+        <div class="svc-idx serif">01</div>
+        <div class="svc-body">
+          <h3>AI 自動電話応答システム</h3>
+          <p>AIが24時間電話を受け、予約の確認・受付・確定・通知を自動で完結。深夜でも手が離せない時間でも取り逃がしをゼロに近づけます。飲食店・美容室・整体院など予約電話のある業種に最適です。</p>
+          <div class="svc-tags">
+            <span class="svc-tag">24時間対応</span>
+            <span class="svc-tag">自動予約</span>
+            <span class="svc-tag">LINE通知</span>
+            <span class="svc-tag">スプレッドシート管理</span>
+            <span class="svc-tag">パイロット募集中</span>
+          </div>
+          <a href="reservation-ai.html" class="svc-link" onclick="event.stopPropagation()">詳細を見る →</a>
+        </div>
+        <div class="svc-meta">
+          <div class="label">Monthly</div>
+          <div class="price">要相談</div>
+        </div>
       </div>
+
+      <div class="svc-cat">
+        <span class="svc-cat-n serif">II</span>
+        <div>
+          <div class="svc-cat-name">データ分析各種代行</div>
+          <div class="svc-cat-sub">集客・運用・情報設計の支援</div>
+        </div>
+      </div>
+
+      <div class="svc-item" onclick="location.href='data-analysis.html'">
+        <div class="svc-idx serif">02</div>
+        <div class="svc-body">
+          <h3>データ分析・経営支援プログラム</h3>
+          <p>売上・顧客・在庫・Web集客などの社内データを整理・可視化し、次の一手を導きます。「数字を見ているのに活かせていない」状態を、判断できるダッシュボードに変えます。</p>
+          <div class="svc-tags">
+            <span class="svc-tag">データ可視化</span>
+            <span class="svc-tag">売上分析</span>
+            <span class="svc-tag">レポート自動化</span>
+            <span class="svc-tag">課題整理</span>
+          </div>
+          <a href="data-analysis.html" class="svc-link" onclick="event.stopPropagation()">詳細を見る →</a>
+        </div>
+        <div class="svc-meta">
+          <div class="label">Program</div>
+          <div class="price">個別見積</div>
+        </div>
+      </div>
+
+      <div class="svc-item" onclick="location.href='review-reply.html'">
+        <div class="svc-idx serif">03</div>
+        <div class="svc-body">
+          <h3>Google クチコミ返信代行</h3>
+          <p>単純な代行ではありません。AIがクチコミの内容を解析し、返信すべき優先度と店舗の品格を保った最適な文面を判断・提案。AI×人のダブルチェック体制で対応します。</p>
+          <div class="svc-tags">
+            <span class="svc-tag">AI解析</span>
+            <span class="svc-tag">優先度判定</span>
+            <span class="svc-tag">MEO</span>
+            <span class="svc-tag">月次レポート</span>
+            <span class="svc-tag">件数無制限</span>
+          </div>
+          <a href="review-reply.html" class="svc-link" onclick="event.stopPropagation()">詳細を見る →</a>
+        </div>
+        <div class="svc-meta">
+          <div class="label">Monthly</div>
+          <div class="price">25,000<small>円〜</small></div>
+        </div>
+      </div>
+
+      <div class="svc-item" onclick="location.href='aeo.html'">
+        <div class="svc-idx serif">04</div>
+        <div class="svc-body">
+          <h3>AEO 対策（AI検索最適化）</h3>
+          <p>ChatGPTやGoogleのAI検索（AI Overviews）に「引用される」企業になるための対策。従来のSEOに加え、AIが回答の根拠として選ぶ構造化・情報設計で、新しい検索流入の入口を確保します。</p>
+          <div class="svc-tags">
+            <span class="svc-tag">AI検索対策</span>
+            <span class="svc-tag">構造化データ</span>
+            <span class="svc-tag">コンテンツ設計</span>
+            <span class="svc-tag">指名検索強化</span>
+          </div>
+          <a href="aeo.html" class="svc-link" onclick="event.stopPropagation()">詳細を見る →</a>
+        </div>
+        <div class="svc-meta">
+          <div class="label">Program</div>
+          <div class="price">個別見積</div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -386,7 +363,7 @@
       <div class="why-cell">
         <div class="k serif">01</div>
         <h4>岡山県内・対面で動ける</h4>
-        <p>岡山市・倉敷市・総社市・津山市など県内全域に対応。必要に応じてご自宅や会社に直接伺い、ていねいにヒアリングします。オンライン任せにしない伴走型の支援です。</p>
+        <p>岡山市・倉敷市・総社市・津山市など県内全域に対応。必要に応じてお店や会社に直接伺い、課題をヒアリングします。オンライン任せにしない伴走型の支援です。</p>
       </div>
       <div class="why-cell">
         <div class="k serif">02</div>
@@ -414,12 +391,20 @@
         <div class="faq-a"><div class="faq-a-inner">岡山市・倉敷市をはじめ岡山県全域に対応しています。データ分析やAEO対策などオンラインで完結する業務は、全国からご相談いただけます。</div></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">料金はどのくらいかかりますか？<span class="mark"></span></button>
-        <div class="faq-a"><div class="faq-a-inner">個人向けサービスは3,000円〜、法人向けはGoogleクチコミ返信代行が月額25,000円〜です。その他は内容に応じた個別見積となります。初回のご相談は無料です。</div></div>
+        <button class="faq-q" onclick="toggleFaq(this)">AI自動電話応答システムはどんな業種に向いていますか？<span class="mark"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">電話で予約を受ける業種であれば基本的に対応可能です。飲食店・美容室・整体院・ネイルサロン・歯科医院・音楽教室などで特に効果的です。まずはご相談ください。</div></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">相談だけでも可能ですか？<span class="mark"></span></button>
-        <div class="faq-a"><div class="faq-a-inner">もちろん可能です。初回相談は無料で、無理な勧誘は一切いたしません。まずはお気軽にお問い合わせください。</div></div>
+        <button class="faq-q" onclick="toggleFaq(this)">AEO対策とは何ですか？<span class="mark"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">AEO（Answer Engine Optimization）は、ChatGPTやGoogleのAI検索（AI Overviews）が回答を生成する際に、自社の情報を引用・参照させるための最適化です。従来のSEOに加え、構造化データや情報設計を整えることで、AI検索時代の新しい集客の入口を確保します。</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">料金はどのくらいかかりますか？<span class="mark"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">Googleクチコミ返信代行は月額25,000円〜・件数無制限です。AI自動電話応答システム・データ分析・AEO対策は内容に応じた個別見積となります。初回のご相談は無料です。</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">対面での打ち合わせは可能ですか？<span class="mark"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">はい。岡山県内であれば直接お会いして、課題のヒアリングや打ち合わせを行います。地域密着・伴走型の支援を大切にしています。</div></div>
       </div>
     </div>
   </div>
@@ -429,7 +414,7 @@
   <div class="section-inner">
     <div class="section-num" style="text-align:center;">04 — Contact</div>
     <h2>まずは、<b>お気軽にご相談ください。</b></h2>
-    <p>個人・法人どちらのご相談も歓迎です。初回相談は無料です。</p>
+    <p>サービスの詳細・料金・導入の流れなど、どんな小さなご質問でも歓迎です。初回相談は無料です。</p>
     <a href="#" class="btn btn-dark" onclick="openModal();return false;">無料相談フォームを開く</a>
     <div class="contact-mail">degitail647@gmail.com</div>
   </div>
@@ -439,14 +424,14 @@
   <div class="footer-inner">
     <a href="index.html" class="footer-logo-clip"><img src="icon.png" alt="degitail" class="footer-logo-img"></a>
     <nav class="footer-nav">
+      <a href="index.html">Top</a>
       <a href="personal.html">個人の方へ</a>
       <a href="business.html">法人様へ</a>
-      <a href="#faq">FAQ</a>
       <a href="#contact">Contact</a>
     </nav>
   </div>
   <div class="footer-bottom">
-    <span>岡山県密着 デジタルサポートサービス</span>
+    <span>岡山県密着 法人向けデジタル支援</span>
     <span>&copy; 2026 degitail. All rights reserved.</span>
   </div>
 </footer>
@@ -472,11 +457,10 @@
       <div class="form-group">
         <label>ご関心のサービス</label>
         <div class="form-check-group">
-          <label><input type="checkbox"> スマホ・PC 出張サポート（個人）</label>
-          <label><input type="checkbox"> 自分史・回顧録 出張製本（個人）</label>
-          <label><input type="checkbox"> AI自動電話応答システム（法人）</label>
-          <label><input type="checkbox"> データ分析・経営支援（法人）</label>
-          <label><input type="checkbox"> その他・まず相談したい</label>
+          <label><input type="checkbox"> AI自動電話応答システム</label>
+          <label><input type="checkbox"> データ分析・経営支援プログラム</label>
+          <label><input type="checkbox"> Googleクチコミ返信代行</label>
+          <label><input type="checkbox"> AEO対策（AI検索最適化）</label>
         </div>
       </div>
       <div class="form-group">
@@ -490,14 +474,6 @@
 </div>
 
 <script>
-  window.addEventListener('load', function () {
-    var splash = document.getElementById('splash');
-    setTimeout(function () {
-      splash.classList.add('out');
-      setTimeout(function () { splash.style.display = 'none'; }, 800);
-    }, 1000);
-  });
-
   function openModal() {
     document.getElementById('contactModal').classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -537,7 +513,7 @@
       email:    document.getElementById('cf-email').value,
       services: sv.join('、') || 'なし',
       message:  document.getElementById('cf-msg').value,
-      _subject: '【degitail】お問い合わせ',
+      _subject: '【degitail】法人向けサービス お問い合わせ',
     };
 
     try {
