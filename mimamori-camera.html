@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>見守りカメラ設置サポート | degitail</title>
+  <meta name="description" content="独り暮らしの親の見守りカメラ選定・設置・家族スマホへのアプリ設定まで一括対応。¥15,000〜。岡山県対応。">
+  <link rel="icon" href="icon.png" type="image/png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black:#111;--ink:#1d1d1d;--g6:#6b6b6b;--g4:#9a9a9a;--g2:#d8d8d8;--g1:#ececec;--paper:#fff;--bg:#fafafa;--line:#e3e3e3; }
+    body { font-family:'Helvetica Neue','Hiragino Kaku Gothic ProN','Noto Sans JP',Meiryo,sans-serif;color:var(--ink);background:var(--paper);line-height:1.8;-webkit-font-smoothing:antialiased; }
+    a { color:inherit;text-decoration:none; }
+    header { position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line); }
+    .header-inner { max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:72px;padding:0 32px; }
+    .logo-clip { width:116px;height:66px;overflow:hidden;position:relative; }
+    .logo-img { width:116px;position:absolute;top:-66px;left:0; }
+    nav { display:flex;gap:32px;align-items:center; }
+    nav a { font-size:.82rem;letter-spacing:.08em;color:var(--g6);text-transform:uppercase; }
+    nav .nav-cta { border:1px solid var(--black);color:var(--black);padding:8px 20px;transition:background .2s,color .2s; }
+    nav .nav-cta:hover { background:var(--black);color:var(--paper); }
+    .hero { max-width:1080px;margin:0 auto;padding:100px 32px 80px;border-bottom:1px solid var(--line); }
+    .hero-eyebrow { font-size:.76rem;letter-spacing:.28em;text-transform:uppercase;color:var(--g4);margin-bottom:24px; }
+    .hero h1 { font-size:clamp(1.8rem,4vw,3rem);font-weight:400;line-height:1.35;margin-bottom:28px; }
+    .hero h1 b { font-weight:700; }
+    .hero-lead { max-width:620px;font-size:1.05rem;color:var(--g6);margin-bottom:40px;line-height:1.9; }
+    .btn { display:inline-block;font-size:.9rem;letter-spacing:.05em;padding:15px 38px;transition:all .2s; }
+    .btn-dark { background:var(--black);color:var(--paper); }
+    .btn-dark:hover { background:#333; }
+    section { padding:88px 32px; }
+    .inner { max-width:1080px;margin:0 auto; }
+    .sec-eyebrow { font-size:.76rem;letter-spacing:.24em;color:var(--g4);text-transform:uppercase;margin-bottom:16px; }
+    .sec-title { font-size:clamp(1.4rem,3vw,2rem);font-weight:400;margin-bottom:40px;line-height:1.45; }
+    .sec-title b { font-weight:700; }
+    .bg-section { background:var(--bg);border-top:1px solid var(--line);border-bottom:1px solid var(--line); }
+    .who-block { background:var(--black);color:var(--paper);padding:48px; }
+    .who-block .lead { font-size:1.1rem;line-height:2;margin-bottom:24px; }
+    .who-list { list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:10px; }
+    .who-list li { font-size:.95rem;color:#ccc;padding-left:20px;position:relative; }
+    .who-list li::before { content:'—';position:absolute;left:0;color:#666; }
+    .flow-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line); }
+    .flow-cell { background:var(--paper);padding:32px 24px; }
+    .flow-num { font-family:'Times New Roman',serif;font-size:2rem;font-weight:700;color:var(--g2);line-height:1;margin-bottom:14px; }
+    .flow-cell h4 { font-size:1rem;font-weight:700;margin-bottom:8px; }
+    .flow-cell p { font-size:.88rem;color:var(--g6);line-height:1.85; }
+    .flow-note { margin-top:24px;font-size:.84rem;color:var(--g6);line-height:1.8; }
+    .plan-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:24px; }
+    .plan-card { border:1px solid var(--line);padding:36px 28px; }
+    .plan-card.featured { border-color:var(--black); }
+    .plan-label { font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--g4);margin-bottom:12px; }
+    .plan-name { font-size:1.2rem;font-weight:700;margin-bottom:8px; }
+    .plan-price { font-size:1.7rem;font-weight:700;margin-bottom:20px; }
+    .plan-price small { font-size:.85rem;font-weight:400;color:var(--g6); }
+    .plan-items { list-style:none; }
+    .plan-items li { font-size:.9rem;color:var(--g6);padding:7px 0;border-bottom:1px solid var(--g1);padding-left:18px;position:relative; }
+    .plan-items li::before { content:'✓';position:absolute;left:0;color:var(--black);font-weight:700; }
+    .voice-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:24px; }
+    .voice-card { border:1px solid var(--line);padding:28px; }
+    .voice-mark { font-size:2rem;color:var(--g2);line-height:1;margin-bottom:10px; }
+    .voice-text { font-size:.95rem;color:var(--g6);line-height:1.9;margin-bottom:14px; }
+    .voice-from { font-size:.78rem;color:var(--g4);letter-spacing:.08em; }
+    .faq-item { border-top:1px solid var(--line); }
+    .faq-item:last-child { border-bottom:1px solid var(--line); }
+    .faq-q { display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0;cursor:pointer;font-size:.95rem;font-weight:700;background:none;border:none;width:100%;text-align:left; }
+    .faq-q .mark { position:relative;width:22px;height:22px;flex-shrink:0; }
+    .faq-q .mark::before,.faq-q .mark::after { content:'';position:absolute;background:var(--black); }
+    .faq-q .mark::before { top:10px;left:0;width:22px;height:1.5px; }
+    .faq-q .mark::after { left:10px;top:0;width:1.5px;height:22px;transition:transform .25s; }
+    .faq-item.open .faq-q .mark::after { transform:scaleY(0); }
+    .faq-a { display:none;padding:0 0 20px;font-size:.92rem;color:var(--g6);line-height:1.85; }
+    .faq-item.open .faq-a { display:block; }
+    .cta-section { text-align:center; }
+    .cta-section h2 { font-size:clamp(1.4rem,3vw,2rem);font-weight:400;margin-bottom:16px; }
+    .cta-section h2 b { font-weight:700; }
+    .cta-section p { color:var(--g6);margin-bottom:36px; }
+    footer { background:var(--bg);border-top:1px solid var(--line);padding:48px 32px 36px; }
+    .footer-inner { max-width:1080px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px; }
+    .footer-logo-clip { width:120px;height:68px;overflow:hidden;position:relative; }
+    .footer-logo-img { width:120px;position:absolute;top:-68px;left:0; }
+    .footer-nav { display:flex;gap:32px; }
+    .footer-nav a { font-size:.82rem;letter-spacing:.06em;color:var(--g6); }
+    .footer-bottom { max-width:1080px;margin:32px auto 0;padding-top:20px;border-top:1px solid var(--line);font-size:.76rem;color:var(--g4);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px; }
+    @media(max-width:680px){.who-list{grid-template-columns:1fr}.flow-grid{grid-template-columns:1fr 1fr}.plan-grid{grid-template-columns:1fr}.voice-grid{grid-template-columns:1fr}section{padding:64px 24px}.hero{padding:72px 24px 56px}}
+  </style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo-clip"><img src="icon.png" alt="degitail" class="logo-img"></a>
+    <nav>
+      <a href="personal.html">Services</a>
+      <a href="personal.html#faq">FAQ</a>
+      <a href="personal.html" class="nav-cta" onclick="history.back();return false;">← 戻る</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-eyebrow">degitail — 地域密着サービス / 見守りカメラ設置サポート</div>
+  <h1>離れていても、<br><b>親の様子がわかる安心。</b></h1>
+  <p class="hero-lead">「独り暮らしの親が心配。でも見守りカメラって難しそう」——機種の選定から購入サポート、設置、家族のスマホへのアプリ設定まで、degitailがすべて代行します。設置後、遠くにいても親の様子をスマホで確認できます。</p>
+  <a href="mailto:degitail647@gmail.com" class="btn btn-dark">無料相談をする</a>
+</div>
+
+<section>
+  <div class="inner">
+    <div class="sec-eyebrow">01 — こんな方へ</div>
+    <h2 class="sec-title">「何かあってからでは<b>遅い」</b>と思っているなら</h2>
+    <div class="who-block">
+      <p class="lead">見守りカメラがあれば、転倒・体調不良・外出に気づくことができます。24時間の安心を、月数百円のカメラ維持費で実現できます。</p>
+      <ul class="who-list">
+        <li>独り暮らしの親が転んでも気づけるか心配</li>
+        <li>遠方に住んでいて頻繁に帰省できない</li>
+        <li>認知症が進み、夜間の徘徊が心配</li>
+        <li>カメラを設置したいが機種選びが難しい</li>
+        <li>Wi-Fiの設定やアプリの使い方がわからない</li>
+        <li>プライバシーへの配慮もしながら設置したい</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="bg-section">
+  <div class="inner">
+    <div class="sec-eyebrow">02 — 作業の流れ</div>
+    <h2 class="sec-title">ご相談から<b>最短1日で完了</b></h2>
+    <div class="flow-grid">
+      <div class="flow-cell">
+        <div class="flow-num">01</div>
+        <h4>ご相談・機種選定</h4>
+        <p>部屋の広さ・Wi-Fi環境・予算・プライバシーへのご希望をヒアリングし、最適なカメラをご提案します。</p>
+      </div>
+      <div class="flow-cell">
+        <div class="flow-num">02</div>
+        <h4>購入サポート</h4>
+        <p>カメラの購入方法（ネット通販・家電量販店）をご案内。当日設置の場合はdegitailが機器を手配することも可能です。</p>
+      </div>
+      <div class="flow-cell">
+        <div class="flow-num">03</div>
+        <h4>ご自宅設置・接続</h4>
+        <p>カメラを最適な場所に設置し、自宅のWi-Fiに接続します。親御さんへの説明（カメラがある旨のご説明）も丁寧に行います。</p>
+      </div>
+      <div class="flow-cell">
+        <div class="flow-num">04</div>
+        <h4>家族スマホへのアプリ設定</h4>
+        <p>ご家族のスマホにアプリをインストールし、カメラ映像が確認できる状態にします。通知設定・動体検知の調整も行います。</p>
+      </div>
+    </div>
+    <p class="flow-note">※ カメラ本体の費用は別途（目安：3,000〜15,000円）。月額利用料が別途かかる機種もあります（月0〜500円程度）。</p>
+  </div>
+</section>
+
+<section>
+  <div class="inner">
+    <div class="sec-eyebrow">03 — 料金プラン</div>
+    <h2 class="sec-title">台数・ご要望に合わせた<b>2プラン</b></h2>
+    <div class="plan-grid">
+      <div class="plan-card featured">
+        <div class="plan-label">スタンダード</div>
+        <div class="plan-name">カメラ1台設置</div>
+        <div class="plan-price">15,000<small>円〜（税込）</small></div>
+        <ul class="plan-items">
+          <li>ご自宅訪問・機種選定アドバイス</li>
+          <li>カメラ設置・Wi-Fi接続</li>
+          <li>家族スマホ1台へのアプリ設定</li>
+          <li>操作説明・簡易マニュアル作成</li>
+          <li>※カメラ本体費用は別途</li>
+        </ul>
+      </div>
+      <div class="plan-card">
+        <div class="plan-label">プレミアム</div>
+        <div class="plan-name">複数台 ＋ 家族全員設定</div>
+        <div class="plan-price">25,000<small>円〜（税込）</small></div>
+        <ul class="plan-items">
+          <li>ご自宅訪問・機種選定アドバイス</li>
+          <li>カメラ2〜3台設置・Wi-Fi接続</li>
+          <li>家族スマホ複数台へのアプリ設定</li>
+          <li>動体検知・通知設定の最適化</li>
+          <li>操作説明・簡易マニュアル作成</li>
+          <li>設置後1ヶ月サポート付き</li>
+          <li>※カメラ本体費用は別途</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-section">
+  <div class="inner">
+    <div class="sec-eyebrow">04 — お客様の声</div>
+    <h2 class="sec-title">「設置してから<b>ぐっすり眠れるようになった」</b></h2>
+    <div class="voice-grid">
+      <div class="voice-card">
+        <div class="voice-mark">"</div>
+        <p class="voice-text">大阪に住んでいて、岡山の母が一人暮らしです。カメラをつけてもらってから、スマホで様子を確認できるようになりました。朝ちゃんと起きているか確認できるだけで、本当に安心が違います。</p>
+        <div class="voice-from">大阪府在住 ・ 51歳 女性（岡山の母のために依頼）</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-mark">"</div>
+        <p class="voice-text">父が認知症で夜間の行動が心配でした。玄関にカメラをつけてもらって、スマホに通知が来るように設定してもらいました。一度夜中に外に出ようとしたときに気づいて、すぐ帰省できました。</p>
+        <div class="voice-from">倉敷市 ・ 55歳 男性（父の見守りとして依頼）</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="inner">
+    <div class="sec-eyebrow">05 — よくある質問</div>
+    <h2 class="sec-title"><b>FAQ</b></h2>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)"><span>親が嫌がる場合はどうすればいいですか？</span><span class="mark"></span></button>
+      <div class="faq-a">「監視」ではなく「安心のため」という伝え方が大切です。設置前の説明を丁寧に行い、親御さんが納得できるよう一緒にご説明することもできます。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)"><span>Wi-Fiがない場合でも使えますか？</span><span class="mark"></span></button>
+      <div class="faq-a">SIMカード内蔵型のカメラや、スマホのテザリングを使う方法もあります。Wi-Fi環境の整備からサポートすることも可能です。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)"><span>映像は録画されますか？プライバシーは大丈夫ですか？</span><span class="mark"></span></button>
+      <div class="faq-a">機種によって録画機能・保存期間が異なります。プライバシーへの配慮（設置場所・角度・録画設定）を最優先に設計します。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)"><span>どのメーカー・機種を使いますか？</span><span class="mark"></span></button>
+      <div class="faq-a">TP-Link・Panasonic・Anker等の信頼性の高いメーカーをご提案します。ご予算・用途に合わせて最適なものをご紹介します。</div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-section cta-section">
+  <div class="inner">
+    <div class="sec-eyebrow">06 — ご相談</div>
+    <h2>まず、<b>無料でご相談ください。</b></h2>
+    <p>「家の構造はこんな感じ」「予算はこのくらい」——どんな情報でもOKです。最適なプランをご提案します。</p>
+    <a href="mailto:degitail647@gmail.com" class="btn btn-dark">degitail647@gmail.com</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo-clip"><img src="icon.png" alt="degitail" class="footer-logo-img"></a>
+    <nav class="footer-nav"><a href="personal.html">Services</a><a href="personal.html#faq">FAQ</a><a href="personal.html#contact">Contact</a></nav>
+  </div>
+  <div class="footer-bottom"><span>岡山県密着 デジタル支援</span><span>&copy; 2026 degitail. All rights reserved.</span></div>
+</footer>
+<script>function toggleFaq(btn){btn.closest('.faq-item').classList.toggle('open');}</script>
+</body>
+</html>

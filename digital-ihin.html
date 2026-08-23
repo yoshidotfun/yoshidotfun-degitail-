@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>デジタル遺品整理サービス | degitail</title>
+  <meta name="description" content="故人のスマホ・PC・SNSを丁寧に整理・削除。岡山県内出張対応。¥30,000〜。秘密厳守。">
+  <link rel="icon" href="icon.png" type="image/png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black:#111;--ink:#1d1d1d;--g6:#6b6b6b;--g4:#9a9a9a;--g2:#d8d8d8;--g1:#ececec;--paper:#fff;--bg:#fafafa;--line:#e3e3e3; }
+    body { font-family:'Helvetica Neue','Hiragino Kaku Gothic ProN','Noto Sans JP',Meiryo,sans-serif;color:var(--ink);background:var(--paper);line-height:1.8;-webkit-font-smoothing:antialiased; }
+    a { color:inherit;text-decoration:none; }
+    header { position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line); }
+    .header-inner { max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:72px;padding:0 32px; }
+    .logo-clip { width:116px;height:66px;overflow:hidden;position:relative; }
+    .logo-img { width:116px;position:absolute;top:-66px;left:0; }
+    nav { display:flex;gap:32px;align-items:center; }
+    nav a { font-size:.82rem;letter-spacing:.08em;color:var(--g6);text-transform:uppercase; }
+    nav .nav-cta { border:1px solid var(--black);color:var(--black);padding:8px 20px;transition:background .2s,color .2s; }
+    nav .nav-cta:hover { background:var(--black);color:var(--paper); }
+    .hero { max-width:1080px;margin:0 auto;padding:100px 32px 80px;border-bottom:1px solid var(--line); }
+    .hero-eyebrow { font-size:.76rem;letter-spacing:.28em;text-transform:uppercase;color:var(--g4);margin-bottom:24px; }
+    .hero h1 { font-size:clamp(1.8rem,4vw,3rem);font-weight:400;line-height:1.35;margin-bottom:28px; }
+    .hero h1 b { font-weight:700; }
+    .hero-lead { max-width:620px;font-size:1.05rem;color:var(--g6);margin-bottom:40px;line-height:1.9; }
+    .btn { display:inline-block;font-size:.9rem;letter-spacing:.05em;padding:15px 38px;transition:all .2s; }
+    .btn-dark { background:var(--black);color:var(--paper); }
+    .btn-dark:hover { background:#333; }
+    section { padding:88px 32px; }
+    .inner { max-width:1080px;margin:0 auto; }
+    .sec-eyebrow { font-size:.76rem;letter-spacing:.24em;color:var(--g4);text-transform:uppercase;margin-bottom:16px; }
+    .sec-title { font-size:clamp(1.4rem,3vw,2rem);font-weight:400;margin-bottom:40px;line-height:1.45; }
+    .sec-title b { font-weight:700; }
+    .bg-section { background:var(--bg);border-top:1px solid var(--line);border-bottom:1px solid var(--line); }
+    .who-block { background:var(--black);color:var(--paper);padding:48px; }
+    .who-block .lead { font-size:1.1rem;line-height:2;margin-bottom:24px; }
+    .who-list { list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:10px; }
+    .who-list li { font-size:.95rem;color:#ccc;padding-left:20px;position:relative; }
+    .who-list li::before { content:'—';position:absolute;left:0;color:#666; }
+    .flow-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line); }
+    .flow-cell { background:var(--paper);padding:32px 24px; }
+    .flow-num { font-family:'Times New Roman',serif;font-size:2rem;font-weight:700;color:var(--g2);line-height:1;margin-bottom:14px; }
+    .flow-cell h4 { font-size:1rem;font-weight:700;margin-bottom:8px; }
+    .flow-cell p { font-size:.88rem;color:var(--g6);line-height:1.85; }
+    .flow-note { margin-top:24px;font-size:.84rem;color:var(--g6);line-height:1.8; }
+    .plan-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:24px; }
+    .plan-card { border:1px solid var(--line);padding:36px 28px; }
+    .plan-card.featured { border-color:var(--black); }
+    .plan-label { font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--g4);margin-bottom:12px; }
+    .plan-name { font-size:1.2rem;font-weight:700;margin-bottom:8px; }
+    .plan-price { font-size:1.7rem;font-weight:700;margin-bottom:20px; }
+    .plan-price small { font-size:.85rem;font-weight:400;color:var(--g6); }
+    .plan-items { list-style:none; }
+    .plan-items li { font-size:.9rem;color:var(--g6);padding:7px 0;border-bottom:1px solid var(--g1);padding-left:18px;position:relative; }
+    .plan-items li::before { content:'✓';position:absolute;left:0;color:var(--black);font-weight:700; }
+    .voice-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:24px; }
+    .voice-card { border:1px solid var(--line);padding:28px; }
+    .voice-mark { font-size:2rem;color:var(--g2);line-height:1;margin-bottom:10px; }
+    .voice-text { font-size:.95rem;color:var(--g6);line-height:1.9;margin-bottom:14px; }
+    .voice-from { font-size:.78rem;color:var(--g4);letter-spacing:.08em; }
+    .faq-item { border-top:1px solid var(--line); }
+    .faq-item:last-child { border-bottom:1px solid var(--line); }
+    .faq-q { display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0;cursor:pointer;font-size:.95rem;font-weight:700;background:none;border:none;width:100%;text-align:left; }
+    .faq-q .mark { position:relative;width:22px;height:22px;flex-shrink:0; }
+    .faq-q .mark::before,.faq-q .mark::after { content:'';position:absolute;background:var(--black); }
+    .faq-q .mark::before { top:10px;left:0;width:22px;height:1.5px; }
+    .faq-q .mark::after { left:10px;top:0;width:1.5px;height:22px;transition:transform .25s; }
+    .faq-item.open .faq-q .mark::after { transform:scaleY(0); }
+    .faq-a { display:none;padding:0 0 20px;font-size:.92rem;color:var(--g6);line-height:1.85; }
+    .faq-item.open .faq-a { display:block; }
+    .cta-section { text-align:center; }
+    .cta-section h2 { font-size:clamp(1.4rem,3vw,2rem);font-weight:400;margin-bottom:16px; }
+    .cta-section h2 b { font-weight:700; }
+    .cta-section p { color:var(--g6);margin-bottom:36px; }
+    footer { background:var(--bg);border-top:1px solid var(--line);padding:48px 32px 36px; }
+    .footer-inner { max-width:1080px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px; }
+    .footer-logo-clip { width:120px;height:68px;overflow:hidden;position:relative; }
+    .footer-logo-img { width:120px;position:absolute;top:-68px;left:0; }
+    .footer-nav { display:flex;gap:32px; }
+    .footer-nav a { font-size:.82rem;letter-spacing:.06em;color:var(--g6); }
+    .footer-bottom { max-width:1080px;margin:32px auto 0;padding-top:20px;border-top:1px solid var(--line);font-size:.76rem;color:var(--g4);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px; }
+    @media(max-width:680px){.who-list{grid-template-columns:1fr}.flow-grid{grid-template-columns:1fr 1fr}.plan-grid{grid-template-columns:1fr}.voice-grid{grid-template-columns:1fr}section{padding:64px 24px}.hero{padding:72px 24px 56px}}
+  </style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo-clip"><img src="icon.png" alt="degitail" class="logo-img"></a>
+    <nav>
+      <a href="personal.html">Services</a>
+      <a href="personal.html#faq">FAQ</a>
+      <a href="personal.html" class="nav-cta" onclick="history.back();return false;">← 戻る</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-eyebrow">degitail — 地域密着サービス / デジタル遺品整理</div>
+  <h1>「親のスマホ、<br><b>どうすればいいか分からない」</b></h1>
+  <p class="hero-lead">故人のスマホ・パソコン・SNSアカウントの整理は、思った以上に複雑で時間がかかります。degitailがご自宅に伺い、データの確認・整理・削除・引き継ぎを丁寧に代行します。秘密厳守、岡山県内全域対応。</p>
+  <a href="mailto:degitail647@gmail.com" class="btn btn-dark">無料相談をする</a>
+</div>
+
+<section>
+  <div class="inner">
+    <div class="sec-eyebrow">01 — こんな方へ</div>
+    <h2 class="sec-title">「触っていいのか<b>分からない」</b>そのままにしないために</h2>
+    <div class="who-block">
+      <p class="lead">故人のデジタルデータは放置すると、不正利用・課金継続・プライバシー侵害のリスクがあります。大切な思い出の写真や動画は、きちんと家族に引き継ぐことができます。</p>
+      <ul class="who-list">
+        <li>親が亡くなり、スマホやPCをどうすべきか困っている</li>
+        <li>SNSやサブスクの退会手続きが分からない</li>
+        <li>故人の写真・動画データを家族で共有したい</li>
+        <li>銀行アプリや決済アプリが入ったままで不安</li>
+        <li>遠方に住んでいて、実家に行く時間が取れない</li>
+        <li>プロに任せて、精神的な負担を減らしたい</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="bg-section">
+  <div class="inner">
+    <div class="sec-eyebrow">02 — 作業の流れ</div>
+    <h2 class="sec-title">4つのステップで<b>すべて完了します</b></h2>
+    <div class="flow-grid">
+      <div class="flow-cell">
+        <div class="flow-num">01</div>
+        <h4>無料ご相談・状況確認</h4>
+        <p>メールまたはお電話で、機器の種類・台数・やりたいことをヒアリングします。料金の目安もお伝えします。</p>
+      </div>
+      <div class="flow-cell">
+        <div class="flow-num">02</div>
+        <h4>ご自宅訪問・機器お預かり</h4>
+        <p>岡山県内のご自宅に伺い、スマホ・PC・タブレットをお預かりします。その場で内容を一緒にご確認いただけます。</p>
+      </div>
+      <div class="flow-cell">
+        <div class="flow-num">03</div>
+        <h4>データ整理・アカウント削除</h4>
+        <p>写真・動画の整理・バックアップ、SNS・サブスク・決済アプリの退会手続きを代行します。作業内容は記録してご報告します。</p>
+      </div>
+      <div class="flow-cell">
+        <div class="flow-num">04</div>
+        <h4>ご報告・お返し・データお渡し</h4>
+        <p>作業完了後、何をしたかを書面でご報告。引き継ぐデータはUSBまたはクラウドでお渡しします。</p>
+      </div>
+    </div>
+    <p class="flow-note">※ 作業期間は機器1〜2台で1〜3日程度。台数や状態によって変わります。</p>
+  </div>
+</section>
+
+<section>
+  <div class="inner">
+    <div class="sec-eyebrow">03 — 料金プラン</div>
+    <h2 class="sec-title">機器の<b>台数・内容に合わせた</b>2プラン</h2>
+    <div class="plan-grid">
+      <div class="plan-card featured">
+        <div class="plan-label">スタンダード</div>
+        <div class="plan-name">スマホ or PC 1台</div>
+        <div class="plan-price">30,000<small>円〜（税込）</small></div>
+        <ul class="plan-items">
+          <li>ご自宅訪問・機器お預かり</li>
+          <li>写真・動画の整理・バックアップ</li>
+          <li>SNS・サブスク退会手続き（3件まで）</li>
+          <li>データお渡し（USB or クラウド）</li>
+          <li>作業報告書の作成・お渡し</li>
+        </ul>
+      </div>
+      <div class="plan-card">
+        <div class="plan-label">フルセット</div>
+        <div class="plan-name">複数機器・SNS一括対応</div>
+        <div class="plan-price">50,000<small>円〜（税込）</small></div>
+        <ul class="plan-items">
+          <li>スマホ・PC・タブレット複数台対応</li>
+          <li>写真・動画の整理・バックアップ</li>
+          <li>SNS・サブスク・決済アプリ全件対応</li>
+          <li>データお渡し（USB or クラウド）</li>
+          <li>作業報告書の作成・お渡し</li>
+          <li>作業後1ヶ月サポート付き</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-section">
+  <div class="inner">
+    <div class="sec-eyebrow">04 — お客様の声</div>
+    <h2 class="sec-title">「頼んで<b>よかった」</b></h2>
+    <div class="voice-grid">
+      <div class="voice-card">
+        <div class="voice-mark">"</div>
+        <p class="voice-text">父が亡くなって半年、スマホを触れずにいました。degitailさんに頼んだら、写真を全部整理してUSBに入れてくれて、サブスクも全部止めてくれました。費用も想定内で、本当に助かりました。</p>
+        <div class="voice-from">岡山市 ・ 54歳 女性（父の機器整理として依頼）</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-mark">"</div>
+        <p class="voice-text">母のスマホに決済アプリが入ったままで不安でした。丁寧に確認・削除してもらい、孫の写真だけをきれいにまとめてもらえました。遠方に住んでいるので、出張してもらえたのが一番ありがたかったです。</p>
+        <div class="voice-from">倉敷市 ・ 48歳 男性（母の機器整理として依頼）</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="inner">
+    <div class="sec-eyebrow">05 — よくある質問</div>
+    <h2 class="sec-title"><b>FAQ</b></h2>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)"><span>パスワードが分からない機器でも対応できますか？</span><span class="mark"></span></button>
+      <div class="faq-a">機種によっては対応できる場合があります。まずはご相談ください。完全にロックされている場合はメーカーへの問い合わせ手順をご案内します。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)"><span>データは本当に削除されますか？</span><span class="mark"></span></button>
+      <div class="faq-a">はい。削除作業の記録を書面でお渡しします。ご希望の場合は削除後の画面をお見せしながら作業します。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)"><span>機器を預けるのが不安です</span><span class="mark"></span></button>
+      <div class="faq-a">お預かり証を発行します。また、作業中の様子をご報告しますのでご安心ください。ご自宅での立会い作業も対応可能です。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)"><span>SNSのアカウント削除も代行してもらえますか？</span><span class="mark"></span></button>
+      <div class="faq-a">LINE・Facebook・Instagram・Twitterなど主要SNSの退会・追悼アカウント申請に対応しています。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)"><span>岡山県外からでも依頼できますか？</span><span class="mark"></span></button>
+      <div class="faq-a">機器の郵送でのお預かりも対応しています。ご実家が岡山県内の場合は出張も可能ですのでご相談ください。</div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-section cta-section">
+  <div class="inner">
+    <div class="sec-eyebrow">06 — ご相談</div>
+    <h2>まず、<b>無料でご相談ください。</b></h2>
+    <p>「何から手をつければいいか分からない」——そのままで大丈夫です。状況をお聞きしてから、できることをご提案します。</p>
+    <a href="mailto:degitail647@gmail.com" class="btn btn-dark">degitail647@gmail.com</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo-clip"><img src="icon.png" alt="degitail" class="footer-logo-img"></a>
+    <nav class="footer-nav"><a href="personal.html">Services</a><a href="personal.html#faq">FAQ</a><a href="personal.html#contact">Contact</a></nav>
+  </div>
+  <div class="footer-bottom"><span>岡山県密着 デジタル支援</span><span>&copy; 2026 degitail. All rights reserved.</span></div>
+</footer>
+<script>function toggleFaq(btn){btn.closest('.faq-item').classList.toggle('open');}</script>
+</body>
+</html>
