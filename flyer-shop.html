@@ -73,7 +73,6 @@
 
     /* service 3-col */
     .svc-area {
-      flex: 1;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
     }
@@ -91,6 +90,24 @@
     .svc-price-label { font-size: 7pt; letter-spacing: .1em; color: #bbb; text-transform: uppercase; margin-bottom: 1mm; }
     .svc-price { font-size: 13pt; font-weight: 700; color: #111; }
     .svc-price small { font-size: 8.5pt; font-weight: 400; color: #777; }
+
+    /* voice strip */
+    .voice-strip {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background: #f7f7f7;
+      border-top: 1px solid #e8e8e8;
+    }
+    .voice-cell {
+      padding: 4mm 6mm;
+      border-right: 1px solid #e8e8e8;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .voice-cell:last-child { border-right: none; }
+    .voice-mark { font-size: 18pt; color: #bbb; line-height: 1; margin-bottom: 1.5mm; font-family: Georgia, serif; }
+    .voice-text { font-size: 9pt; color: #444; line-height: 1.85; flex: 1; }
+    .voice-from { font-size: 7.5pt; color: #999; margin-top: 2.5mm; letter-spacing: .06em; }
 
     /* bottom contact */
     .contact-bar {
@@ -117,6 +134,9 @@
       .panel-left { min-height: 65mm; padding: 8mm; }
       .svc-area { grid-template-columns: 1fr; }
       .svc-col { border-right: none; border-bottom: 1px solid #e0e0e0; }
+      .voice-strip { grid-template-columns: 1fr; }
+      .voice-cell { border-right: none; border-bottom: 1px solid #e8e8e8; }
+      .voice-cell:last-child { border-bottom: none; }
       .contact-bar { height: auto; padding: 5mm 6mm; flex-wrap: wrap; gap: 4mm; }
       .c-cta { margin-left: 0; }
     }
@@ -219,6 +239,25 @@
       </div>
 
     </div><!-- /svc-area -->
+
+    <!-- お客様の声 -->
+    <div class="voice-strip">
+      <div class="voice-cell">
+        <div class="voice-mark">"</div>
+        <div class="voice-text">Googleマップが整備されてから、「検索で見つけた」というお客さんが明らかに増えました。自分ではやり方もわからなかったので、全部お任せできて助かりました。</div>
+        <div class="voice-from">岡山市・居酒屋オーナー（50代）</div>
+      </div>
+      <div class="voice-cell">
+        <div class="voice-mark">"</div>
+        <div class="voice-text">診療時間外の電話予約を何件も取りこぼしていたんですが、AI電話を入れてから夜間・休日の予約もしっかり入るようになりました。スタッフの負担も減りました。</div>
+        <div class="voice-from">総社市・整骨院院長（40代）</div>
+      </div>
+      <div class="voice-cell">
+        <div class="voice-mark">"</div>
+        <div class="voice-text">口コミへの返信を放置していたら評価が下がっていたみたいで。代行してもらってから丁寧に対応できるようになり、新規のお客さんからの信頼が上がった気がします。</div>
+        <div class="voice-from">倉敷市・美容室オーナー（30代）</div>
+      </div>
+    </div>
 
     <!-- 連絡先 -->
     <div class="contact-bar">
