@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Code & Codex を学ぶ会 in 岡山 | degitail</title>
+<meta name="description" content="一日集中ワークショップ。AIを使ったことがない方が、自分の仕事に効くツールを作って帰る一日。岡山・2026年9月開催。定員10名。">
+<link rel="icon" href="icon.png" type="image/png">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#111111;--ink:#1d1d1d;--gray-9:#2b2b2b;
+  --gray-6:#6b6b6b;--gray-4:#9a9a9a;--gray-2:#d8d8d8;
+  --gray-1:#ececec;--paper:#ffffff;--bg:#fafafa;--line:#e3e3e3;
+  --dark:#201f1d;--dark-mid:#2e2c2a;--muted:#bab6b6;--dim:#605d5d;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Helvetica Neue','Hiragino Kaku Gothic ProN','Noto Sans JP',Meiryo,sans-serif;
+  color:var(--ink);background:var(--paper);line-height:1.8;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+
+/* ── HEADER ── */
+header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.header-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:72px;padding:0 32px}
+.logo-clip{width:116px;height:66px;overflow:hidden;position:relative;flex-shrink:0}
+.logo-img{width:116px;position:absolute;top:-66px;left:0}
+.logo-text{font-size:1.1rem;font-weight:700;letter-spacing:.04em;color:var(--dark)}
+nav{display:flex;gap:28px;align-items:center}
+nav a{font-size:.82rem;letter-spacing:.08em;color:var(--gray-6);text-transform:uppercase;transition:color .2s}
+nav a:hover{color:var(--black)}
+nav a.active{color:var(--black);font-weight:700}
+nav .nav-cta{border:1px solid var(--black);color:var(--black);padding:8px 20px;letter-spacing:.06em;transition:background .2s,color .2s}
+nav .nav-cta:hover{background:var(--black);color:var(--paper)}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:4px;flex-direction:column;gap:5px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--dark);transition:transform .2s}
+.mobile-nav{display:none;position:fixed;inset:72px 0 0;background:var(--paper);z-index:99;flex-direction:column;padding:24px 32px;gap:20px;border-top:1px solid var(--line)}
+.mobile-nav.open{display:flex}
+.mobile-nav a{font-size:1rem;letter-spacing:.06em;color:var(--gray-6);text-transform:uppercase;padding:8px 0;border-bottom:1px solid var(--line)}
+
+/* ── DARK SECTIONS ── */
+.s-dark{background:var(--dark);color:var(--paper)}
+.s-dark a{color:var(--paper)}
+.s-light{background:var(--paper);color:var(--dark)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 32px}
+
+/* ── HERO ── */
+.hero{padding:72px 0 80px}
+.hero-eyebrow{font-size:.76rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin-bottom:24px}
+.hero h1{font-size:clamp(28px,5.5vw,58px);font-weight:700;line-height:1.25;margin-bottom:22px}
+.hero-lead{font-size:clamp(17px,2.2vw,24px);line-height:1.55;background:var(--paper);color:var(--dark);padding:14px 20px;display:inline-block;margin-bottom:24px;max-width:720px}
+.hero-body{font-size:15px;line-height:1.95;max-width:680px;margin-bottom:32px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px 28px;font-size:15px;border-top:2px solid var(--paper);padding-top:20px;margin-bottom:36px}
+.hero-meta span{color:var(--muted);margin-right:8px}
+.cta-btn{display:inline-block;background:var(--paper);color:var(--dark);font-size:17px;font-weight:700;letter-spacing:.08em;padding:15px 44px;border:2px solid var(--paper);transition:background .2s,color .2s}
+.cta-btn:hover{background:var(--dark);color:var(--paper)}
+.cta-btn.dark{background:var(--dark);color:var(--paper);border-color:var(--dark)}
+.cta-btn.dark:hover{background:var(--paper);color:var(--dark)}
+
+/* ── SECTION COMMON ── */
+.sec{padding:64px 0}
+.sec-eyebrow{font-size:.76rem;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.sec h2{font-size:clamp(22px,3vw,32px);font-weight:700;border-bottom:2px solid currentColor;padding-bottom:12px;margin-bottom:28px}
+.s-light .sec h2{border-color:var(--dark)}
+.s-dark .sec h2{border-color:var(--paper)}
+
+/* ── COURSES ── */
+.courses{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-bottom:18px}
+.course-card{border:2px solid var(--dark);padding:24px;display:flex;flex-direction:column;gap:12px}
+.course-num{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;background:var(--dark);color:var(--paper);font-size:16px;font-weight:700;flex-shrink:0}
+.course-head{display:flex;align-items:center;gap:12px}
+.course-name{font-size:clamp(18px,2.2vw,22px);font-weight:700}
+.course-desc{font-size:14.5px;line-height:1.85}
+.course-note{font-size:13px;color:var(--dim)}
+
+/* ── TIMETABLE ── */
+.timetable{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px;margin-bottom:18px}
+.tt-cell{border-top:2px solid var(--paper);padding-top:14px;display:flex;flex-direction:column;gap:6px}
+.tt-time{font-size:22px;letter-spacing:.02em;font-weight:700}
+.tt-label{font-size:15px;line-height:1.7}
+.tt-note{font-size:13px;color:var(--muted)}
+
+/* ── FORM ── */
+.step-bar{display:flex;flex-wrap:wrap;gap:10px 18px;font-size:13.5px;margin-bottom:28px}
+.step-item{display:flex;align-items:center;gap:9px;color:var(--dim);transition:color .3s}
+.step-item.on{color:var(--dark)}
+.step-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border:2px solid currentColor;font-size:13px;font-weight:700;flex-shrink:0}
+
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px 28px;border:2px solid var(--dark);padding:28px}
+.field{display:flex;flex-direction:column;gap:7px;font-size:14px;font-weight:700}
+.field label{display:contents}
+.field input,.field select,.field textarea{border:2px solid var(--dark);background:var(--paper);color:var(--dark);padding:11px 13px;font-size:15px;font-family:inherit;font-weight:700;width:100%}
+.field textarea{resize:vertical;line-height:1.7}
+.field-note{font-size:12.5px;color:var(--dim);font-weight:400;margin-top:2px}
+.chip-group{display:flex;flex-wrap:wrap;gap:9px}
+.chip{border:2px solid var(--dark);background:var(--paper);color:var(--dark);padding:9px 14px;font-size:13.5px;font-weight:700;cursor:pointer;transition:background .15s,color .15s;font-family:inherit}
+.chip.on{background:var(--dark);color:var(--paper)}
+.form-btn{background:var(--dark);color:var(--paper);border:2px solid var(--dark);padding:15px 20px;font-size:16px;font-weight:700;letter-spacing:.08em;cursor:pointer;font-family:inherit;transition:background .2s,color .2s;width:100%}
+.form-btn:hover{background:var(--paper);color:var(--dark)}
+.form-btn.sec{background:var(--paper);color:var(--dark);font-size:14px;padding:12px 20px}
+.form-btn.sec:hover{background:var(--dark);color:var(--paper)}
+.price-row{border-top:2px solid var(--dark);padding-top:14px;display:flex;align-items:baseline;justify-content:space-between;gap:12px;font-size:15px}
+.price-row strong{font-size:20px}
+
+/* confirm */
+.confirm-table{border:2px solid var(--dark);padding:18px;display:grid;grid-template-columns:92px 1fr;gap:9px 14px;font-size:14px;line-height:1.6}
+.confirm-key{color:var(--dim)}
+.confirm-note{border:2px solid var(--dark);padding:18px;display:flex;flex-direction:column;gap:10px;font-size:14px;line-height:1.8}
+.confirm-note mark{background:var(--dark);color:var(--paper);padding:1px 8px}
+
+/* success */
+.success-tag{background:var(--dark);color:var(--paper);padding:8px 16px;font-size:13px;letter-spacing:.2em;display:inline-block;margin-bottom:12px}
+.success h3{font-size:clamp(20px,2.6vw,27px);line-height:1.5;margin-bottom:14px}
+.success-body{font-size:15px;line-height:1.95;max-width:640px;margin-bottom:20px}
+.success-meta{border-top:2px solid var(--dark);padding-top:14px;display:grid;grid-template-columns:84px 1fr;gap:8px 14px;font-size:14px;line-height:1.6;margin-bottom:20px}
+.success-meta .k{color:var(--dim)}
+
+/* ── ADMIN ── */
+#admin-panel{display:none}
+#admin-panel.open{display:block}
+.admin-table{width:100%;border-collapse:collapse;font-size:13px}
+.admin-table th,.admin-table td{border:1px solid var(--dark);padding:8px 10px;text-align:left;vertical-align:top}
+.admin-table th{background:var(--dark);color:var(--paper);font-weight:700;white-space:nowrap}
+.admin-table tr:nth-child(even) td{background:var(--bg)}
+
+/* ── FOOTER ── */
+footer{background:var(--dark);color:var(--paper);padding:44px 0;border-top:2px solid var(--paper)}
+.footer-inner{max-width:1080px;margin:0 auto;padding:0 32px;display:flex;flex-wrap:wrap;gap:16px 40px;align-items:baseline;justify-content:space-between}
+.footer-name{font-size:19px;letter-spacing:.04em;font-weight:700}
+.footer-email{font-size:14.5px;color:var(--muted)}
+.footer-detail{font-size:13px;color:var(--muted);line-height:1.8}
+
+/* ── LOADING ── */
+.spinner{display:inline-block;width:18px;height:18px;border:2px solid var(--gray-2);border-top-color:var(--dark);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:8px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.status-msg{font-size:13px;color:var(--dim);margin-top:10px;min-height:20px}
+
+/* ── RESPONSIVE ── */
+@media(max-width:720px){
+  .header-inner{padding:0 20px}
+  nav.main-nav{display:none}
+  .hamburger{display:flex}
+  .wrap{padding:0 20px}
+  .hero{padding:48px 0 56px}
+  .sec{padding:48px 0}
+  .form-grid{padding:20px}
+  .admin-table{font-size:11px}
+  .admin-table th,.admin-table td{padding:6px 7px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="index.html" style="display:flex;align-items:center;gap:10px">
+      <div class="logo-clip">
+        <img class="logo-img" src="top.png" alt="degitail"
+             onerror="this.parentElement.style.display='none';document.getElementById('logo-txt').style.display='block'">
+      </div>
+      <span id="logo-txt" class="logo-text" style="display:none">degitail</span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="personal.html">個人向け</a>
+      <a href="business.html">法人向け</a>
+      <a href="workshop.html" class="active">勉強会</a>
+      <a href="mailto:degitail647@gmail.com" class="nav-cta">お問い合わせ</a>
+    </nav>
+    <button class="hamburger" id="hmb" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="mobile-nav" id="mob-nav">
+  <a href="index.html">Home</a>
+  <a href="personal.html">個人向け</a>
+  <a href="business.html">法人向け</a>
+  <a href="workshop.html">勉強会</a>
+  <a href="mailto:degitail647@gmail.com">お問い合わせ</a>
+</div>
+
+<!-- HERO -->
+<section class="s-dark">
+  <div class="wrap hero">
+    <p class="hero-eyebrow">DEGITAIL : KEI ／ WORKSHOP No.01</p>
+    <h1>Claude Code &amp; Codex<br>を学ぶ会 in 岡山</h1>
+    <p class="hero-lead">一日かけて脱初心者。<br>一歩先の、実践型AIマスターになろう。</p>
+    <p class="hero-body">対象は、AIを使ったことがない方、少し触ったことがある程度の初心者の方。朝から夕方まで手を動かし続けて、「自分が創りたいもの」を見つけて帰る一日です。創りたいものがきっと見つかる。その手応えは、これからのキャリアにそのまま効いてきます。</p>
+    <div class="hero-meta">
+      <div><span>日時</span>9月の土日　10:00 — 17:00</div>
+      <div><span>会場</span>岡山駅周辺の会議室（確定後にご案内）</div>
+      <div><span>定員</span>10名程度</div>
+      <div><span>参加費</span>2,000円（ドリンク付き）</div>
+    </div>
+    <a href="#reserve" class="cta-btn">参加を申し込む</a>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section class="s-light">
+  <div class="wrap sec">
+    <p class="sec-eyebrow">COURSES</p>
+    <h2>選べる2コース</h2>
+    <div class="courses">
+      <div class="course-card">
+        <div class="course-head">
+          <span class="course-num">1</span>
+          <span class="course-name">Claude Code コース</span>
+        </div>
+        <p class="course-desc">対話しながらコードを書く。環境の準備から、自分の仕事に効く小さなツールをひとつ完成させるところまで。ターミナルに触れたことがなくても大丈夫です。</p>
+      </div>
+      <div class="course-card">
+        <div class="course-head">
+          <span class="course-num">2</span>
+          <span class="course-name">Codex コース</span>
+        </div>
+        <p class="course-desc">もうひとつの実装エージェント。使い分けの勘どころを掴みながら、同じく手元で動くものを一日で作り上げます。</p>
+      </div>
+    </div>
+    <p class="course-note">＊ お申込み時にどちらか一方をお選びください。当日の変更もご相談いただけます。</p>
+  </div>
+</section>
+
+<!-- TIMETABLE -->
+<section class="s-dark">
+  <div class="wrap sec">
+    <p class="sec-eyebrow" style="color:var(--muted)">TIMETABLE</p>
+    <h2>当日の流れ</h2>
+    <div class="timetable">
+      <div class="tt-cell"><div class="tt-time">10:00</div><div class="tt-label">各AIについておさらい</div></div>
+      <div class="tt-cell"><div class="tt-time">10:30</div><div class="tt-label">セットアップ</div><div class="tt-note">その後、休憩</div></div>
+      <div class="tt-cell"><div class="tt-time">13:00</div><div class="tt-label">作業時間</div></div>
+      <div class="tt-cell"><div class="tt-time">16:00</div><div class="tt-label">総括・次回のご案内</div></div>
+    </div>
+    <p style="font-size:13.5px;color:var(--muted)">＊ ノートPC必須。AIサービスのAPI利用料は自己負担（目安は事前にご案内します）。</p>
+  </div>
+</section>
+
+<!-- RESERVE FORM -->
+<section class="s-light" id="reserve">
+  <div class="wrap sec">
+    <p class="sec-eyebrow">RESERVE</p>
+    <h2>参加予約</h2>
+
+    <!-- STEP BAR -->
+    <div class="step-bar">
+      <div class="step-item on" id="sbar1"><span class="step-num">1</span>お申込み内容</div>
+      <div class="step-item" id="sbar2"><span class="step-num">2</span>内容の確認</div>
+      <div class="step-item" id="sbar3"><span class="step-num">3</span>送信完了</div>
+    </div>
+
+    <!-- STEP 1 -->
+    <div id="step1">
+      <form class="form-grid" id="form1" novalidate>
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <div class="field">
+            スレッズのお名前<br>
+            <input id="f-name" type="text" placeholder="@your_threads_name" required>
+          </div>
+          <div class="field">
+            メールアドレス<br>
+            <input id="f-email" type="email" placeholder="you@example.com" required>
+          </div>
+          <div class="field">
+            希望コース
+            <div class="chip-group" style="margin-top:4px">
+              <button type="button" class="chip on" data-course="Claude Code コース" id="c1">Claude Code</button>
+              <button type="button" class="chip" data-course="Codex コース" id="c2">Codex</button>
+            </div>
+          </div>
+          <div class="field">
+            希望日程
+            <p class="field-note">複数選べます。確定後にメールでご連絡します。</p>
+            <div class="chip-group" style="margin-top:4px" id="date-chips"></div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <div class="field">
+            AIの使用経験<br>
+            <select id="f-exp">
+              <option>まったくの未経験</option>
+              <option>チャットAIを少し使ったことがある</option>
+              <option>仕事で日常的に使っている</option>
+              <option>コーディング支援も試したことがある</option>
+            </select>
+          </div>
+          <div class="field">
+            作ってみたいもの<br>
+            <textarea id="f-idea" rows="3" placeholder="例）毎週の集計作業を自動化したい"></textarea>
+          </div>
+          <div class="field">
+            質問・要望<br>
+            <textarea id="f-note" rows="3" placeholder="当日までに聞いておきたいことがあれば"></textarea>
+          </div>
+          <div class="price-row">
+            <span>参加費（ドリンク付き）／ 当日会場でお支払い</span>
+            <strong>2,000円</strong>
+          </div>
+          <button type="submit" class="form-btn">入力内容を確認する</button>
+          <p class="status-msg" id="msg1"></p>
+        </div>
+      </form>
+    </div>
+
+    <!-- STEP 2 -->
+    <div id="step2" hidden>
+      <div class="form-grid">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div style="font-size:14px;letter-spacing:.18em;font-weight:700">お申込み内容</div>
+          <div class="confirm-table" id="confirm-table"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div style="font-size:14px;letter-spacing:.18em;font-weight:700">ご確認ください</div>
+          <div class="confirm-note">
+            <div>参加費 2,000円（ドリンク付き）は<mark>当日会場でお支払い</mark>です。事前決済はありません。</div>
+            <div>会場は岡山駅周辺の会議室（仮）。確定した会場と日程は、後日メールでご案内します。</div>
+            <div>ノートPCは必須です。AIサービスのAPI利用料は自己負担となります。</div>
+          </div>
+          <button type="button" class="form-btn" id="btn-submit">この内容で申し込む</button>
+          <button type="button" class="form-btn sec" id="btn-back">入力内容に戻る</button>
+          <p class="status-msg" id="msg2"></p>
+          <p style="font-size:12.5px;line-height:1.7;color:var(--dim)">＊ キャンセルは開催3日前までにメールにてご連絡ください。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div id="step3" hidden style="border:2px solid var(--dark);padding:36px 28px">
+      <div class="success-tag">送信完了</div>
+      <h3 class="success" id="s3-name"></h3>
+      <p class="success-body" id="s3-body"></p>
+      <div class="success-meta" id="s3-meta"></div>
+      <button type="button" class="form-btn" style="max-width:260px" id="btn-reset">もう一名分を申し込む</button>
+    </div>
+  </div>
+</section>
+
+<!-- ADMIN PANEL (URLに ?admin=1 を付けると表示) -->
+<section class="s-light" id="admin-panel">
+  <div class="wrap sec">
+    <p class="sec-eyebrow">ADMIN</p>
+    <h2>申し込み一覧</h2>
+    <div id="admin-loading" style="font-size:14px;color:var(--dim)"><span class="spinner"></span>読み込み中...</div>
+    <div id="admin-content" hidden></div>
+    <p id="admin-error" hidden style="color:#c00;font-size:14px"></p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-name">Degitail : Kei</div>
+      <a href="mailto:degitail647@gmail.com" class="footer-email">degitail647@gmail.com</a>
+    </div>
+    <div class="footer-detail">
+      Claude Code &amp; Codex を学ぶ会 in 岡山<br>
+      9月の土日 10:00 — 17:00 ／ 岡山駅周辺の会議室（仮）／ 定員10名
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── データ定義 ──
+const DATES = ['9/19（土）','9/20（日）','9/21（月）','9/22（火）','9/23（水）','9/27（日）','10/3（土）','10/4（日）'];
+
+// ── フォーム状態 ──
+const s = { name:'',email:'',course:'Claude Code コース',dates:[],experience:'まったくの未経験',idea:'',note:'' };
+
+// ── 日程チップ生成 ──
+const dateWrap = document.getElementById('date-chips');
+DATES.forEach(d=>{
+  const b = document.createElement('button');
+  b.type='button'; b.className='chip'; b.textContent=d;
+  b.onclick=()=>{
+    const i=s.dates.indexOf(d);
+    i<0 ? s.dates.push(d) : s.dates.splice(i,1);
+    b.classList.toggle('on', s.dates.includes(d));
+  };
+  dateWrap.appendChild(b);
+});
+
+// ── コース選択 ──
+document.querySelectorAll('[data-course]').forEach(btn=>{
+  btn.onclick=()=>{
+    s.course=btn.dataset.course;
+    document.querySelectorAll('[data-course]').forEach(b=>b.classList.toggle('on',b===btn));
+  };
+});
+
+// ── ステップ表示 ──
+function showStep(n){
+  [1,2,3].forEach(i=>{
+    document.getElementById('step'+i).hidden=i!==n;
+    document.getElementById('sbar'+i).classList.toggle('on',i<=n);
+  });
+  if(n===1) document.getElementById('msg1').textContent='';
+  if(n===2) document.getElementById('msg2').textContent='';
+  if(n>1) document.getElementById('reserve').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ── Step1 → Step2 ──
+document.getElementById('form1').onsubmit=e=>{
+  e.preventDefault();
+  const name=document.getElementById('f-name').value.trim();
+  const email=document.getElementById('f-email').value.trim();
+  if(!name||!email){ document.getElementById('msg1').textContent='お名前とメールアドレスは必須です。'; return; }
+  s.name=name; s.email=email;
+  s.experience=document.getElementById('f-exp').value;
+  s.idea=document.getElementById('f-idea').value.trim();
+  s.note=document.getElementById('f-note').value.trim();
+  // 確認テーブル
+  const rows=[['スレッズ名',s.name],['メール',s.email],['コース',s.course],
+    ['希望日程',s.dates.length?s.dates.join('・'):'（未選択）'],
+    ['AI経験',s.experience],['作りたいもの',s.idea||'（未記入）'],['質問・要望',s.note||'（未記入）']];
+  const ct=document.getElementById('confirm-table');
+  ct.innerHTML=rows.map(([k,v])=>`<div class="confirm-key">${k}</div><div style="overflow-wrap:anywhere">${v}</div>`).join('');
+  showStep(2);
+};
+
+document.getElementById('btn-back').onclick=()=>showStep(1);
+
+// ── Step2 → Step3（送信）──
+document.getElementById('btn-submit').onclick=async()=>{
+  const btn=document.getElementById('btn-submit');
+  const msg=document.getElementById('msg2');
+  btn.disabled=true;
+  btn.innerHTML='<span class="spinner"></span>送信中...';
+  msg.textContent='';
+
+  const data={
+    name:s.name,email:s.email,course:s.course,
+    dates:s.dates.join('・')||'（未選択）',
+    experience:s.experience,idea:s.idea||'',note:s.note||'',
+    submittedAt:new Date().toISOString()
+  };
+
+  let stored=false;
+  try{
+    const db=await window.claude?.use('db');
+    if(db){
+      const id=`${Date.now()}_${Math.random().toString(36).slice(2,7)}`;
+      await db.doc(`submissions/${id}`).set(data);
+      stored=true;
+    }
+  }catch(err){ console.warn('db error',err); }
+
+  if(!stored){
+    // フォールバック：メールクライアントを開く
+    const body=encodeURIComponent(
+`【申し込み】Claude Code & Codex勉強会
+
+お名前：${data.name}
+メール：${data.email}
+コース：${data.course}
+希望日程：${data.dates}
+AI経験：${data.experience}
+作りたいもの：${data.idea||'（未記入）'}
+質問・要望：${data.note||'（未記入）'}
+送信日時：${data.submittedAt}`
+    );
+    const sub=encodeURIComponent('【申し込み】Claude Code & Codex を学ぶ会 in 岡山');
+    window.location.href=`mailto:degitail647@gmail.com?subject=${sub}&body=${body}`;
+    msg.textContent='メールソフトが開きます。内容を確認して「送信」を押してください。';
+    btn.disabled=false;
+    btn.textContent='この内容で申し込む';
+    // メールが送れた想定で完了画面に進む（3秒後）
+    setTimeout(()=>completeStep(),3000);
+    return;
+  }
+  completeStep();
+};
+
+function completeStep(){
+  // Step3 コンテンツ
+  document.getElementById('s3-name').textContent=`${s.name} さま、ありがとうございます。`;
+  document.getElementById('s3-body').textContent=
+    `お申込みを受け付けました。確定した日程・会場（岡山駅周辺の会議室）・事前準備のご案内を ${s.email} 宛にお送りします。参加費は当日会場でお支払いください。`;
+  document.getElementById('s3-meta').innerHTML=
+    `<div class="k">コース</div><div>${s.course}</div>`+
+    `<div class="k">希望日程</div><div>${s.dates.length?s.dates.join('・'):'（未選択）'}</div>`+
+    `<div class="k">参加費</div><div>2,000円（当日払い）</div>`;
+  showStep(3);
+}
+
+document.getElementById('btn-reset').onclick=()=>{
+  s.name='';s.email='';s.course='Claude Code コース';s.dates=[];
+  s.experience='まったくの未経験';s.idea='';s.note='';
+  document.getElementById('f-name').value='';
+  document.getElementById('f-email').value='';
+  document.getElementById('f-idea').value='';
+  document.getElementById('f-note').value='';
+  document.querySelectorAll('[data-course]').forEach((b,i)=>b.classList.toggle('on',i===0));
+  document.querySelectorAll('#date-chips .chip').forEach(b=>b.classList.remove('on'));
+  showStep(1);
+};
+
+// ── ハンバーガー ──
+document.getElementById('hmb').onclick=()=>document.getElementById('mob-nav').classList.toggle('open');
+
+// ── 管理画面 ──
+const isAdmin=new URLSearchParams(location.search).has('admin');
+if(isAdmin){
+  document.getElementById('admin-panel').classList.add('open');
+  (async()=>{
+    try{
+      const db=await window.claude?.use('db');
+      if(!db) throw new Error('dbが利用できません（Artifact外では動作しません）');
+      const snap=await db.collection('submissions').orderBy('submittedAt','desc').get();
+      const items=snap.docs?.map(d=>d.data())||[];
+      if(items.length===0){
+        document.getElementById('admin-content').innerHTML='<p style="color:var(--dim);font-size:14px">申し込みはまだありません。</p>';
+      } else {
+        const cols=['submittedAt','name','email','course','dates','experience'];
+        const head=cols.map(c=>`<th>${c}</th>`).join('');
+        const rows=items.map(r=>`<tr>${cols.map(c=>`<td>${r[c]||''}</td>`).join('')}<td style="max-width:200px">${r.idea||''}</td><td style="max-width:200px">${r.note||''}</td></tr>`).join('');
+        document.getElementById('admin-content').innerHTML=
+          `<p style="font-size:14px;margin-bottom:12px;color:var(--dim)">申し込み件数：<strong style="color:var(--dark)">${items.length}件</strong></p>`+
+          `<div style="overflow-x:auto"><table class="admin-table"><thead><tr>${head}<th>作りたいもの</th><th>質問・要望</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+      }
+      document.getElementById('admin-loading').hidden=true;
+      document.getElementById('admin-content').hidden=false;
+    }catch(err){
+      document.getElementById('admin-loading').hidden=true;
+      const e=document.getElementById('admin-error');
+      e.textContent=err.message;
+      e.hidden=false;
+    }
+  })();
+}
+</script>
+</body>
+</html>
