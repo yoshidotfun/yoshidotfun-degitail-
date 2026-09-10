@@ -463,11 +463,10 @@ AI経験：${data.experience}
     );
     const sub=encodeURIComponent('【申し込み】Claude Code & Codex を学ぶ会 in 岡山');
     window.location.href=`mailto:degitail647@gmail.com?subject=${sub}&body=${body}`;
-    msg.textContent='メールソフトが開きます。内容を確認して「送信」を押してください。';
+    msg.innerHTML='メールソフトが開きます。<br>メールを送信後、下のボタンを押してください。';
     btn.disabled=false;
-    btn.textContent='この内容で申し込む';
-    // メールが送れた想定で完了画面に進む（3秒後）
-    setTimeout(()=>completeStep(),3000);
+    btn.textContent='メールを送信しました →';
+    btn.onclick=()=>completeStep();
     return;
   }
   completeStep();
