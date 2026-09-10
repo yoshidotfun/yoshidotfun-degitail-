@@ -448,26 +448,19 @@ document.getElementById('btn-submit').onclick=async()=>{
   }catch(err){ console.warn('db error',err); }
 
   if(!stored){
-    // フォールバック：メールクライアントを開く
-    const body=encodeURIComponent(
-`【申し込み】Claude Code & Codex勉強会
-
-お名前：${data.name}
-メール：${data.email}
-コース：${data.course}
-希望日程：${data.dates}
-AI経験：${data.experience}
-作りたいもの：${data.idea||'（未記入）'}
-質問・要望：${data.note||'（未記入）'}
-送信日時：${data.submittedAt}`
-    );
-    const sub=encodeURIComponent('【申し込み】Claude Code & Codex を学ぶ会 in 岡山');
-    window.location.href=`mailto:degitail647@gmail.com?subject=${sub}&body=${body}`;
-    msg.innerHTML='メールソフトが開きます。<br>メールを送信後、下のボタンを押してください。';
-    btn.disabled=false;
-    btn.textContent='メールを送信しました →';
-    btn.onclick=()=>completeStep();
-    return;
+    try{
+      const res=await fetch('https://formspree.io/f/xaeyvyaa',{
+        method:'POST',
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body:JSON.stringify(data)
+      });
+      if(!res.ok) throw new Error('formspree '+res.status);
+    }catch(err){
+      msg.textContent='送信に失敗しました。時間をおいて再度お試しください。';
+      btn.disabled=false;
+      btn.textContent='この内容で申し込む';
+      return;
+    }
   }
   completeStep();
 };
