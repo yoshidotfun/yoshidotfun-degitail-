@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Claude Code & Codex を学ぶ会 in 岡山 | degitail</title>
-<meta name="description" content="一日集中ワークショップ。AIを使ったことがない方が、自分の仕事に効くツールを作って帰る一日。岡山・2026年9月開催。定員10名。">
+<meta name="description" content="岡山開催のClaude Code・Codex実践勉強会。初級者向けと中級者向けから選び、自分の仕事に役立つものを作ります。定員10名程度。">
 <link rel="icon" href="icon.png" type="image/png">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -53,7 +53,9 @@ nav .nav-cta:hover{background:var(--black);color:var(--paper)}
 .hero-meta{display:flex;flex-wrap:wrap;gap:10px 28px;font-size:15px;border-top:2px solid var(--paper);padding-top:20px;margin-bottom:36px}
 .hero-meta span{color:var(--muted);margin-right:8px}
 .cta-btn{display:inline-block;background:var(--paper);color:var(--dark);font-size:17px;font-weight:700;letter-spacing:.08em;padding:15px 44px;border:2px solid var(--paper);transition:background .2s,color .2s}
+.s-dark .cta-btn{color:var(--dark)}
 .cta-btn:hover{background:var(--dark);color:var(--paper)}
+.s-dark .cta-btn:hover{color:var(--paper)}
 .cta-btn.dark{background:var(--dark);color:var(--paper);border-color:var(--dark)}
 .cta-btn.dark:hover{background:var(--paper);color:var(--dark)}
 
@@ -72,6 +74,10 @@ nav .nav-cta:hover{background:var(--black);color:var(--paper)}
 .course-name{font-size:clamp(18px,2.2vw,22px);font-weight:700}
 .course-desc{font-size:14.5px;line-height:1.85}
 .course-note{font-size:13px;color:var(--dim)}
+.course-label{font-size:12px;letter-spacing:.12em;font-weight:700;color:var(--dim)}
+.course-flow{list-style:none;border-top:1px solid var(--gray-2);padding-top:10px;display:grid;gap:7px;font-size:13.5px}
+.course-flow li{display:grid;grid-template-columns:24px 1fr;gap:8px;align-items:start}
+.course-flow b{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;background:var(--gray-1);font-size:11px}
 
 /* ── TIMETABLE ── */
 .timetable{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px;margin-bottom:18px}
@@ -79,6 +85,22 @@ nav .nav-cta:hover{background:var(--black);color:var(--paper)}
 .tt-time{font-size:22px;letter-spacing:.02em;font-weight:700}
 .tt-label{font-size:15px;line-height:1.7}
 .tt-note{font-size:13px;color:var(--muted)}
+.programs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.program{border:2px solid var(--paper);padding:22px}
+.program h3{font-size:20px;margin-bottom:14px}
+.program ol{list-style:none;display:grid;gap:10px;counter-reset:program}
+.program li{counter-increment:program;display:grid;grid-template-columns:28px 1fr;gap:10px;font-size:14px;line-height:1.65}
+.program li::before{content:counter(program,decimal-leading-zero);color:var(--muted);font-weight:700}
+
+/* ── PRICING ── */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.price-card{border:2px solid var(--dark);padding:20px;display:flex;flex-direction:column;gap:5px}
+.price-card.recommend{background:var(--dark);color:var(--paper)}
+.price-label{font-size:13px;font-weight:700;letter-spacing:.08em}
+.price-value{font-size:30px;font-weight:700;line-height:1.35}
+.price-value small{font-size:14px;margin-left:3px}
+.price-detail{font-size:12.5px;line-height:1.65;color:var(--dim)}
+.price-card.recommend .price-detail{color:var(--muted)}
 
 /* ── FORM ── */
 .step-bar{display:flex;flex-wrap:wrap;gap:10px 18px;font-size:13.5px;margin-bottom:28px}
@@ -144,6 +166,7 @@ footer{background:var(--dark);color:var(--paper);padding:44px 0;border-top:2px s
   .hero{padding:48px 0 56px}
   .sec{padding:48px 0}
   .form-grid{padding:20px}
+  .programs,.pricing-grid{grid-template-columns:1fr}
   .admin-table{font-size:11px}
   .admin-table th,.admin-table td{padding:6px 7px}
 }
@@ -186,13 +209,13 @@ footer{background:var(--dark);color:var(--paper);padding:44px 0;border-top:2px s
   <div class="wrap hero">
     <p class="hero-eyebrow">DEGITAIL : KEI ／ WORKSHOP No.01</p>
     <h1>Claude Code &amp; Codex<br>を学ぶ会 in 岡山</h1>
-    <p class="hero-lead">一日かけて脱初心者。<br>一歩先の、実践型AIマスターになろう。</p>
-    <p class="hero-body">対象は、AIを使ったことがない方、少し触ったことがある程度の初心者の方。朝から夕方まで手を動かし続けて、「自分が創りたいもの」を見つけて帰る一日です。創りたいものがきっと見つかる。その手応えは、これからのキャリアにそのまま効いてきます。</p>
+    <p class="hero-lead">知るだけで終わらない。<br>自分の手で、ひとつ完成させる一日。</p>
+    <p class="hero-body">初めてAI開発に触れる方向けの初級者コースと、すでに使い始めている方向けの中級者コースを用意しました。Claude CodeまたはCodexを選び、自分の課題に合った実践に取り組みます。</p>
     <div class="hero-meta">
-      <div><span>日時</span>9月の土日　10:00 — 17:00</div>
+      <div><span>日時</span>9/19〜10/4の指定日　10:00 — 17:00</div>
       <div><span>会場</span>岡山駅周辺の会議室（確定後にご案内）</div>
       <div><span>定員</span>10名程度</div>
-      <div><span>参加費</span>2,000円（ドリンク付き）</div>
+      <div><span>参加費</span>当日2,000円 ／ 前払い1,800円 ／ 紹介割1,500円</div>
     </div>
     <a href="#reserve" class="cta-btn">参加を申し込む</a>
   </div>
@@ -202,24 +225,38 @@ footer{background:var(--dark);color:var(--paper);padding:44px 0;border-top:2px s
 <section class="s-light">
   <div class="wrap sec">
     <p class="sec-eyebrow">COURSES</p>
-    <h2>選べる2コース</h2>
+    <h2>経験に合わせて選べる2コース</h2>
     <div class="courses">
       <div class="course-card">
         <div class="course-head">
           <span class="course-num">1</span>
-          <span class="course-name">Claude Code コース</span>
+          <span class="course-name">初級者向けコース</span>
         </div>
-        <p class="course-desc">対話しながらコードを書く。環境の準備から、自分の仕事に効く小さなツールをひとつ完成させるところまで。ターミナルに触れたことがなくても大丈夫です。</p>
+        <p class="course-label">はじめてでも、セットアップから一緒に進めます</p>
+        <p class="course-desc">AIの全体像と事例を知り、Claude CodeまたはCodexを自分のPCで使える状態にします。最後は講師のサポートを受けながら、作りたいものをひとつ形にします。</p>
+        <ol class="course-flow">
+          <li><b>1</b><span>AIの概要とClaude Code・Codexの違い</span></li>
+          <li><b>2</b><span>仕事や地域で使える事例紹介</span></li>
+          <li><b>3</b><span>インストールと初期セットアップ</span></li>
+          <li><b>4</b><span>自主制作と成果共有</span></li>
+        </ol>
       </div>
       <div class="course-card">
         <div class="course-head">
           <span class="course-num">2</span>
-          <span class="course-name">Codex コース</span>
+          <span class="course-name">中級者向けコース</span>
         </div>
-        <p class="course-desc">もうひとつの実装エージェント。使い分けの勘どころを掴みながら、同じく手元で動くものを一日で作り上げます。</p>
+        <p class="course-label">すでに使った経験があり、実務へつなげたい方向け</p>
+        <p class="course-desc">作りたいものを要件に分解し、AIへのルール設定、既存ファイルの改善、外部サービス連携、テストまでを実践します。完成後も使い続けられる形を目指します。</p>
+        <ol class="course-flow">
+          <li><b>1</b><span>課題整理と完成条件の決め方</span></li>
+          <li><b>2</b><span>プロジェクトルールと指示設計</span></li>
+          <li><b>3</b><span>外部サービス連携・既存データ活用</span></li>
+          <li><b>4</b><span>テスト、改善、自動実行への仕上げ</span></li>
+        </ol>
       </div>
     </div>
-    <p class="course-note">＊ お申込み時にどちらか一方をお選びください。当日の変更もご相談いただけます。</p>
+    <p class="course-note">＊ 受講レベルとは別に、申込フォームで使用するAI（Claude Code／Codex）を選べます。</p>
   </div>
 </section>
 
@@ -227,14 +264,55 @@ footer{background:var(--dark);color:var(--paper);padding:44px 0;border-top:2px s
 <section class="s-dark">
   <div class="wrap sec">
     <p class="sec-eyebrow" style="color:var(--muted)">TIMETABLE</p>
-    <h2>当日の流れ</h2>
-    <div class="timetable">
-      <div class="tt-cell"><div class="tt-time">10:00</div><div class="tt-label">各AIについておさらい</div></div>
-      <div class="tt-cell"><div class="tt-time">10:30</div><div class="tt-label">セットアップ</div><div class="tt-note">その後、休憩</div></div>
-      <div class="tt-cell"><div class="tt-time">13:00</div><div class="tt-label">作業時間</div></div>
-      <div class="tt-cell"><div class="tt-time">16:00</div><div class="tt-label">総括・次回のご案内</div></div>
+    <h2>コース別の進め方</h2>
+    <div class="programs">
+      <div class="program">
+        <h3>初級者向け</h3>
+        <ol>
+          <li>AIの概要と活用事例を知る</li>
+          <li>Claude Code／Codexをセットアップする</li>
+          <li>見本を一緒に作り、基本操作を身につける</li>
+          <li>自主制作で自分のアイデアを形にする</li>
+          <li>成果共有と次に学ぶことを整理する</li>
+        </ol>
+      </div>
+      <div class="program">
+        <h3>中級者向け</h3>
+        <ol>
+          <li>解決したい業務と完成条件を設計する</li>
+          <li>AIが迷わないルールと作業手順を作る</li>
+          <li>既存ファイルや外部サービスをつなぐ</li>
+          <li>実装、テスト、エラー修正を繰り返す</li>
+          <li>定期実行や引き継ぎを見据えて仕上げる</li>
+        </ol>
+      </div>
     </div>
-    <p style="font-size:13.5px;color:var(--muted)">＊ ノートPC必須。AIサービスのAPI利用料は自己負担（目安は事前にご案内します）。</p>
+    <p style="font-size:13.5px;color:var(--muted);margin-top:18px">＊ 開催時間は10:00〜17:00。ノートPC必須。AIサービスの利用料は自己負担です。</p>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="s-light">
+  <div class="wrap sec">
+    <p class="sec-eyebrow">PRICING</p>
+    <h2>参加費</h2>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-label">当日払い</div>
+        <div class="price-value">2,000<small>円／人</small></div>
+        <p class="price-detail">開催当日に会場でお支払いください。</p>
+      </div>
+      <div class="price-card">
+        <div class="price-label">事前払い</div>
+        <div class="price-value">1,800<small>円／人</small></div>
+        <p class="price-detail">お申込み後にお送りする案内からお支払いください。</p>
+      </div>
+      <div class="price-card recommend">
+        <div class="price-label">紹介割</div>
+        <div class="price-value">1,500<small>円／人</small></div>
+        <p class="price-detail">紹介した方・紹介された方のどちらも、1名につき1,500円です。</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -266,8 +344,16 @@ footer{background:var(--dark);color:var(--paper);padding:44px 0;border-top:2px s
           <div class="field">
             希望コース
             <div class="chip-group" style="margin-top:4px">
-              <button type="button" class="chip on" data-course="Claude Code コース" id="c1">Claude Code</button>
-              <button type="button" class="chip" data-course="Codex コース" id="c2">Codex</button>
+              <button type="button" class="chip on" data-level="初級者向けコース">初級者向け</button>
+              <button type="button" class="chip" data-level="中級者向けコース">中級者向け</button>
+            </div>
+          </div>
+          <div class="field">
+            希望するAI
+            <p class="field-note">当日メインで使用するものを1つ選んでください。</p>
+            <div class="chip-group" style="margin-top:4px">
+              <button type="button" class="chip on" data-ai="Claude Code">Claude Code</button>
+              <button type="button" class="chip" data-ai="Codex">Codex</button>
             </div>
           </div>
           <div class="field">
@@ -294,9 +380,22 @@ footer{background:var(--dark);color:var(--paper);padding:44px 0;border-top:2px s
             質問・要望<br>
             <textarea id="f-note" rows="3" placeholder="当日までに聞いておきたいことがあれば"></textarea>
           </div>
+          <div class="field">
+            お支払い方法
+            <div class="chip-group" style="margin-top:4px">
+              <button type="button" class="chip on" data-payment="当日払い" data-price="2,000円">当日払い</button>
+              <button type="button" class="chip" data-payment="事前払い" data-price="1,800円">事前払い</button>
+              <button type="button" class="chip" data-payment="紹介割" data-price="1,500円">紹介割</button>
+            </div>
+            <p class="field-note">紹介割は、紹介した方・紹介された方ともに1名1,500円です。</p>
+          </div>
+          <div class="field">
+            紹介者のスレッズ名（紹介割の方のみ）<br>
+            <input id="f-referrer" type="text" placeholder="@紹介者のThreads名">
+          </div>
           <div class="price-row">
-            <span>参加費（ドリンク付き）／ 当日会場でお支払い</span>
-            <strong>2,000円</strong>
+            <span id="price-label">参加費（ドリンク付き）／ 当日払い</span>
+            <strong id="price-value">2,000円</strong>
           </div>
           <button type="submit" class="form-btn">入力内容を確認する</button>
           <p class="status-msg" id="msg1"></p>
@@ -314,7 +413,7 @@ footer{background:var(--dark);color:var(--paper);padding:44px 0;border-top:2px s
         <div style="display:flex;flex-direction:column;gap:14px">
           <div style="font-size:14px;letter-spacing:.18em;font-weight:700">ご確認ください</div>
           <div class="confirm-note">
-            <div>参加費 2,000円（ドリンク付き）は<mark>当日会場でお支払い</mark>です。事前決済はありません。</div>
+            <div id="payment-note">参加費 2,000円（ドリンク付き）は<mark>当日会場でお支払い</mark>です。</div>
             <div>会場は岡山駅周辺の会議室（仮）。確定した会場と日程は、後日メールでご案内します。</div>
             <div>ノートPCは必須です。AIサービスのAPI利用料は自己負担となります。</div>
           </div>
@@ -357,7 +456,7 @@ footer{background:var(--dark);color:var(--paper);padding:44px 0;border-top:2px s
     </div>
     <div class="footer-detail">
       Claude Code &amp; Codex を学ぶ会 in 岡山<br>
-      9月の土日 10:00 — 17:00 ／ 岡山駅周辺の会議室（仮）／ 定員10名
+      9/19〜10/4の指定日 10:00 — 17:00 ／ 岡山駅周辺の会議室（仮）／ 定員10名
     </div>
   </div>
 </footer>
@@ -367,7 +466,11 @@ footer{background:var(--dark);color:var(--paper);padding:44px 0;border-top:2px s
 const DATES = ['9/19（土）','9/20（日）','9/21（月）','9/22（火）','9/23（水）','9/27（日）','10/3（土）','10/4（日）'];
 
 // ── フォーム状態 ──
-const s = { name:'',email:'',course:'Claude Code コース',dates:[],experience:'まったくの未経験',idea:'',note:'' };
+const s = {
+  name:'',email:'',level:'初級者向けコース',ai:'Claude Code',dates:[],
+  experience:'まったくの未経験',idea:'',note:'',
+  payment:'当日払い',price:'2,000円',referrer:''
+};
 
 // ── 日程チップ生成 ──
 const dateWrap = document.getElementById('date-chips');
@@ -382,11 +485,26 @@ DATES.forEach(d=>{
   dateWrap.appendChild(b);
 });
 
-// ── コース選択 ──
-document.querySelectorAll('[data-course]').forEach(btn=>{
+// ── 受講レベル・使用AI・支払い方法 ──
+document.querySelectorAll('[data-level]').forEach(btn=>{
   btn.onclick=()=>{
-    s.course=btn.dataset.course;
-    document.querySelectorAll('[data-course]').forEach(b=>b.classList.toggle('on',b===btn));
+    s.level=btn.dataset.level;
+    document.querySelectorAll('[data-level]').forEach(b=>b.classList.toggle('on',b===btn));
+  };
+});
+document.querySelectorAll('[data-ai]').forEach(btn=>{
+  btn.onclick=()=>{
+    s.ai=btn.dataset.ai;
+    document.querySelectorAll('[data-ai]').forEach(b=>b.classList.toggle('on',b===btn));
+  };
+});
+document.querySelectorAll('[data-payment]').forEach(btn=>{
+  btn.onclick=()=>{
+    s.payment=btn.dataset.payment;
+    s.price=btn.dataset.price;
+    document.querySelectorAll('[data-payment]').forEach(b=>b.classList.toggle('on',b===btn));
+    document.getElementById('price-label').textContent=`参加費（ドリンク付き）／ ${s.payment}`;
+    document.getElementById('price-value').textContent=s.price;
   };
 });
 
@@ -411,12 +529,24 @@ document.getElementById('form1').onsubmit=e=>{
   s.experience=document.getElementById('f-exp').value;
   s.idea=document.getElementById('f-idea').value.trim();
   s.note=document.getElementById('f-note').value.trim();
+  s.referrer=document.getElementById('f-referrer').value.trim();
+  if(s.payment==='紹介割'&&!s.referrer){
+    document.getElementById('msg1').textContent='紹介割を選んだ方は、紹介者のスレッズ名を入力してください。';
+    return;
+  }
   // 確認テーブル
-  const rows=[['スレッズ名',s.name],['メール',s.email],['コース',s.course],
+  const rows=[['スレッズ名',s.name],['メール',s.email],['コース',s.level],['希望AI',s.ai],
     ['希望日程',s.dates.length?s.dates.join('・'):'（未選択）'],
-    ['AI経験',s.experience],['作りたいもの',s.idea||'（未記入）'],['質問・要望',s.note||'（未記入）']];
+    ['AI経験',s.experience],['支払い',`${s.payment}（${s.price}）`],
+    ['紹介者',s.referrer||'（該当なし）'],['作りたいもの',s.idea||'（未記入）'],['質問・要望',s.note||'（未記入）']];
   const ct=document.getElementById('confirm-table');
   ct.innerHTML=rows.map(([k,v])=>`<div class="confirm-key">${k}</div><div style="overflow-wrap:anywhere">${v}</div>`).join('');
+  const paymentText=s.payment==='事前払い'
+    ? `参加費 ${s.price}（ドリンク付き）です。<mark>お支払い方法をメールでご案内</mark>します。`
+    : s.payment==='紹介割'
+      ? `参加費は紹介した方・紹介された方ともに<mark>1名1,500円</mark>です。`
+      : `参加費 ${s.price}（ドリンク付き）は<mark>当日会場でお支払い</mark>です。`;
+  document.getElementById('payment-note').innerHTML=paymentText;
   showStep(2);
 };
 
@@ -431,9 +561,11 @@ document.getElementById('btn-submit').onclick=async()=>{
   msg.textContent='';
 
   const data={
-    name:s.name,email:s.email,course:s.course,
+    _subject:`勉強会申込：${s.level}／${s.ai}`,
+    name:s.name,email:s.email,level:s.level,ai:s.ai,
     dates:s.dates.join('・')||'（未選択）',
-    experience:s.experience,idea:s.idea||'',note:s.note||'',
+    experience:s.experience,payment:s.payment,price:s.price,referrer:s.referrer||'',
+    idea:s.idea||'',note:s.note||'',
     submittedAt:new Date().toISOString()
   };
 
@@ -469,22 +601,30 @@ function completeStep(){
   // Step3 コンテンツ
   document.getElementById('s3-name').textContent=`${s.name} さま、ありがとうございます。`;
   document.getElementById('s3-body').textContent=
-    `お申込みを受け付けました。確定した日程・会場（岡山駅周辺の会議室）・事前準備のご案内を ${s.email} 宛にお送りします。参加費は当日会場でお支払いください。`;
+    `お申込みを受け付けました。確定した日程・会場（岡山駅周辺の会議室）・事前準備のご案内を ${s.email} 宛にお送りします。`;
   document.getElementById('s3-meta').innerHTML=
-    `<div class="k">コース</div><div>${s.course}</div>`+
+    `<div class="k">コース</div><div>${s.level}</div>`+
+    `<div class="k">希望AI</div><div>${s.ai}</div>`+
     `<div class="k">希望日程</div><div>${s.dates.length?s.dates.join('・'):'（未選択）'}</div>`+
-    `<div class="k">参加費</div><div>2,000円（当日払い）</div>`;
+    `<div class="k">参加費</div><div>${s.price}（${s.payment}）</div>`;
   showStep(3);
 }
 
 document.getElementById('btn-reset').onclick=()=>{
-  s.name='';s.email='';s.course='Claude Code コース';s.dates=[];
+  s.name='';s.email='';s.level='初級者向けコース';s.ai='Claude Code';s.dates=[];
   s.experience='まったくの未経験';s.idea='';s.note='';
+  s.payment='当日払い';s.price='2,000円';s.referrer='';
   document.getElementById('f-name').value='';
   document.getElementById('f-email').value='';
   document.getElementById('f-idea').value='';
   document.getElementById('f-note').value='';
-  document.querySelectorAll('[data-course]').forEach((b,i)=>b.classList.toggle('on',i===0));
+  document.getElementById('f-referrer').value='';
+  document.getElementById('price-label').textContent='参加費（ドリンク付き）／ 当日払い';
+  document.getElementById('price-value').textContent='2,000円';
+  document.querySelectorAll('[data-level],[data-ai],[data-payment]').forEach((b,i,list)=>{
+    const group=b.hasAttribute('data-level')?'level':b.hasAttribute('data-ai')?'ai':'payment';
+    b.classList.toggle('on',b===document.querySelector(`[data-${group}]`));
+  });
   document.querySelectorAll('#date-chips .chip').forEach(b=>b.classList.remove('on'));
   showStep(1);
 };
@@ -505,7 +645,7 @@ if(isAdmin){
       if(items.length===0){
         document.getElementById('admin-content').innerHTML='<p style="color:var(--dim);font-size:14px">申し込みはまだありません。</p>';
       } else {
-        const cols=['submittedAt','name','email','course','dates','experience'];
+        const cols=['submittedAt','name','email','level','ai','dates','experience','payment','price','referrer'];
         const head=cols.map(c=>`<th>${c}</th>`).join('');
         const rows=items.map(r=>`<tr>${cols.map(c=>`<td>${r[c]||''}</td>`).join('')}<td style="max-width:200px">${r.idea||''}</td><td style="max-width:200px">${r.note||''}</td></tr>`).join('');
         document.getElementById('admin-content').innerHTML=
