@@ -212,10 +212,10 @@ footer{background:var(--dark);color:var(--paper);padding:44px 0;border-top:2px s
     <p class="hero-lead">知るだけで終わらない。<br>自分の手で、ひとつ完成させる一日。</p>
     <p class="hero-body">初めてAI開発に触れる方向けの初級者コースと、すでに使い始めている方向けの中級者コースを用意しました。Claude CodeまたはCodexを選び、自分の課題に合った実践に取り組みます。</p>
     <div class="hero-meta">
-      <div><span>日時</span>9/19〜10/4の指定日　10:00 — 17:00</div>
+      <div><span>日時</span>10/3・10/4・10/18　10:00 — 15:00</div>
       <div><span>会場</span>岡山駅周辺の会議室（確定後にご案内）</div>
       <div><span>定員</span>10名程度</div>
-      <div><span>参加費</span>当日2,000円 ／ 前払い1,800円 ／ 紹介割1,500円</div>
+      <div><span>参加費</span>当日2,000円 ／ 前払い1,800円 ／ 紹介割（事前払い）1,500円</div>
     </div>
     <a href="#reserve" class="cta-btn">参加を申し込む</a>
   </div>
@@ -287,7 +287,7 @@ footer{background:var(--dark);color:var(--paper);padding:44px 0;border-top:2px s
         </ol>
       </div>
     </div>
-    <p style="font-size:13.5px;color:var(--muted);margin-top:18px">＊ 開催時間は10:00〜17:00。ノートPC必須。AIサービスの利用料は自己負担です。</p>
+    <p style="font-size:13.5px;color:var(--muted);margin-top:18px">＊ 開催時間は10:00〜15:00。ノートPC必須。AIサービスの利用料は自己負担です。</p>
   </div>
 </section>
 
@@ -308,9 +308,9 @@ footer{background:var(--dark);color:var(--paper);padding:44px 0;border-top:2px s
         <p class="price-detail">お申込み後にお送りする案内からお支払いください。</p>
       </div>
       <div class="price-card recommend">
-        <div class="price-label">紹介割</div>
+        <div class="price-label">紹介割（事前払い限定）</div>
         <div class="price-value">1,500<small>円／人</small></div>
-        <p class="price-detail">紹介した方・紹介された方のどちらも、1名につき1,500円です。</p>
+        <p class="price-detail">紹介した方・紹介された方のどちらも、事前払いで1名につき1,500円です。</p>
       </div>
     </div>
   </div>
@@ -385,9 +385,9 @@ footer{background:var(--dark);color:var(--paper);padding:44px 0;border-top:2px s
             <div class="chip-group" style="margin-top:4px">
               <button type="button" class="chip on" data-payment="当日払い" data-price="2,000円">当日払い</button>
               <button type="button" class="chip" data-payment="事前払い" data-price="1,800円">事前払い</button>
-              <button type="button" class="chip" data-payment="紹介割" data-price="1,500円">紹介割</button>
+              <button type="button" class="chip" data-payment="紹介割（事前払い）" data-price="1,500円">紹介割（事前払い）</button>
             </div>
-            <p class="field-note">紹介割は、紹介した方・紹介された方ともに1名1,500円です。</p>
+            <p class="field-note">紹介割は事前払い限定です。紹介した方・紹介された方ともに1名1,500円です。</p>
           </div>
           <div class="field">
             紹介者のスレッズ名（紹介割の方のみ）<br>
@@ -456,14 +456,14 @@ footer{background:var(--dark);color:var(--paper);padding:44px 0;border-top:2px s
     </div>
     <div class="footer-detail">
       Claude Code &amp; Codex を学ぶ会 in 岡山<br>
-      9/19〜10/4の指定日 10:00 — 17:00 ／ 岡山駅周辺の会議室（仮）／ 定員10名
+      10/3・10/4・10/18 10:00 — 15:00 ／ 岡山駅周辺の会議室（仮）／ 定員10名
     </div>
   </div>
 </footer>
 
 <script>
 // ── データ定義 ──
-const DATES = ['9/19（土）','9/20（日）','9/21（月）','9/22（火）','9/23（水）','9/27（日）','10/3（土）','10/4（日）'];
+const DATES = ['10/3（土）','10/4（日）','10/18（日）'];
 
 // ── フォーム状態 ──
 const s = {
@@ -530,7 +530,7 @@ document.getElementById('form1').onsubmit=e=>{
   s.idea=document.getElementById('f-idea').value.trim();
   s.note=document.getElementById('f-note').value.trim();
   s.referrer=document.getElementById('f-referrer').value.trim();
-  if(s.payment==='紹介割'&&!s.referrer){
+  if(s.payment==='紹介割（事前払い）'&&!s.referrer){
     document.getElementById('msg1').textContent='紹介割を選んだ方は、紹介者のスレッズ名を入力してください。';
     return;
   }
@@ -543,8 +543,8 @@ document.getElementById('form1').onsubmit=e=>{
   ct.innerHTML=rows.map(([k,v])=>`<div class="confirm-key">${k}</div><div style="overflow-wrap:anywhere">${v}</div>`).join('');
   const paymentText=s.payment==='事前払い'
     ? `参加費 ${s.price}（ドリンク付き）です。<mark>お支払い方法をメールでご案内</mark>します。`
-    : s.payment==='紹介割'
-      ? `参加費は紹介した方・紹介された方ともに<mark>1名1,500円</mark>です。`
+    : s.payment==='紹介割（事前払い）'
+      ? `参加費は紹介した方・紹介された方ともに<mark>事前払いで1名1,500円</mark>です。お支払い方法をメールでご案内します。`
       : `参加費 ${s.price}（ドリンク付き）は<mark>当日会場でお支払い</mark>です。`;
   document.getElementById('payment-note').innerHTML=paymentText;
   showStep(2);
