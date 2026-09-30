@@ -705,14 +705,25 @@ document.getElementById('btn-submit').onclick=async()=>{
   if(!stored){
     try{
       if(SHEETS_URL){
-        // text/plain で送るとブラウザの事前確認（CORSプリフライト）が起きず、Apps Scriptで受け取れる
-        const res=await fetch(SHEETS_URL,{
-          method:'POST',
-          headers:{'Content-Type':'text/plain;charset=utf-8'},
-          body:JSON.stringify(data)
-        });
-        const out=await res.json();
-        if(!out.ok) throw new Error('sheets '+(out.error||res.status));
+        let lastError;
+        for(let attempt=0;attempt<2;attempt++){
+          try{
+            // 同じ申込IDで再試行するため、最初の送信が届いていてもシート側で重複しない
+            const res=await fetch(SHEETS_URL,{
+              method:'POST',
+              headers:{'Content-Type':'text/plain;charset=utf-8'},
+              body:JSON.stringify(data)
+            });
+            const out=await res.json();
+            if(!out.ok) throw new Error('sheets '+(out.error||res.status));
+            lastError=null;
+            break;
+          }catch(err){
+            lastError=err;
+            console.warn(`sheets error (attempt ${attempt+1})`,err);
+          }
+        }
+        if(lastError) throw lastError;
       }else{
         const res=await fetch(FORMSPREE_URL,{
           method:'POST',
