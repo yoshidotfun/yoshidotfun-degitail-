@@ -1,0 +1,163 @@
+/* ============================================================
+   degitail 共通テーマ
+   workshop.html の白黒デザインに通常ページを揃えるための上書きCSS。
+   各ページの <style> の「後」に読み込むこと（同じ強さのルールは後勝ち）。
+   workshop.html と flyer*.html は読み込まない。
+   ============================================================ */
+
+/* ── 配色：workshop.html と同じ値 ── */
+:root {
+  --dt-dark:  #201f1d;
+  --dt-mid:   #2e2c2a;
+  --dt-muted: #bab6b6;
+  --dt-dim:   #605d5d;
+  --dt-font:  'Helvetica Neue', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', Meiryo, sans-serif;
+
+  /* 各ページ共通の変数 */
+  --black: #201f1d;
+  --ink:   #1d1d1d;
+  --bg:    #fafafa;
+  --line:  #e3e3e3;
+
+  /* ai-tantei.html の水色系 → 白黒 */
+  --water: #201f1d; --water-dk: #201f1d; --water-lt: #ececec; --water-xs: #fafafa;
+  --ink-md: #2b2b2b; --ink-lt: #605d5d;
+  --radius: 0; --shadow: none;
+
+  /* reservation-ai.html の緑系ダークテーマ → 白黒 */
+  --surface: #ffffff; --surface-2: #f2f2f2; --border: #d8d8d8;
+  --accent: #201f1d; --accent-dk: #000000;
+  --accent-gl: rgba(32,31,29,.06); --accent-bd: rgba(32,31,29,.3);
+  --amber: #605d5d; --text: #1d1d1d; --muted: #605d5d; --faint: #9a9a9a;
+  --sans: var(--dt-font); --r: 0; --rL: 0;
+}
+
+/* ── 暗い背景の範囲：文字・線の変数を明るい側へ切り替える ── */
+.hero, .page-head, footer {
+  --black: #ffffff; --ink: #ffffff; --line: rgba(255,255,255,.2);
+  --gray-6: #dcd8d8; --g6: #dcd8d8;
+  --gray-4: var(--dt-muted); --g4: var(--dt-muted);
+  --gray-2: #5a5754; --g2: #5a5754;
+  --water: #ffffff; --water-dk: #ffffff; --ink-md: #dcd8d8; --ink-lt: var(--dt-muted);
+  --accent: #ffffff; --accent-dk: #dcd8d8;
+  --accent-bd: rgba(255,255,255,.35); --accent-gl: rgba(255,255,255,.06);
+  --text: #ffffff; --muted: var(--dt-muted); --faint: #8a8580; --amber: var(--dt-muted);
+  --border: #3a3836; --surface: var(--dt-mid); --surface-2: #3a3836; --bg: var(--dt-dark);
+}
+
+/* ── 文字 ── */
+body { font-family: var(--dt-font); line-height: 1.8; }
+.section-num, .sec-eyebrow, .s-num { color: var(--dt-dim); }
+.section-title, .sec-title, .s-title {
+  font-weight: 700;
+  border-bottom: 2px solid var(--dt-dark);
+  padding-bottom: 12px;
+}
+.contact h2, .cta-section h2, .more h3 { font-weight: 700; }
+
+/* ── 余白（workshop.html：PC 64px／スマホ 48px） ── */
+section { padding-top: 64px; padding-bottom: 64px; }
+.section-head { margin-bottom: 40px; }
+
+/* ── ヒーロー：全幅の黒帯 ── */
+.hero, .page-head {
+  max-width: none;
+  margin: 0;
+  background: var(--dt-dark);
+  color: #ffffff;
+  border-bottom: 0;
+  padding-top: 72px;
+  padding-bottom: 80px;
+  /* 本文と同じ 1080px 幅に左端を揃える */
+  padding-left: max(32px, calc(50% - 508px));
+  padding-right: max(32px, calc(50% - 508px));
+}
+.hero::before { content: none; }
+.hero h1, .page-head h1 { font-weight: 700; }
+.hero-eyebrow, .hero-cat, .page-head .eyebrow { color: var(--dt-muted); }
+
+/* ── ボタン：四角・太字・2px枠、ホバーで白黒反転 ── */
+.btn, .gw-btn, .btn-p, .btn-g, .modal-submit, .f-submit {
+  border: 2px solid var(--dt-dark);
+  border-radius: 0;
+  box-shadow: none;
+  font-weight: 700;
+  letter-spacing: .08em;
+}
+.btn-dark, .btn-water, .btn-p, .modal-submit, .f-submit, .gw-card--light .gw-btn {
+  background: var(--dt-dark);
+  color: #ffffff;
+}
+.btn-dark:hover, .btn-water:hover, .btn-p:hover, .modal-submit:hover, .f-submit:hover,
+.gw-card--light .gw-btn:hover {
+  background: #ffffff;
+  color: var(--dt-dark);
+  transform: none;
+}
+.btn-ghost, .btn-outline, .btn-g { background: transparent; color: var(--dt-dark); }
+.btn-ghost:hover, .btn-outline:hover, .btn-g:hover {
+  background: var(--dt-dark);
+  color: #ffffff;
+  border-color: var(--dt-dark);
+}
+/* 暗い背景の上のボタン */
+.btn-light, .btn-white, .gw-card--dark .gw-btn,
+.hero .btn-dark, .hero .btn-water, .hero .btn-p {
+  background: #ffffff;
+  color: var(--dt-dark);
+  border-color: #ffffff;
+}
+.btn-light:hover, .btn-white:hover, .gw-card--dark .gw-btn:hover,
+.hero .btn-dark:hover, .hero .btn-water:hover, .hero .btn-p:hover {
+  background: transparent;
+  color: #ffffff;
+  transform: none;
+}
+.hero .btn-ghost, .hero .btn-outline, .hero .btn-g {
+  background: transparent;
+  color: #ffffff;
+  border-color: #ffffff;
+}
+.hero .btn-ghost:hover, .hero .btn-outline:hover, .hero .btn-g:hover {
+  background: #ffffff;
+  color: var(--dt-dark);
+}
+
+/* ── カード：2px の黒枠 ── */
+.plan-card, .voice-card, .type-card, .price-box, .svc-card,
+.feat-card, .pilot-card, .area-box, .demo-box {
+  border: 2px solid var(--dt-dark);
+}
+.plan-card.featured { box-shadow: inset 0 0 0 2px var(--dt-dark); }
+/* 1px の隙間で罫線を描くグリッドは、罫線を黒の 2px に */
+.why-grid, .do-grid, .cap-grid, .flow-grid, .wwd-grid, .trouble-grid, .gw-grid {
+  gap: 2px;
+  background: var(--dt-dark);
+  border: 2px solid var(--dt-dark);
+}
+.gw-card--dark { --gray-6: var(--dt-muted); --gray-4: #dcd8d8; }
+.faq-list { border-top: 2px solid var(--dt-dark); }
+.cta-mail { color: var(--dt-muted); }
+
+/* ai-tantei.html：暗いプロフィール欄と表の見出し */
+.profile { background: var(--dt-dark); --water: #ffffff; }
+.profile-skill, .footer-badge { border-color: rgba(255,255,255,.35); }
+/* 表見出しの色がHTMLに直接書かれているため !important で上書き */
+.compare-table thead th:nth-child(3) { background: var(--dt-mid) !important; }
+
+.modal-overlay { background: rgba(32,31,29,.6); }
+/* reservation-ai.html：固定ナビを workshop.html のヘッダーと同じ白に */
+body > nav { background: rgba(255,255,255,.92); }
+
+/* ── フッター：黒帯 ── */
+footer { background: var(--dt-dark); color: #ffffff; border-top: 0; }
+/* 黒字ロゴを白抜きに反転し、白い下地を背景色になじませる */
+.footer-logo-img { filter: invert(1); mix-blend-mode: screen; }
+
+/* ── スマホ ── */
+@media (max-width: 720px) {
+  section { padding-top: 48px; padding-bottom: 48px; }
+  .hero, .page-head {
+    padding: 48px 24px 56px;
+  }
+}
