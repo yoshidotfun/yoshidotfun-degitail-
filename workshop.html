@@ -27,6 +27,8 @@ header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdr
 .logo-img{width:116px;position:absolute;top:-66px;left:0}
 .logo-text{font-size:1.1rem;font-weight:700;letter-spacing:.04em;color:var(--dark)}
 nav{display:flex;gap:28px;align-items:center}
+/* 721〜900px：項目が詰まらないよう間隔だけ縮める（720px以下はハンバーガー） */
+@media(max-width:900px){nav.main-nav{gap:18px}}
 nav a{font-size:.82rem;letter-spacing:.08em;color:var(--gray-6);text-transform:uppercase;transition:color .2s}
 nav a:hover{color:var(--black)}
 nav a.active{color:var(--black);font-weight:700}
@@ -214,6 +216,7 @@ footer{background:var(--dark);color:var(--paper);padding:44px 0;border-top:2px s
       <a href="personal.html">個人向け</a>
       <a href="business.html">法人向け</a>
       <a href="workshop.html" class="active">勉強会</a>
+      <a href="profile.html">プロフィール</a>
       <a href="mailto:degitail647@gmail.com" class="nav-cta">お問い合わせ</a>
     </nav>
     <button class="hamburger" id="hmb" aria-label="メニュー">
@@ -226,6 +229,7 @@ footer{background:var(--dark);color:var(--paper);padding:44px 0;border-top:2px s
   <a href="personal.html">個人向け</a>
   <a href="business.html">法人向け</a>
   <a href="workshop.html">勉強会</a>
+  <a href="profile.html">プロフィール</a>
   <a href="mailto:degitail647@gmail.com">お問い合わせ</a>
 </div>
 

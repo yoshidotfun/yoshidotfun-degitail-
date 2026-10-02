@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>プロフィール | Kei — AIエンジニア | degitail</title>
+  <meta name="description" content="degitail 代表 Kei のプロフィール。日用品メーカーのデータサイエンティストを経て、AIエンジニアとしてAX・AEOも扱う個人事業主。地域に特化した手頃な価格のAI導入サービスとAI勉強会を開催。都知事AI杯 本選出場。">
+  <link rel="icon" href="icon.png" type="image/png">
+  <link rel="canonical" href="https://yoshidotfun.github.io/yoshidotfun-degitail-/profile.html">
+  <meta property="og:type" content="profile">
+  <meta property="og:site_name" content="degitail">
+  <meta property="og:title" content="プロフィール | Kei — AIエンジニア | degitail">
+  <meta property="og:description" content="日用品メーカーのデータサイエンティストを経て、AIエンジニアに。地域に特化した手頃な価格のAI導入サービスとAI勉強会を開催しています。">
+  <meta property="og:url" content="https://yoshidotfun.github.io/yoshidotfun-degitail-/profile.html">
+  <meta property="og:image" content="https://yoshidotfun.github.io/yoshidotfun-degitail-/og-image.png">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="プロフィール | Kei — AIエンジニア | degitail">
+  <meta name="twitter:description" content="日用品メーカーのデータサイエンティストを経て、AIエンジニアに。地域に特化した手頃な価格のAI導入サービスとAI勉強会を開催しています。">
+  <meta name="twitter:image" content="https://yoshidotfun.github.io/yoshidotfun-degitail-/og-image.png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #111111; --ink: #1d1d1d; --gray-9: #2b2b2b;
+      --gray-6: #6b6b6b; --gray-4: #9a9a9a; --gray-2: #d8d8d8;
+      --gray-1: #ececec; --paper: #ffffff; --bg: #fafafa; --line: #e3e3e3;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Helvetica Neue', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', Meiryo, sans-serif;
+      color: var(--ink); background: var(--paper); line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    a:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+
+    /* ===== HEADER ===== */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+    .header-inner {
+      max-width: 1080px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 72px; padding: 0 32px;
+    }
+    .logo-clip { width: 116px; height: 66px; overflow: hidden; position: relative; flex-shrink: 0; }
+    .logo-img  { width: 116px; position: absolute; top: -66px; left: 0; }
+    nav { display: flex; gap: 28px; align-items: center; }
+    nav a {
+      font-size: .82rem; letter-spacing: .08em; color: var(--gray-6);
+      text-transform: uppercase; transition: color .2s;
+    }
+    nav a:hover { color: var(--black); }
+    nav a.active { color: var(--black); font-weight: 700; }
+    nav .nav-cta {
+      border: 1px solid var(--black); color: var(--black);
+      padding: 8px 20px; letter-spacing: .06em;
+      transition: background .2s, color .2s;
+    }
+    nav .nav-cta:hover { background: var(--black); color: var(--paper); }
+
+    /* ===== HERO ===== */
+    .hero {
+      overflow: hidden;
+      display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 48px; align-items: center;
+    }
+    .hero-eyebrow { font-size: .76rem; letter-spacing: .28em; text-transform: uppercase; margin-bottom: 28px; }
+    .hero h1 {
+      font-size: clamp(88px, 17vw, 200px); line-height: .9; letter-spacing: -.02em;
+      margin-bottom: 28px;
+    }
+    .hero-role {
+      display: inline-block; background: var(--paper); color: #201f1d;
+      font-size: clamp(16px, 2.2vw, 22px); font-weight: 700; line-height: 1.5;
+      padding: 10px 18px; margin-bottom: 24px;
+    }
+    .hero-lead { font-size: 15px; line-height: 1.95; max-width: 560px; color: #dcd8d8; }
+    .hero-tags {
+      list-style: none; display: flex; flex-wrap: wrap; gap: 10px 24px;
+      border-top: 2px solid var(--paper); margin-top: 32px; padding-top: 18px;
+      font-size: 14px;
+    }
+    .hero-tags li::before { content: '■'; font-size: 9px; vertical-align: 2px; margin-right: 8px; color: #bab6b6; }
+
+    /* 写真の代わりの幾何学モチーフ（装飾） */
+    .hero-art { position: relative; width: 340px; height: 340px; }
+    .hero-art span { position: absolute; display: block; }
+    .art-ring   { inset: 0; border: 2px solid rgba(255,255,255,.85); border-radius: 50%; }
+    .art-square { width: 42%; height: 42%; right: -4%; bottom: -4%; background: var(--paper); }
+    .art-frame  { width: 42%; height: 42%; left: 3%; top: 3%; border: 2px solid rgba(255,255,255,.35); }
+    .art-dots {
+      width: 34%; height: 34%; left: 33%; top: 33%;
+      background-image: radial-gradient(rgba(255,255,255,.55) 1.5px, transparent 1.5px);
+      background-size: 12px 12px;
+    }
+    .art-line   { width: 2px; height: 122%; left: 50%; top: -11%; background: rgba(255,255,255,.2); transform: rotate(35deg); }
+    .art-mono {
+      right: 7%; bottom: 1%; color: #201f1d;
+      font-size: 112px; font-weight: 700; line-height: 1;
+    }
+
+    /* ===== SECTION COMMON ===== */
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+    .sec-eyebrow { font-size: .76rem; letter-spacing: .26em; text-transform: uppercase; margin-bottom: 8px; }
+    .sec-title { font-size: clamp(22px, 3vw, 32px); margin-bottom: 32px; }
+
+    /* ===== ABOUT ===== */
+    .about { display: grid; grid-template-columns: 220px 1fr; gap: 40px; align-items: start; }
+    .about-mark {
+      font-size: 13px; font-weight: 700; letter-spacing: .16em;
+      border-top: 2px solid #201f1d; padding-top: 14px;
+    }
+    .about-body p { font-size: 16px; line-height: 2.05; max-width: 680px; }
+    .about-body p + p { margin-top: 16px; }
+    .about-body b { background: linear-gradient(transparent 62%, var(--gray-1) 62%); }
+    .term { font-size: 13px; color: #605d5d; }
+
+    /* ===== TIMELINE ===== */
+    .bg-soft { background: var(--bg); }
+    .timeline { list-style: none; position: relative; max-width: 760px; }
+    .timeline::before {
+      content: ''; position: absolute; left: 11px; top: 8px; bottom: 8px;
+      width: 2px; background: #201f1d;
+    }
+    .timeline li { position: relative; padding: 0 0 36px 52px; }
+    .timeline li:last-child { padding-bottom: 0; }
+    .timeline li::before {
+      content: ''; position: absolute; left: 0; top: 4px;
+      width: 24px; height: 24px; background: var(--paper); border: 2px solid #201f1d;
+    }
+    .timeline li.now::before { background: #201f1d; }
+    .tl-step { font-size: 12px; font-weight: 700; letter-spacing: .2em; color: #605d5d; }
+    .tl-title { font-size: clamp(18px, 2.2vw, 22px); font-weight: 700; line-height: 1.5; margin: 2px 0 6px; }
+    .tl-text { font-size: 14.5px; line-height: 1.85; color: #3a3836; }
+    .tl-now {
+      display: inline-block; background: #201f1d; color: var(--paper);
+      font-size: 11px; font-weight: 700; letter-spacing: .14em; padding: 2px 8px; margin-left: 10px; vertical-align: 3px;
+    }
+
+    /* ===== CAPABILITIES ===== */
+    .cap-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .cap-card { background: var(--paper); padding: 32px 28px; display: flex; flex-direction: column; gap: 10px; }
+    .cap-num { font-size: 13px; font-weight: 700; letter-spacing: .2em; color: #605d5d; }
+    .cap-card h3 { font-size: 20px; line-height: 1.5; }
+    .cap-card p { font-size: 14.5px; line-height: 1.85; color: #3a3836; flex: 1; }
+    .cap-link { align-self: flex-start; font-size: 13.5px; font-weight: 700; border-bottom: 2px solid #201f1d; padding-bottom: 2px; }
+    .cap-link:hover { color: #605d5d; border-color: #605d5d; }
+
+    /* ===== CREDENTIALS ===== */
+    .cred-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .cred {
+      border: 2px solid #201f1d; padding: 26px 24px;
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .cred.dark { background: #201f1d; color: var(--paper); }
+    .cred dt { font-size: 12px; font-weight: 700; letter-spacing: .16em; color: #605d5d; }
+    .cred.dark dt { color: #bab6b6; }
+    .cred dd { margin: 0; }
+    .cred-value { font-size: clamp(40px, 5vw, 56px); font-weight: 700; line-height: 1.1; letter-spacing: -.01em; }
+    .cred-value small { font-size: 16px; margin-left: 4px; letter-spacing: .04em; }
+    .cred-name { font-size: 15px; font-weight: 700; }
+
+    /* ===== CTA ===== */
+    .cta { background: #201f1d; color: var(--paper); }
+    .cta-inner { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; flex-wrap: wrap; }
+    .cta .sec-eyebrow { color: #bab6b6; }
+    .cta h2 { font-size: clamp(24px, 3.4vw, 36px); line-height: 1.45; }
+    .cta-note { font-size: 15px; color: #dcd8d8; margin-top: 12px; }
+    .cta-btns { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn {
+      display: inline-block; padding: 14px 32px; font-size: 15px;
+      transition: background .2s, color .2s;
+    }
+    .cta .btn-mail { color: #dcd8d8; font-size: 14px; letter-spacing: .04em; border: 0; padding: 14px 0; text-decoration: underline; text-underline-offset: 4px; }
+
+    /* ===== FOOTER ===== */
+    footer { padding: 56px 32px 40px; }
+    .footer-inner {
+      max-width: 1080px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: flex-start;
+      flex-wrap: wrap; gap: 32px;
+    }
+    .footer-logo-clip { width: 120px; height: 68px; overflow: hidden; position: relative; }
+    .footer-logo-img  { width: 120px; position: absolute; top: -68px; left: 0; }
+    .footer-nav { display: flex; gap: 36px; flex-wrap: wrap; align-items: center; }
+    .footer-nav a { font-size: .82rem; letter-spacing: .06em; color: #dcd8d8; text-transform: uppercase; }
+    .footer-nav a:hover { color: var(--paper); }
+    .footer-bottom {
+      max-width: 1080px; margin: 40px auto 0; padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,.2);
+      font-size: .76rem; color: #bab6b6; letter-spacing: .04em;
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 960px) {
+      .hero { grid-template-columns: minmax(0, 1fr) 240px; gap: 32px; }
+      .hero-art { width: 240px; height: 240px; }
+      .art-mono { font-size: 80px; }
+    }
+    @media (max-width: 720px) {
+      .hero { grid-template-columns: 1fr; gap: 28px; }
+      .hero-art { order: -1; justify-self: end; width: 150px; height: 150px; }
+      .art-mono { font-size: 50px; }
+      .about { grid-template-columns: 1fr; gap: 20px; }
+      .cap-grid, .cred-grid { grid-template-columns: 1fr; }
+      .wrap { padding: 0 24px; }
+    }
+    @media (max-width: 680px) {
+      nav { gap: 18px; }
+      nav a:not(.nav-cta) { display: none; }
+      .header-inner { padding: 0 20px; }
+    }
+  </style>
+  <link rel="stylesheet" href="site.css">
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo-clip"><img src="icon.png" alt="degitail トップへ" class="logo-img"></a>
+    <nav aria-label="メインメニュー">
+      <a href="index.html">Top</a>
+      <a href="personal.html">個人の方へ</a>
+      <a href="business.html">法人様へ</a>
+      <a href="workshop.html">勉強会</a>
+      <a href="profile.html" class="nav-profile active" aria-current="page">プロフィール</a>
+      <a href="index.html#contact" class="nav-cta">無料相談</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Profile — degitail : Kei</p>
+    <h1 id="hero-title">Kei</h1>
+    <p class="hero-role">データサイエンティストから、<br>地域のAIエンジニアへ。</p>
+    <p class="hero-lead">AIエンジニア／個人事業主。地域・ローカルに特化した、手頃な価格のAI導入サービスとAI勉強会を開催しています。</p>
+    <ul class="hero-tags">
+      <li>AIエンジニア</li>
+      <li>元データサイエンティスト</li>
+      <li>都知事AI杯 本選出場</li>
+    </ul>
+  </div>
+  <!-- 人物写真の代わりの装飾 -->
+  <div class="hero-art" aria-hidden="true">
+    <span class="art-line"></span>
+    <span class="art-ring"></span>
+    <span class="art-frame"></span>
+    <span class="art-dots"></span>
+    <span class="art-square"></span>
+    <span class="art-mono">K</span>
+  </div>
+</section>
+
+<section aria-labelledby="about-title">
+  <div class="wrap">
+    <p class="sec-eyebrow">About</p>
+    <h2 class="sec-title" id="about-title">自己紹介</h2>
+    <div class="about">
+      <p class="about-mark">KEI / AI ENGINEER</p>
+      <div class="about-body">
+        <p>大学卒業後、日用品メーカーで<b>データサイエンティスト</b>として勤務しました。退職後、現在は<b>AIエンジニア</b>として、AX<span class="term">（AIによる業務変革）</span>やAEO<span class="term">（AI検索で自社情報を参照・引用されやすくする最適化）</span>なども扱っています。</p>
+        <p>個人事業主として、<b>地域・ローカルに特化した、手頃な価格のAI導入サービス</b>と<b>AI勉強会</b>を開催しています。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-soft" aria-labelledby="career-title">
+  <div class="wrap">
+    <p class="sec-eyebrow">Career</p>
+    <h2 class="sec-title" id="career-title">経歴</h2>
+    <ol class="timeline">
+      <li>
+        <p class="tl-step">STEP 01</p>
+        <h3 class="tl-title">大学を卒業</h3>
+      </li>
+      <li>
+        <p class="tl-step">STEP 02</p>
+        <h3 class="tl-title">日用品メーカーでデータサイエンティストとして勤務</h3>
+      </li>
+      <li>
+        <p class="tl-step">STEP 03</p>
+        <h3 class="tl-title">退職し、AIエンジニアへ</h3>
+        <p class="tl-text">AX・AEOなども扱っています。</p>
+      </li>
+      <li class="now">
+        <p class="tl-step">STEP 04<span class="tl-now">NOW</span></p>
+        <h3 class="tl-title">個人事業主として活動</h3>
+        <p class="tl-text">地域・ローカルに特化した手頃な価格のAI導入サービスと、AI勉強会を開催しています。</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section aria-labelledby="cap-title">
+  <div class="wrap">
+    <p class="sec-eyebrow">What I Do</p>
+    <h2 class="sec-title" id="cap-title">現在できること</h2>
+    <div class="cap-grid">
+      <article class="cap-card">
+        <p class="cap-num">01</p>
+        <h3>地域特化のAI導入サービス</h3>
+        <p>地域・ローカルに特化し、手頃な価格でAIの導入をお手伝いします。</p>
+        <a href="index.html" class="cap-link">サービス一覧を見る →</a>
+      </article>
+      <article class="cap-card">
+        <p class="cap-num">02</p>
+        <h3>AI勉強会の開催</h3>
+        <p>AIを自分の手で使えるようになるための勉強会を開催しています。</p>
+        <a href="workshop.html" class="cap-link">勉強会の案内を見る →</a>
+      </article>
+      <article class="cap-card">
+        <p class="cap-num">03</p>
+        <h3>AX（AIによる業務変革）</h3>
+        <p>AIエンジニアとして、AIを活用した業務の変革に取り組みます。</p>
+        <a href="business.html" class="cap-link">法人様向けを見る →</a>
+      </article>
+      <article class="cap-card">
+        <p class="cap-num">04</p>
+        <h3>AEO（AI検索最適化）</h3>
+        <p>ChatGPTやGoogleのAI検索などで、情報が参照・引用されやすくなるよう整えます。</p>
+        <a href="aeo.html" class="cap-link">AEO対策を見る →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="bg-soft" aria-labelledby="cred-title">
+  <div class="wrap">
+    <p class="sec-eyebrow">Achievements &amp; Certifications</p>
+    <h2 class="sec-title" id="cred-title">実績・資格</h2>
+    <dl class="cred-grid">
+      <div class="cred dark">
+        <dt>実績</dt>
+        <dd class="cred-value">本選<small>出場</small></dd>
+        <dd class="cred-name">都知事AI杯</dd>
+      </div>
+      <div class="cred">
+        <dt>スコア</dt>
+        <dd class="cred-value">830</dd>
+        <dd class="cred-name">TOEIC</dd>
+      </div>
+      <div class="cred">
+        <dt>資格</dt>
+        <dd class="cred-value">2<small>級</small></dd>
+        <dd class="cred-name">統計検定</dd>
+      </div>
+    </dl>
+  </div>
+</section>
+
+<section class="cta" aria-labelledby="cta-title">
+  <div class="wrap cta-inner">
+    <div>
+      <p class="sec-eyebrow">Contact</p>
+      <h2 id="cta-title">AIの導入や勉強会のこと、<br>気軽にご相談ください。</h2>
+      <p class="cta-note">相談フォームまたはメールでお問い合わせください。</p>
+    </div>
+    <div class="cta-btns">
+      <a href="index.html#contact" class="btn btn-light">無料相談フォームへ</a>
+      <a href="mailto:degitail647@gmail.com" class="btn btn-mail">degitail647@gmail.com</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo-clip"><img src="icon.png" alt="degitail トップへ" class="footer-logo-img"></a>
+    <nav class="footer-nav" aria-label="フッターメニュー">
+      <a href="index.html">Top</a>
+      <a href="personal.html">個人の方へ</a>
+      <a href="business.html">法人様へ</a>
+      <a href="workshop.html">勉強会</a>
+      <a href="profile.html" aria-current="page">プロフィール</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <span>岡山県密着 デジタルサポートサービス</span>
+    <span>&copy; 2026 degitail. All rights reserved.</span>
+  </div>
+</footer>
+
+</body>
+</html>

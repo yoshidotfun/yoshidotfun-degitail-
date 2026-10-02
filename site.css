@@ -154,6 +154,11 @@ footer { background: var(--dt-dark); color: #ffffff; border-top: 0; }
 /* 黒字ロゴを白抜きに反転し、白い下地を背景色になじませる */
 .footer-logo-img { filter: invert(1); mix-blend-mode: screen; }
 
+/* ── ナビの「プロフィール」：狭い幅では既存項目を優先して隠す（フッターから辿れる） ── */
+@media (max-width: 900px) { header nav .nav-profile { display: none; } }
+/* 項目が増えても文字が途中で折れないよう、行ごと折り返す */
+.footer-nav { flex-wrap: wrap; }
+
 /* ── スマホ ── */
 @media (max-width: 720px) {
   section { padding-top: 48px; padding-bottom: 48px; }
