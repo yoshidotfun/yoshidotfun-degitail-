@@ -8,14 +8,18 @@ const SHEET_NAME = '申込一覧';
 const MAX_LEN = 2000; // 1項目あたりの最大文字数（極端に長い送信を切り詰める）
 
 // [シートの列名, 受信データのキー]
+// 既存シートの1行目（見出し）はこの順番と一致させること。appendRow は位置で書き込むため、ずれると別の列に入る（README 参照）
+// 申込ID は B列固定（重複チェックが B:B を検索する）
 const COLUMNS = [
   ['受付日時', null],
   ['申込ID', 'submissionId'],
+  ['参加方法', 'participationMode'],
   ['スレッズ名', 'name'],
   ['メールアドレス', 'email'],
   ['コース', 'level'],
   ['希望AI', 'ai'],
   ['希望日程', 'dates'],
+  ['オンライン希望日時', 'onlinePreferredDatetime'],
   ['AI経験', 'experience'],
   ['支払い方法', 'payment'],
   ['参加費', 'price'],
