@@ -492,9 +492,9 @@ footer{background:var(--dark);color:var(--paper);padding:44px 0;border-top:2px s
           </div>
           <!-- オンライン選択時だけ表示・必須 -->
           <div class="field" id="online-fields" hidden aria-hidden="true">
-            <label for="f-online-dt">希望日時</label>
-            <input id="f-online-dt" type="text" maxlength="200" placeholder="例）平日19時以降・土曜午前" aria-describedby="online-dt-note">
-            <p class="field-note" id="online-dt-note">ご都合のよい曜日・時間帯を自由に書いてください（例：平日19時以降・土曜午前）。調整のうえ、日時と接続方法をメールでご案内します。</p>
+            <label for="f-online-dt">オンラインの希望日程（自由入力）</label>
+            <input id="f-online-dt" type="text" maxlength="200" placeholder="例）10月30日 19:00〜／平日19時以降／土曜午前" aria-describedby="online-dt-note">
+            <p class="field-note" id="online-dt-note">希望日や時間帯を直接入力してください。候補を複数書いても構いません。調整後、開催日時と接続方法をメールでご案内します。</p>
           </div>
           <div class="field">
             スレッズのお名前<br>
@@ -802,7 +802,7 @@ document.getElementById('form1').onsubmit=e=>{
   s.referrer=isOnline()?'':document.getElementById('f-referrer').value.trim();
   s.onlinePreferredDatetime=isOnline()?onlineDt.value.trim():'';
   if(isOnline()&&!s.onlinePreferredDatetime){
-    document.getElementById('msg1').textContent='オンライン参加の方は、希望日時を入力してください。';
+    document.getElementById('msg1').textContent='オンライン参加の方は、希望日程を入力してください。';
     onlineDt.setAttribute('aria-invalid','true');
     onlineDt.focus();
     return;
@@ -815,7 +815,7 @@ document.getElementById('form1').onsubmit=e=>{
   // 確認テーブル
   const m=modeValues();
   const modeRows=isOnline()
-    ? [['希望日時',m.onlinePreferredDatetime],['支払い',ONLINE_PRICE]]
+    ? [['希望日程',m.onlinePreferredDatetime],['支払い',ONLINE_PRICE]]
     : [['希望日程',m.dates||'（未選択）'],['支払い',`${m.payment}（${m.price}）`],['紹介者',m.referrer||'（該当なし）']];
   const rows=[['参加方法',s.participationMode],['スレッズ名',s.name],['メール',s.email],['コース',s.level],['希望AI',s.ai],
     ...modeRows,['AI経験',s.experience],['作りたいもの',s.idea||'（未記入）'],['質問・要望',s.note||'（未記入）']];
@@ -833,7 +833,7 @@ document.getElementById('form1').onsubmit=e=>{
       : `参加費 ${s.price}（ドリンク付き）は<mark>当日会場でお支払い</mark>です。`;
   document.getElementById('payment-note').innerHTML=paymentText;
   document.getElementById('venue-note').textContent=isOnline()
-    ? 'ご希望日時をもとに調整し、オンラインの開催日時と接続方法を後日メールでご案内します。'
+    ? 'ご希望の日程をもとに調整し、オンラインの開催日時と接続方法を後日メールでご案内します。'
     : '会場は岡山駅周辺の会議室（仮）。確定した会場と日程は、後日メールでご案内します。';
   // 申込ID：確認画面ごとに1つ。再送信しても同じIDなのでシート側で二重登録を防げる
   s.submissionId=`${Date.now()}_${Math.random().toString(36).slice(2,9)}`;
@@ -856,8 +856,8 @@ document.getElementById('btn-submit').onclick=async()=>{
     name:s.name,email:s.email,level:s.level,ai:s.ai,
     participationMode:s.participationMode,
     onlinePreferredDatetime:m.onlinePreferredDatetime,
-    // 現行のシート受信スクリプトは既知の列しか書かないため、オンラインの希望日時は「希望日程」列にも入れる
-    dates:isOnline()?`オンライン希望：${m.onlinePreferredDatetime}`:(m.dates||'（未選択）'),
+    // 現行のシート受信スクリプトは既知の列しか書かないため、オンラインの希望日程は「希望日程」列にも入れる
+    dates:isOnline()?`オンライン希望日程：${m.onlinePreferredDatetime}`:(m.dates||'（未選択）'),
     experience:s.experience,payment:m.payment,price:m.price,referrer:m.referrer,
     idea:s.idea||'',note:s.note||'',
     submissionId:s.submissionId,
@@ -925,7 +925,7 @@ function completeStep(){
   document.getElementById('s3-tag').textContent=payLink?'予約完了・お支払い待ち':'送信完了';
   document.getElementById('s3-name').textContent=`${s.name} さま、ありがとうございます。`;
   document.getElementById('s3-body').textContent=isOnline()
-    ? `お申込みを受け付けました。ご希望日時をもとに、オンラインの開催日時・接続方法・参加費のお支払い方法を ${s.email} 宛にご案内します。`
+    ? `お申込みを受け付けました。ご希望の日程をもとに、オンラインの開催日時・接続方法・参加費のお支払い方法を ${s.email} 宛にご案内します。`
     : `お申込みを受け付けました。確定した日程・会場（岡山駅周辺の会議室）・事前準備のご案内を ${s.email} 宛にお送りします。`+
       (prepaid&&!payLink?'参加費のお支払い方法は、別途メールでご案内します。':'');
   document.getElementById('s3-meta').innerHTML=
@@ -933,7 +933,7 @@ function completeStep(){
     `<div class="k">コース</div><div>${s.level}</div>`+
     `<div class="k">希望AI</div><div>${s.ai}</div>`+
     (isOnline()
-      ? `<div class="k">希望日時</div><div style="overflow-wrap:anywhere">${m.onlinePreferredDatetime}</div>`+
+      ? `<div class="k">希望日程</div><div style="overflow-wrap:anywhere">${m.onlinePreferredDatetime}</div>`+
         `<div class="k">参加費</div><div>${ONLINE_PRICE}</div>`
       : `<div class="k">希望日程</div><div>${m.dates||'（未選択）'}</div>`+
         `<div class="k">参加費</div><div>${s.price}（${s.payment}）</div>`);
